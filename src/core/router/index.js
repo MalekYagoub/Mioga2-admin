@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import ExampleComponent from '@/components/Example';
+import ExamplePage from '@/pages/Example';
 
 Vue.use(Router);
 
@@ -10,7 +10,7 @@ export default new Router({
 		{
 			path: '/',
 			name: 'Example',
-			component: ExampleComponent
+			component: ExamplePage
 		}
 	]
 });

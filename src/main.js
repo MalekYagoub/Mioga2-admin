@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import App from '@/pages/App';
 import router from '@/core/router/';
+import store from '@/core/store/';
 import '@/stylesheets/main.scss';
 
 Vue.config.productionTip = false;
@@ -11,6 +12,7 @@ Vue.config.productionTip = false;
 new Vue({
 	el: '#application',
 	router,
+	store,
 	template: '<App/>',
 	components: { App }
 });

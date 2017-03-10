@@ -10,10 +10,7 @@ export default Vue.extend({
 	props: {},
 
 	data () {
-		return {
-			title: 'Hello World',
-			subtitle: 'Vue JS & Webpack starter'
-		};
+		return {};
 	},
 
 	created () {

@@ -12,12 +12,6 @@ export default Vue.extend({
 		return {};
 	},
 
-	created () {
-	},
-
-	ready () {
-	},
-
 	methods: {},
 
 	components: {}
