@@ -15,8 +15,7 @@ export default Vue.extend({
 
 	},
 
-	created () {
-	},
+	created () {},
 
 	ready () {
 
