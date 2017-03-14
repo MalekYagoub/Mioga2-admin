@@ -9,7 +9,9 @@ export default Vue.extend({
 	props: {},
 
 	data () {
+
 		return {};
+
 	},
 
 	methods: {},

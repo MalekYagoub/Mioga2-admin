@@ -11,16 +11,12 @@ export default Vue.extend({
 	props: {},
 
 	data () {
+
 		return {
 			title: 'Welcome',
 			subtitle: 'Vue JS & Webpack starter'
 		};
-	},
 
-	created () {
-	},
-
-	mounted () {
 	},
 
 	methods: {},

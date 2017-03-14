@@ -33,6 +33,7 @@ module.exports = {
     "indent": ["error", "tab"],
     // Enable tabs
     "no-tabs": 0,
+    "padded-blocks": ["warn", "always"]
   },
   "globals": {
     "Vue": true

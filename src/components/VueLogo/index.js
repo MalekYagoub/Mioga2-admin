@@ -10,7 +10,9 @@ export default Vue.extend({
 	props: {},
 
 	data () {
+
 		return {};
+
 	},
 
 	created () {
