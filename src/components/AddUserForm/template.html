@@ -1,0 +1,34 @@
+<div class="add-user-form">
+	<div v-if="!verifEmail">
+		<div v-if="msg">{{msg}}</div>
+		<form v-on:submit.prevent="verif">
+			<label>Email : <input type="text" name="verifEmail" v-model="email"></label>
+			<input type="submit" name="submit">
+		</form>
+	</div>
+
+	<div v-else>
+		<div v-if="msg">{{msg}}</div>
+		<form v-on:submit.prevent="submit">
+			<div>
+				<label> Prénom : <input type="text" name="firstname" v-model="firstname"></label>
+			</div>
+			<div>
+				<label> Nom : <input type="text" name="lastname" v-model="lastname"></label>
+			</div>
+			<div>
+				<label> Email : <input type="text" name="email" v-model="email"></label>
+			</div>
+			<div>
+				<label> Mot de passe : <input type="password" name="password" v-model="password"></label>
+			</div>
+			<div>
+				<label> Répetez votre mot de passe : <input type="password" name="password2" v-model="password2"></label>
+			</div>
+			<div>
+				<label>Commentaire : <textarea v-model="description"></textarea></label>
+			</div>
+			<div><input type="submit" name="submit"></div>
+		</form>
+	</div>
+</div>

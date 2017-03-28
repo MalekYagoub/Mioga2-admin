@@ -1,0 +1,23 @@
+<div class="users-Actions">
+	<div>
+		<router-link :to="{name: 'addUser'}" tag="button" class="button">Ajouter un utilisateur</router-link>
+	</div>
+	<div>
+		<!-- <router-link :to="{name: 'importUsers'}" tag="button" class="button">Importer des utilisateurs</router-link> -->
+	</div>
+	<div>
+		<button v-on:click="downloadCsv()" class="button">Exporter les utilisateurs</button>
+	</div>
+	<div>
+		<button v-on:click="dispatchAction('destroyUsers')">Supprimer</button>
+	</div>
+	<div>
+		<button v-on:click="dispatchAction('emailUsers')">Envoyer un email</button>
+	</div>
+	<div>
+		<button v-on:click="dispatchAction('disableUsers')">Désactiver</button>
+	</div>
+	<div>
+		<button v-on:click="dispatchAction('enableUsers')">Activer</button>
+	</div>
+</div>

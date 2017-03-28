@@ -10,7 +10,7 @@ import '@/stylesheets/main.scss';
 Vue.config.productionTip = false;
 Vue.use(VueResource);
 
-/* eslint-disable no-new */
+/* eslint-disable */
 new Vue({
 	el: '#application',
 	router,

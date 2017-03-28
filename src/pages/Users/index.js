@@ -4,7 +4,7 @@ import('./styles.scss');
 
 export default Vue.extend({
 
-	name: 'app',
+	name: 'usersPage',
 	template: require('./template.html'),
 	props: {},
 
@@ -17,6 +17,8 @@ export default Vue.extend({
 	methods: {},
 
 	components: {
+	},
+	mounted () {
 
 	}
 });
