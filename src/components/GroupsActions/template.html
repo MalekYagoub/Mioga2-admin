@@ -1,0 +1,8 @@
+<div class="groups-actions">
+	<div>
+		<router-link :to="{name: 'addGroup'}" tag="button" class="button">Ajouter un groupe</router-link>
+	</div>
+	<div>
+		<button v-on:click="dispatchAction('destroyGroups')" class="button">Supprimer groupe(s)</button>
+	</div>
+</div>

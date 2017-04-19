@@ -9,6 +9,7 @@ import '@/stylesheets/main.scss';
 
 Vue.config.productionTip = false;
 Vue.use(VueResource);
+Vue.http.options.emulateJSON = true;
 
 /* eslint-disable */
 new Vue({

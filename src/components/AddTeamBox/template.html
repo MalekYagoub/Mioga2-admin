@@ -1,0 +1,25 @@
+<div class="add-user-form">
+
+	<button @click="setAction('addTeamForm')">Attributs de l'équipe</button>
+	<button @click="setAction('addTeamUsers')">Utilisateurs de l'équipe</button>
+	<button @click="setAction('addTeamGroups')">Groupes de l'équipe</button>
+
+	<div class="msg">
+		{{msg}}
+	</div>
+	<div class="error">
+		{{responseAddTeam}}
+	</div>
+
+	<div v-show="action==='addTeamForm'">
+		<addTeamForm v-on:input="saveInput" v-on:emptyIdent="displayMsg" v-on:rowidTeam="saveRowidTeam"></addTeamForm>
+	</div>
+	<div v-show="action==='addTeamUsers'">
+		<addTeamUsers v-on:teamUsers="saveTeamUsers"></addTeamUsers>
+	</div>
+	<div v-show="action==='addTeamGroups'">
+		<addTeamGroups v-on:teamGroups="saveTeamGroups"></addTeamGroups>
+	</div>
+	<button @click="submit()">Valider</button>
+
+</div>

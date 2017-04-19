@@ -1,0 +1,63 @@
+<div class="add-team-form">
+	<div v-if="msg">
+		{{msg}}
+	</div>
+
+	<form v-on:submit.prevent="submit">
+		<div>
+			<label> Identifiant : <input type="text" name="firstname" v-model="ident"></label>
+		</div>
+		<div>
+			<label> Description : <input type="text" name="lastname" v-model="description"></label>
+		</div>
+		<div>
+			<label> Langue : 
+				<select  v-model="lang">
+					<option v-for="language in languages" v-bind:value="language.ident">
+						{{language.label}}
+					</option>
+				</select>
+			</label>
+		</div>
+		<div>
+			<label> Animateur : 
+				<select  v-model="user">
+					<option v-bind:value="user" v-for="user in users">
+						{{user.label}}
+					</option>
+				</select>
+			</label>
+		</div>
+		<div>
+			<label> Squelette : 
+				<select  v-model="skeleton">
+					<option v-bind:value="skeleton.file" v-for="skeleton in skeletons">
+						{{skeleton.name}}
+					</option>
+				</select>
+			</label>
+		</div>
+		<div>
+			<label> Application par défaut : 
+				<select  v-model="default_app">
+					<option v-bind:value="application.ident" v-for="application in applications">
+						{{application.ident}}
+					</option>
+				</select>
+			</label>
+		</div>
+		<div>
+			<label>
+				Espace public : 
+				<input type="checkbox" value="public_part" v-model="public_part" checked>
+			</label>
+		</div>
+		<div>
+			<label>
+				Historique des fichiers : 
+				<input type="checkbox" value="history" v-model="history" checked>
+			</label>
+		</div>
+		<div><input type="submit" name="submit"></div>
+	</form>
+</div>

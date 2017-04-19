@@ -20,7 +20,8 @@ export default Vue.extend({
 
 	mounted () {
 
-		this.$store.dispatch('getUsers', this.$http);
+		let payload = {$http: this.$http};
+		this.$store.dispatch('getUsers', payload);
 
 	},
 
@@ -31,11 +32,15 @@ export default Vue.extend({
 			this.$store.commit('checkUsers');
 
 		},
-
 		checkUser (rowid) {
 
 			if (this.checkedUsers.indexOf(rowid) === -1) this.$store.commit('pushCheckUser', rowid);
 			else this.$store.commit('removeCheckedUser', rowid);
+
+		},
+		detailsUser (rowid) {
+
+			this.$store.dispatch('getUser', {$http: this.$http, rowid: rowid, $router: this.$router});
 
 		}
 
@@ -47,7 +52,7 @@ export default Vue.extend({
 
 			users: 'users',
 			countUsers: 'countUsers',
-			areAllSelected: 'areAllSelected',
+			areAllUsersSelected: 'areAllUsersSelected',
 			checkedUsers: 'checkedUsers'
 
 		})
@@ -58,7 +63,7 @@ export default Vue.extend({
 
 		checkedUsers () {
 
-			if (this.checkedUsers.length < this.countUsers && this.areAllSelected === true) {
+			if (this.checkedUsers.length < this.countUsers && this.areAllUsersSelected === true) {
 
 				this.$store.commit('areAllSelectedFalse');
 

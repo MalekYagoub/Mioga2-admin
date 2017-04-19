@@ -1,0 +1,16 @@
+<div class="teams-table">
+	<table>
+		<tr>
+			<th>✔ <input type="checkbox" v-on:click="selectAllTeams()" v-model="areAllTeamsSelected"> {{checkedTeams.length}}</th>
+			<th>Identifiant</th>
+			<th>Utilisateurs</th>
+			<th>Groupes</th>
+		</tr>
+		<tr v-for="team in teams" v-on:dblclick="detailsTeam(team.rowid)">
+			<td><input type="checkbox" v-on:click="checkTeam(team.rowid)" v-model="checkedTeams" v-bind:value="team.rowid"></td> 
+			<td>{{team.ident}}</td>
+			<td>{{team.nb_users}}</td>
+			<td>{{team.nb_groups}}</td>
+		</tr>
+	</table>
+</div>

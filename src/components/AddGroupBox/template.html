@@ -1,0 +1,26 @@
+<div class="add-user-form">
+
+	<button @click="setAction('addGroupForm')">Attributs du groupe</button>
+	<button @click="setAction('addGroupUsers')">Utilisateurs du groupe</button>
+	<button @click="setAction('addGroupTeams')">équipes du groupe</button>
+	<button @click="setAction('addGroupApps')">Applications du groupe</button>
+
+	<div class="msg">
+		{{msg}}
+	</div>
+
+	<div v-show="action==='addGroupForm'">
+		<addGroupForm></addGroupForm>
+	</div>
+	<div v-show="action==='addGroupUsers'">
+		<p>USERS</p>
+	</div>
+	<div v-show="action==='addGroupTeams'">
+		<p>TEAMS</p>
+	</div>
+	<div v-show="action==='addGroupApps'">
+		<p>APP</p>
+	</div>
+	<button @click="submit()">Valider</button>
+
+</div>

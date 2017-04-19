@@ -1,21 +1,31 @@
 <div class="teams-Actions">
-	<div class="buttonList">
+	<div>
 		<router-link :to="{name: 'teamGroupReport'}" tag="button" class="button">
 			Synthèse des affectations aux groupes
 		</router-link>
-		<router-link :to="{name: 'importUsersTeams'}" tag="button" class="button">
+	</div>
+	<div>
+		<!--<router-link :to="{name: 'importUsersTeams'}" tag="button" class="button">
 			Importer les affectations utilisateurs / équipes
-		</router-link>
-		<router-link :to="{name: 'importTeamsGroups'}" tag="button" class="button">
+		</router-link>-->
+	</div>
+	<div>
+		<!--<router-link :to="{name: 'importTeamsGroups'}" tag="button" class="button">
 			Importer les affectations équipes / groupes
-		</router-link>
+		</router-link>-->
+	</div>
+	<div>
 		<button v-on:click="downloadCsv()" class="button">
 			Exporter la synthèse des affectations aux groupes
 		</button>
+	</div>
+	<div>
 		<router-link :to="{name: 'addTeam'}" tag="button" class="button">
 			Ajouter une équipe
 		</router-link>
-		<button class="button" v-on:click="destroyTeams()">
+	</div>
+	<div>
+		<button class="button" v-on:click="dispatchAction('destroyTeams')">
 			Supprimer équipe(s)
 		</button>
 	</div>

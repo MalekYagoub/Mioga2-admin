@@ -1,0 +1,16 @@
+<div class="add-team-groups">
+	<h1>Groupes de l'équipe</h1> <br />
+	<h1>L'équipe n'est pas membre :</h1>
+	<ul v-for="groupOut in groupsOut">
+		<li v-on:click="addGroupTeam(groupOut)">
+			{{groupOut.ident}}
+		</li>
+	</ul> </br>
+
+	<h1>L'équipe est membre :</h1>
+	<ul v-for="groupIn in groupsIn">
+		<li v-on:click="removeGroupTeam(groupIn)">
+			{{groupIn.ident}}
+		</li>
+	</ul>
+</div>

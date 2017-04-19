@@ -1,0 +1,19 @@
+<div class="add-team-form">
+	<form v-if="teamToModify === undefined">
+		<div>
+			<label> Identifiant : <input type="text" name="ident" v-model="formInput.ident" @input="inputChange()"></label>
+		</div>
+		<div>
+			<label> Description : <input type="text" name="Description" v-model="formInput.description" @input="inputChange()"></label>
+		</div>
+	</form>
+
+	<form v-else>
+		<div>
+			<label> Identifiant : <input type="text" name="ident" v-model="teamToModify.team.ident" @input="inputChange()"></label>
+		</div>
+		<div>
+			<label> Description : <input type="text" name="Description" v-model="teamToModify.team.description" @input="inputChange()"></label>
+		</div>
+	</form>
+</div>

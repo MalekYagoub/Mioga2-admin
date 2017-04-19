@@ -25,7 +25,7 @@ export default Vue.extend({
 
 			if (this.checkedUsers.length > 0) {
 
-				let rowIdsData = this.getRowIdsDataUsers;
+				let rowIdsData = this.$store.getters.getRowIdsData('users');
 				let payload = { rowIdsData: rowIdsData, $http: this.$http };
 				this.$store.dispatch(action, payload);
 
@@ -42,7 +42,7 @@ export default Vue.extend({
 			getRowIdsDataUsers: 'getRowIdsDataUsers',
 			users: 'users',
 			countUsers: 'countUsers',
-			areAllSelected: 'areAllSelected',
+			areAllUsersSelected: 'areAllUsersSelected',
 			checkedUsers: 'checkedUsers'
 
 		})

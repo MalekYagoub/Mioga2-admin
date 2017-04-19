@@ -1,0 +1,16 @@
+<div class="add-team-users">
+	<h1>Utilisateurs de l'équipe</h1> <br />
+	<h1>L'équipe ne contient pas :</h1>
+	<ul v-for="userOut in usersOut">
+		<li v-on:click="addUserTeam(userOut)">
+			{{userOut.label}}
+		</li>
+	</ul> </br>
+
+	<h1>L'équipe contient :</h1>
+	<ul v-for="userIn in usersIn">
+		<li v-on:click="removeUserTeam(userIn)">
+			{{userIn.label}}
+		</li>
+	</ul>
+</div>

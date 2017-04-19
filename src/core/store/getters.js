@@ -1,9 +1,11 @@
-export const getRowIdsDataUsers = state => {
+export const getRowIdsData = state => (type) => {
 
 	let formData = new FormData();
-	for (let i = 0; i < state.users.checkedUsers.length; i++) {
+	let typeAction = type === 'users' ? state.users.checkedUsers : type === 'teams' ? state.teams.checkedTeams : type === 'groups' ? state.groups.checkedGroups : undefined;
 
-		formData.append('rowids', state.users.checkedUsers[i]);
+	for (let i = 0; i < typeAction.length; i++) {
+
+		type === 'users' || type === 'groups' ? formData.append('rowids', typeAction[i]) : formData.append('rowid', typeAction[i]);
 
 	}
 	return formData;

@@ -1,0 +1,30 @@
+<div class="add-user-form">
+	<div v-if="msg">{{msg}}</div>
+
+	<form v-on:submit.prevent="modifyUser">
+		<div>
+			Prénom : 
+			<input type="text" name="firstname" v-model="userValuesToPost.firstname">
+		</div>
+		<div>
+			Nom : 
+			<input type="text" name="lastname" v-model="userValuesToPost.lastname">
+		</div>
+		<div>
+			Email : 
+			<input type="text" name="email" v-model="userValuesToPost.email">
+		</div>
+		<div>
+			Mot de passe : 
+			<input type="password" name="email" v-model="userValuesToPost.password">
+		</div>
+		<div>
+			Mot de passe 2 : 
+			<input type="password" name="email" v-model="userValuesToPost.password2">
+		</div>
+		<div>
+			<label>Commentaire : <textarea v-model="userValuesToPost.description"></textarea></label>
+		</div>
+		<input type="submit" name="Modify" value="Modifier">
+	</form>
+</div>
