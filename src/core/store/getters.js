@@ -5,7 +5,7 @@ export const getRowIdsData = state => (type) => {
 
 	for (let i = 0; i < typeAction.length; i++) {
 
-		type === 'users' || type === 'groups' ? formData.append('rowids', typeAction[i]) : formData.append('rowid', typeAction[i]);
+		type === 'users' ? formData.append('rowids', typeAction[i]) : formData.append('rowid', typeAction[i]);
 
 	}
 	return formData;

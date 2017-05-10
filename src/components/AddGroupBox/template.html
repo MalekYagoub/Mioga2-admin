@@ -10,10 +10,10 @@
 	</div>
 
 	<div v-show="action==='addGroupForm'">
-		<addGroupForm></addGroupForm>
+		<addGroupForm v-on:input="saveInput" v-on:selectChange="saveSelect"></addGroupForm>
 	</div>
 	<div v-show="action==='addGroupUsers'">
-		<p>USERS</p>
+		<addGroupUsers v-on:groupUsers="saveGroupUsers"></addGroupUsers>
 	</div>
 	<div v-show="action==='addGroupTeams'">
 		<p>TEAMS</p>

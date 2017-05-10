@@ -2,7 +2,6 @@
 import Vue from 'vue';
 import('./styles.scss');
 import AppliButtonsComponent from '@/components/AppChoice';
-import AppTitleComponent from '@/components/AppTitle';
 
 export default Vue.extend({
 
@@ -19,7 +18,6 @@ export default Vue.extend({
 	methods: {},
 
 	components: {
-		'appliButtons': AppliButtonsComponent,
-		'appTitle': AppTitleComponent
+		'appliButtons': AppliButtonsComponent
 	}
 });

@@ -1,0 +1,20 @@
+<div class="add-team-users">
+	<h1>Utilisateurs du groupe</h1> <br />
+	<h1>Le groupe ne contient pas :</h1>
+	<ul v-for="userOut in usersOut">
+		<li v-on:click="addGroupUsers(userOut)">
+			{{userOut.label}}
+		</li>
+	</ul> </br>
+
+	<h1>Le groupe contient :</h1>
+	<ul v-for="userIn in usersIn">
+
+		<li v-if ="currentAnim && userIn.rowid === currentAnim.rowid">
+			<span>{{userIn.label}} ANIMATEUR</span>
+		</li>
+		<li v-on:click="removeGroupUsers(userIn)" v-else>
+			{{userIn.label}}
+		</li>
+	</ul>
+</div>

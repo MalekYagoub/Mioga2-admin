@@ -1,11 +1,15 @@
-<div class="appliButtons">
-	<div>
-		<router-link to="/users" tag="button" class="button">Gérer les utilisateurs</router-link>
-	</div>
-	<div>
-		<router-link to="/teams" tag="button" class="button">Gérer les équipes</router-link>
-	</div>
-	<div>
-		<router-link to="/groups" tag="button" class="button">Gérer les groupes</router-link>
+<div class="appli-buttons">
+	<h1>Administration</h1>
+	<div class="menu">
+		<div class="menu__item">
+			<i class="fa fa-user"></i>
+			<router-link to="/users" tag="button" class="button">Gérer les utilisateurs</router-link>
+		</div>
+		<div class="menu__item">
+			<router-link to="/teams" tag="button" class="button">Gérer les équipes</router-link>
+		</div>
+		<div class="menu__item">
+			<router-link to="/groups" tag="button" class="button">Gérer les groupes</router-link>
+		</div>
 	</div>
 </div>

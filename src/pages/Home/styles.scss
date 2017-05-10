@@ -1,3 +1,10 @@
-#app {
-	
+@import 'src/stylesheets/common/_fonts';
+@import 'src/stylesheets/common/_mixins';
+@import 'src/stylesheets/common/_variables';
+
+#home {
+	height: 100%;
+	width: 100%;
+	display: block;
+	overflow: hidden;
 }

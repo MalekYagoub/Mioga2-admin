@@ -10,7 +10,9 @@ const state = {
 	countGroups: undefined,
 	areAllGroupsSelected: undefined,
 	checkedGroups: [],
-	responseAddGroup: ''
+	responseAddGroup: '',
+	dataToAddGroup: undefined,
+	currentAnim: undefined
 
 };
 
@@ -21,7 +23,9 @@ const getters = {
 	countGroups: state => state.countGroups,
 	areAllGroupsSelected: state => state.areAllGroupsSelected,
 	checkedGroups: state => state.checkedGroups,
-	responseAddGroup: state => state.responseAddGroup
+	responseAddGroup: state => state.responseAddGroup,
+	dataToAddGroup: state => state.dataToAddGroup,
+	currentAnim: state => state.currentAnim
 
 };
 
@@ -66,6 +70,78 @@ const actions = {
 
 			state.checkedGroups = [];
 			store.dispatch('getGroups', payload.$http);
+
+		});
+
+	},
+	addGroup: ({state, commit, rootState}, payload) => {
+
+		let formData = new FormData();
+		payload.data.dataSelect.history ? payload.data.dataSelect.history = 1 : payload.data.dataSelect.history = 0;
+		payload.data.dataSelect.public_part ? payload.data.dataSelect.public_part = 1 : payload.data.dataSelect.public_part = 0;
+
+		payload.data.dataGroupUsers.forEach((user) => {
+
+			formData.append('users', user.ident);
+
+		});
+
+		formData.append('anim_id', payload.data.dataSelect.user.rowid);
+		formData.append('default_app', payload.data.dataSelect.default_app);
+		formData.append('description', payload.data.dataInput.description);
+		formData.append('ident', payload.data.dataInput.ident);
+		formData.append('history', payload.data.dataSelect.history);
+		formData.append('lang', payload.data.dataSelect.lang);
+		formData.append('public_part', payload.data.dataSelect.public_part);
+		formData.append('skeleton', payload.data.dataSelect.skeleton);
+		formData.append('users', payload.data.dataSelect.user.ident);
+		formData.append('team', 'Tous');
+
+
+		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/SetGroup.json', formData).then((response) => {
+
+			response.json().then((data) => {
+
+				// this.$router.push({ name: 'manageGroups'});
+
+			});
+
+		});
+
+	},
+	getDataToAddGroup: ({state, commit, rootState}, $http) => {
+
+		let urlsData = {};
+		let urlList = ['https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetLanguages.json',
+			'https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetSkeletonDetails.json?type=group&lang=fr_FR&file=01-BureauLib.xml&full_list=1',
+			'https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetSkeletons.json?type=group',
+			'https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetUsers.json'
+		];
+
+		return new Promise(function (resolve, reject) {
+
+			urlList.forEach(function (url) {
+
+				$http.get(url).then((response) => {
+
+					response.json().then((data) => {
+
+						/Languages/.test(url) ? urlsData.languages = data.language
+						: /SkeletonDetails/.test(url) ? urlsData.applications = data.applications.application
+						: /Users/.test(url) ? urlsData.users = data.user
+						: /Skeletons/.test(url) ? urlsData.skeletons = data.skeleton : undefined;
+						if (urlsData.languages && urlsData.applications && urlsData.users && urlsData.skeletons) {
+
+							commit('dataToAddGroup', urlsData);
+							resolve(urlsData);
+
+						}
+
+					});
+
+				});
+
+			});
 
 		});
 
@@ -131,6 +207,16 @@ const mutations = {
 	responseAddGroup: (state, response) => {
 
 		state.responseAddGroup = response;
+
+	},
+	dataToAddGroup: (state, data) => {
+
+		state.dataToAddGroup = data;
+
+	},
+	currentAnim: (state, user) => {
+
+		state.currentAnim = user;
 
 	}
 

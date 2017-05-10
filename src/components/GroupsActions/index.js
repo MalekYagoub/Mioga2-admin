@@ -11,7 +11,7 @@ export default Vue.extend({
 
 		dispatchAction (action) {
 
-			if (this.checkedTeams.length > 0) {
+			if (this.checkedGroups.length > 0) {
 
 				let rowIdsData = this.$store.getters.getRowIdsData('groups');
 				let payload = { rowIdsData: rowIdsData, $http: this.$http };
@@ -26,10 +26,10 @@ export default Vue.extend({
 
 		...mapGetters({
 
-			teams: 'teams',
-			countTeams: 'countTeams',
-			areAllTeamsSelected: 'areAllTeamsSelected',
-			checkedTeams: 'checkedTeams'
+			groups: 'groups',
+			countGroups: 'countGroups',
+			areAllGroupsSelected: 'areAllGroupsSelected',
+			checkedGroups: 'checkedGroups'
 
 		})
 

@@ -1,0 +1,34 @@
+@import 'src/stylesheets/common/_fonts';
+@import 'src/stylesheets/common/_mixins';
+@import 'src/stylesheets/common/_variables';
+
+.appli-buttons {
+
+	@include center-xy();
+	width: 100%;
+	height: 100;
+	text-align: center;
+
+	& h1 {
+		font-weight: bold;
+		font-size: 3em;
+
+	}
+
+	& .menu {
+
+		display: block;
+		margin-top: 5%;
+		width: 80%;
+		height: 50%;
+		@include center-x();
+
+		&__item {
+			font-size: 2em;
+			display: inline;
+			padding: 5%;
+		}
+
+	}
+
+}
