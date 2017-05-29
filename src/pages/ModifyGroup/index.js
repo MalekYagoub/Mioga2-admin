@@ -3,41 +3,24 @@ import Vue from 'vue';
 import('./styles.scss');
 
 import AddGroupBoxComponent from '@/components/AddGroupBox';
-import { mapGetters } from 'vuex';
 
 export default Vue.extend({
 
-	name: 'addGroup',
+	name: 'modifyGroup',
 	template: require('./template.html'),
 	props: {},
 
 	data () {
 
-		return {
-
-		};
+		return {};
 
 	},
 
-	methods: {
-
-	},
+	methods: {},
 
 	components: {
 
 		'addGroupBox': AddGroupBoxComponent
-
-	},
-	computed: {
-
-		...mapGetters({
-
-			group: 'group'
-
-		})
-
-	},
-	mounted () {
 
 	}
 });

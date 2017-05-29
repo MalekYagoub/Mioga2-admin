@@ -10,7 +10,7 @@
 			<th>Dernière connexion</th>
 			<th>Espace disque</th>
 		</tr>
-		<tr v-for="group in groups" v-on:dblclick="detailsGroup(group)">
+		<tr v-for="group in groups" v-on:dblclick="detailsGroup(group.rowid)">
 			<td><input type="checkbox"  v-on:click="checkGroup(group.rowid)" v-model="checkedGroups" v-bind:value="group.rowid"></td> 
 			<td>{{group.ident}}</td>
 			<td>{{group.animator}}</td>

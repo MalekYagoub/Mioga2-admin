@@ -1,5 +1,7 @@
 <div id="modify-user">
-	<router-link :to="{name: 'users'}" tag="button" class="button">Retour</router-link>
-	<h1>Modifier un utilisateur</h1>
-	<modifyUserForm></modifyUserForm>
+	<ul class="modify-user__app-bar">
+		<li><a @click="$router.push('/users')" tag="button" class="button"><i class="fa fa-arrow-left"/></a></li>
+		<li><p>Modifier un utilisateur</p></li>		
+	</ul>
+	<modifyUserForm class="modify-user__form"></modifyUserForm>
 </div>

@@ -1,9 +1,11 @@
-<div class="add-user-form">
+<div class="add-team-box">
 
-	<button @click="setAction('addTeamForm')">Attributs de l'équipe</button>
-	<button @click="setAction('addTeamUsers')">Utilisateurs de l'équipe</button>
-	<button @click="setAction('addTeamGroups')">Groupes de l'équipe</button>
-
+	<ul class="add-team-box__action-choice">
+		<li><button @click="setAction('addTeamForm')">Attributs de l'équipe</button></li>
+		<li><button @click="setAction('addTeamUsers')">Utilisateurs de l'équipe</button></li>
+		<li><button @click="setAction('addTeamGroups')">Groupes de l'équipe</button></li>
+	</ul>
+	
 	<div class="msg">
 		{{msg}}
 	</div>
@@ -20,6 +22,6 @@
 	<div v-show="action==='addTeamGroups'">
 		<addTeamGroups v-on:teamGroups="saveTeamGroups"></addTeamGroups>
 	</div>
-	<button @click="submit()">Valider</button>
+	<button @click="submit()" class=" button button--submit">Valider</button>
 
 </div>

@@ -1,15 +1,18 @@
 <div class="appli-buttons">
 	<h1>Administration</h1>
 	<div class="menu">
+
 		<div class="menu__item">
 			<i class="fa fa-user"></i>
-			<router-link to="/users" tag="button" class="button">Gérer les utilisateurs</router-link>
+			<a @click="$router.push('/users')">Gérer les utilisateurs</a>
 		</div>
 		<div class="menu__item">
-			<router-link to="/teams" tag="button" class="button">Gérer les équipes</router-link>
+			<i class="fa fa-user-plus"></i>
+			<a @click="$router.push('/teams')">Gérer les équipes</a>
 		</div>
 		<div class="menu__item">
-			<router-link to="/groups" tag="button" class="button">Gérer les groupes</router-link>
+			<i class="fa fa-users"></i>
+			<a @click="$router.push('/groups')">Gérer les groupes</a>
 		</div>
 	</div>
 </div>

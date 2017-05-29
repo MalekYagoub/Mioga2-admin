@@ -16,10 +16,10 @@
 		<addGroupUsers v-on:groupUsers="saveGroupUsers"></addGroupUsers>
 	</div>
 	<div v-show="action==='addGroupTeams'">
-		<p>TEAMS</p>
+		<addGroupTeams v-on:groupTeams="saveGroupTeams"></addGroupTeams>
 	</div>
 	<div v-show="action==='addGroupApps'">
-		<p>APP</p>
+		<addGroupApps v-on:groupApps="saveGroupApps"></addGroupApps>
 	</div>
 	<button @click="submit()">Valider</button>
 

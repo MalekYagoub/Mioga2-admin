@@ -12,7 +12,8 @@ const state = {
 	checkedGroups: [],
 	responseAddGroup: '',
 	dataToAddGroup: undefined,
-	currentAnim: undefined
+	currentAnim: undefined,
+	currentSkeleton: undefined
 
 };
 
@@ -25,7 +26,8 @@ const getters = {
 	checkedGroups: state => state.checkedGroups,
 	responseAddGroup: state => state.responseAddGroup,
 	dataToAddGroup: state => state.dataToAddGroup,
-	currentAnim: state => state.currentAnim
+	currentAnim: state => state.currentAnim,
+	currentSkeleton: state => state.currentSkeleton
 
 };
 
@@ -86,6 +88,18 @@ const actions = {
 
 		});
 
+		payload.data.dataGroupTeams.forEach((team) => {
+
+			formData.append('teams', team.ident);
+
+		});
+
+		payload.data.dataGroupApps.forEach((app) => {
+
+			formData.append('applications', app.ident);
+
+		});
+
 		formData.append('anim_id', payload.data.dataSelect.user.rowid);
 		formData.append('default_app', payload.data.dataSelect.default_app);
 		formData.append('description', payload.data.dataInput.description);
@@ -93,27 +107,24 @@ const actions = {
 		formData.append('history', payload.data.dataSelect.history);
 		formData.append('lang', payload.data.dataSelect.lang);
 		formData.append('public_part', payload.data.dataSelect.public_part);
-		formData.append('skeleton', payload.data.dataSelect.skeleton);
+		formData.append('skeleton', payload.data.dataSelect.skeletonFile);
 		formData.append('users', payload.data.dataSelect.user.ident);
-		formData.append('team', 'Tous');
-
 
 		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/SetGroup.json', formData).then((response) => {
 
 			response.json().then((data) => {
 
-				// this.$router.push({ name: 'manageGroups'});
+				payload.$router.push({name: 'groups'});
 
 			});
 
 		});
 
 	},
-	getDataToAddGroup: ({state, commit, rootState}, $http) => {
+	getDataToAddGroup: ({state, commit}, payload) => {
 
 		let urlsData = {};
 		let urlList = ['https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetLanguages.json',
-			'https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetSkeletonDetails.json?type=group&lang=fr_FR&file=01-BureauLib.xml&full_list=1',
 			'https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetSkeletons.json?type=group',
 			'https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetUsers.json'
 		];
@@ -122,24 +133,37 @@ const actions = {
 
 			urlList.forEach(function (url) {
 
-				$http.get(url).then((response) => {
+				payload.$http.get(url).then((response) => {
 
 					response.json().then((data) => {
 
 						/Languages/.test(url) ? urlsData.languages = data.language
-						: /SkeletonDetails/.test(url) ? urlsData.applications = data.applications.application
 						: /Users/.test(url) ? urlsData.users = data.user
 						: /Skeletons/.test(url) ? urlsData.skeletons = data.skeleton : undefined;
-						if (urlsData.languages && urlsData.applications && urlsData.users && urlsData.skeletons) {
+						if (urlsData.languages && urlsData.users && urlsData.skeletons) {
 
 							commit('dataToAddGroup', urlsData);
-							resolve(urlsData);
+							payload.store.dispatch('getDataSkeleton', {$http: payload.$http, file: urlsData.skeletons[0].file, lang: 'fr_FR'});
 
 						}
 
 					});
 
 				});
+
+			});
+
+		});
+
+	},
+
+	getDataSkeleton: ({state, commit, rootState}, payload) => {
+
+		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetSkeletonDetails.json', {type: 'group', full_list: 1, lang: payload.lang, file: payload.file}).then((response) => {
+
+			response.json().then((data) => {
+
+				commit('currentSkeleton', data);
 
 			});
 
@@ -217,6 +241,11 @@ const mutations = {
 	currentAnim: (state, user) => {
 
 		state.currentAnim = user;
+
+	},
+	currentSkeleton: (state, skeleton) => {
+
+		state.currentSkeleton = skeleton;
 
 	}
 

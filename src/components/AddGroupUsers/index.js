@@ -66,7 +66,6 @@ export default Vue.extend({
 
 				if (this.usersOut[i].rowid === value.rowid) {
 
-					console.log(this.usersOut[i - 1]);
 					this.usersIn.push(value);
 					this.usersOut.splice(this.usersOut[i - 1], 1);
 

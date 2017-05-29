@@ -1,9 +1,10 @@
 <div class="teams">
-	<div>
-		<router-link :to="{name: 'home'}" tag="button" class="button">Applications</router-link>
+	<ul class="teams__app-bar">
+		<li><a @click="$router.push('/')" tag="button" class="button"><i class="fa fa-arrow-left"/></a></li>
+		<li><p>Gérer les équipes</p></li>
+	</ul>
+	<div class="teams__menu">
+		<teamsActions class="teams__menu__actions"></teamsActions> 
+		<teamsTable class="teams__menu__table teams__menu__table--large"></teamsTable>
 	</div>
-	<h1>Gérer les équipes</h1>
-	
-	<teamsActions></teamsActions>
-	<teamsTable></teamsTable>
 </div>

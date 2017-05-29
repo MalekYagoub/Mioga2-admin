@@ -1,8 +1,14 @@
 <div class="groups-actions">
 	<div>
-		<router-link :to="{name: 'addGroup'}" tag="button" class="button">Ajouter un groupe</router-link>
+		<router-link :to="{name: 'addGroup'}" tag="button" class="button button--table">
+			Ajouter un groupe
+			<i class="fa fa-plus">
+		</router-link>
 	</div>
 	<div>
-		<button v-on:click="dispatchAction('destroyGroups')" class="button">Supprimer groupe(s)</button>
+		<button v-on:click="dispatchAction('destroyGroups')" class="button button--table">
+			Supprimer groupe(s)
+			<i class="fa fa-trash">
+		</button>
 	</div>
 </div>

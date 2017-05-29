@@ -1,7 +1,8 @@
 <div class="add-team">
-	<router-link :to="{name: 'teams'}" tag="button" class="button">Retour</router-link>
-	<h1>Ajouter une équipe</h1>
-
-	<addTeamBox></addTeamBox>
+	<ul class="add-team__app-bar">
+		<li><a @click="$router.push('/teams')" tag="button" class="button"><i class="fa fa-arrow-left"/></a></li>
+		<li><p>Ajouter une équipe</p></li>		
+	</ul>
+	<addTeamBox class="add-team__box"></addTeamBox>
 
 </div>

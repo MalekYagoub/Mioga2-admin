@@ -30,7 +30,6 @@ export default Vue.extend({
 			if (team) {
 
 				_this.groupsOut = [];
-				console.log(team.groups);
 				team.groups.group.forEach((_group) => {
 
 					if (_group.selected && _group.selected.$a === 1) {

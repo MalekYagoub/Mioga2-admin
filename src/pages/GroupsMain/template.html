@@ -1,8 +1,10 @@
-<div class="groups-main">
-	<div>
-		<router-link :to="{name: 'home'}" tag="button" class="button">Applications</router-link>
+<div class="groups">
+	<ul class="groups__app-bar">
+		<li><a @click="$router.push('/')" tag="button" class="button"><i class="fa fa-arrow-left"/></a></li>
+		<li><p>Gérer les groupes</p></li>
+	</ul>
+	<div class="groups__menu">
+		<groupsActions class="groups__menu__actions"></groupsActions>
+		<groupsTable class="groups__menu__table groups__menu__table--large"></groupsTable>
 	</div>
-	<h1>Gérer les groupes</h1>
-	<groupsActions></groupsActions>
-	<groupsTable></groupsTable>
 </div>

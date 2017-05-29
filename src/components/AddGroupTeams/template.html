@@ -1,0 +1,16 @@
+<div class="add-group-team">
+	<h1>Équipes du groupe</h1> <br />
+	<h1>Le groupe ne contient pas :</h1>
+	<ul v-for="teamOut in teamsOut">
+		<li v-on:click="addGroupTeams(teamOut)">
+			{{teamOut.ident}}
+		</li>
+	</ul> </br>
+
+	<h1>Le groupe contient :</h1>
+	<ul v-for="teamIn in teamsIn">
+		<li v-on:click="removeGroupTeams(teamIn)">
+			{{teamIn.ident}}
+		</li>
+	</ul>
+</div>

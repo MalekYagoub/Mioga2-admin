@@ -1,5 +1,7 @@
-<div class="add-User">
-	<router-link :to="{name: 'users'}" tag="button" class="button">Retour</router-link>
-	<h1>Ajouter un utilisateur</h1>
-	<addUserForm></addUserForm>
+<div class="add-user">
+	<ul class="add-user__app-bar">
+		<li><a @click="$router.push('/users')" tag="button" class="button"><i class="fa fa-arrow-left"/></a></li>
+		<li><p>Ajouter un utilisateur</p></li>		
+	</ul>
+	<addUserForm class="add-user__form"></addUserForm>
 </div>

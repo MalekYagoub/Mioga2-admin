@@ -1,8 +1,11 @@
-<div id="users">
-	<div>
-		<router-link :to="{name: 'home'}" tag="button" class="button">Applications</router-link>
+<div class="users">
+	<ul class="users__app-bar">
+		<li><a @click="$router.push('/')" tag="button" class="button"><i class="fa fa-arrow-left"/></a></li>
+		<li><p>Gérer les utilisateurs</p></li>		
+	</ul>
+	<div class="users__menu">
+		<usersActions class="users__menu__actions"></usersActions>
+		<usersTable class="users__menu__table users__menu__table--large"></usersTable>
 	</div>
-	<h1>Gérer les utilisateurs</h1>
-	<usersActions></usersActions>
-	<usersTable></usersTable>
+	
 </div>

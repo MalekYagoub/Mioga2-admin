@@ -12,7 +12,9 @@
 		<div>
 			<label> Langue : 
 				<select  v-model="formSelect.lang" v-on:change="selectChange">
-					<option v-for="language in dataToAddGroupReady.languages" v-bind:value="language.ident">
+					<option v-for="language in dataToAddGroupReady.languages" 
+					v-bind:value="language.ident"
+					v-bind:selected="language.ident == formSelect.lang">
 						{{language.label}}
 					</option>
 				</select>
@@ -29,17 +31,21 @@
 		</div>
 		<div>
 			<label> Squelette : 
-				<select  v-model="formSelect.skeleton" v-on:change="selectChange">
-					<option v-bind:value="skeleton.file" v-for="skeleton in dataToAddGroupReady.skeletons">
+				<select  v-model="formSelect.skeletonFile" v-on:change="selectChange" v-on:change="skeletonChange">
+					<option :value="skeleton.file" 
+					v-for="skeleton in dataToAddGroupReady.skeletons"
+					v-bind:selected="skeleton.file == formSelect.skeletonFile">
 						{{skeleton.name}}
 					</option>
 				</select>
 			</label>
 		</div>
-		<div>
+		<div v-if="currentSkeleton">
 			<label> Application par défaut : 
 				<select  v-model="formSelect.default_app" v-on:change="selectChange">
-					<option v-bind:value="application.ident" v-for="application in dataToAddGroupReady.applications">
+					<option v-bind:value="application.ident" 
+					v-for="application in currentSkeleton.applications.application"
+					v-bind:selected="application.ident == formSelect.default_app">
 						{{application.ident}}
 					</option>
 				</select>

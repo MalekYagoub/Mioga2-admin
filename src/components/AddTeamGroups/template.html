@@ -1,16 +1,45 @@
 <div class="add-team-groups">
 	<h1>Groupes de l'équipe</h1> <br />
-	<h1>L'équipe n'est pas membre :</h1>
-	<ul v-for="groupOut in groupsOut">
-		<li v-on:click="addGroupTeam(groupOut)">
-			{{groupOut.ident}}
-		</li>
-	</ul> </br>
+	<!--<div class="add-team-groups__lists-groups">
 
-	<h1>L'équipe est membre :</h1>
-	<ul v-for="groupIn in groupsIn">
-		<li v-on:click="removeGroupTeam(groupIn)">
-			{{groupIn.ident}}
-		</li>
-	</ul>
+		<div class="add-team-groups__lists-groups__item">
+			<h1>L'équipe n'est pas membre</h1>
+			<ul v-for="groupOut in groupsOut">
+				<li v-on:click="addGroupTeam(groupOut)">
+					{{groupOut.ident}}
+				</li>
+			</ul>
+		</div>
+		<div class="add-team-groups__lists-groups__item">
+			<h1>L'équipe est membre</h1>
+			<ul v-for="groupIn in groupsIn">
+				<li v-on:click="removeGroupTeam(groupIn)">
+					{{groupIn.ident}}
+				</li>
+			</ul>
+		</div>
+
+	</div>-->
+
+	<div class="add-team-groups__test-tables">
+		<table>
+			<tr>
+				<th>L'équipe n'est pas membre</th>
+				
+			</tr>
+			<tr v-for="groupOut in groupsOut">
+				<td v-on:click="addGroupTeam(groupOut)">{{groupOut.ident}}</td>
+			</tr>		
+		</table>
+
+		<table>
+			<tr>
+				<th>L'équipe est membre</th>
+			</tr>
+			<tr v-for="groupIn in groupsIn">
+				<td v-on:click="removeGroupTeam(groupIn)">{{groupIn.ident}}</td>
+			</tr>
+		</table>
+	</div>
+	
 </div>

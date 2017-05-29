@@ -1,0 +1,16 @@
+<div class="add-group-app">
+	<h1>Applications du groupe</h1> <br />
+	<h1>Le groupe n'a pas le droit d'utiliser :</h1>
+	<ul v-for="appOut in appsOut">
+		<li v-on:click="addGroupApps(appOut)">
+			{{appOut.label}}
+		</li>
+	</ul> <br />
+
+	<h1>Le groupe a le droit d'utiliser :</h1>
+	<ul v-for="appIn in appsIn">
+		<li v-on:click="removeGroupApps(appIn)">
+			{{appIn.label}}
+		</li>
+	</ul>
+</div>

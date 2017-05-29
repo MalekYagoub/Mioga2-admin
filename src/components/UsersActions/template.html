@@ -1,23 +1,44 @@
-<div class="users-Actions">
+<div class="users-actions">
 	<div>
-		<router-link :to="{name: 'addUser'}" tag="button" class="button">Ajouter un utilisateur</router-link>
+		<router-link :to="{name: 'addUser'}" tag="button" class="button button--table">
+			Ajouter un utilisateur
+			<i class="fa fa-plus">
+		</router-link>
 	</div>
 	<div>
-		<router-link :to="{name: 'importUsers'}" tag="button" class="button">Importer des utilisateurs</router-link>
+		<button v-on:click="dispatchAction('destroyUsers')" class="button button--table">
+			Supprimer
+			<i class="fa fa-trash">
+		</button>
 	</div>
 	<div>
-		<button v-on:click="downloadCsv()" class="button">Exporter les utilisateurs</button>
+		<router-link :to="{name: 'importUsers'}" tag="button" class="button button--table">
+			Importer des utilisateurs
+			<i class="fa fa-download">
+		</router-link>
 	</div>
 	<div>
-		<button v-on:click="dispatchAction('destroyUsers')">Supprimer</button>
+		<button v-on:click="downloadCsv()" class="button button--table">
+			Exporter les utilisateurs
+			<i class="fa fa-upload">
+		</button>
 	</div>
 	<div>
-		<button v-on:click="dispatchAction('emailUsers')">Envoyer un email</button>
+		<button v-on:click="dispatchAction('emailUsers')" class="button button--table">
+			Envoyer un email
+			<i class="fa fa-envelope">
+			</button>
 	</div>
 	<div>
-		<button v-on:click="dispatchAction('disableUsers')">Désactiver</button>
+		<button v-on:click="dispatchAction('disableUsers')" class="button button--table">
+			Désactiver
+			<i class="fa fa-toggle-off">
+		</button>
 	</div>
 	<div>
-		<button v-on:click="dispatchAction('enableUsers')">Activer</button>
+		<button v-on:click="dispatchAction('enableUsers')" class="button button--table">
+			Activer
+			<i class="fa fa-toggle-on">
+		</button>
 	</div>
 </div>

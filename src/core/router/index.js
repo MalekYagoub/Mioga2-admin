@@ -19,6 +19,7 @@ import TeamGroupReportPage from '@/pages/TeamGroupReport';
 import GroupsPage from '@/pages/Groups';
 import GroupsMainPage from '@/pages/GroupsMain';
 import AddGroupPage from '@/pages/AddGroup';
+import ModifyGroupPage from '@/pages/ModifyGroup';
 
 Vue.use(Router);
 
@@ -86,6 +87,10 @@ export default new Router({
 				path: 'addGroup',
 				component: AddGroupPage,
 				name: 'addGroup'
+			}, {
+				path: 'modifyGroup',
+				component: ModifyGroupPage,
+				name: 'modifyGroup'
 			}]
 		}]
 });

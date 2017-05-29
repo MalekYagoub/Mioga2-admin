@@ -1,20 +1,20 @@
 <div class="users-table">
 	<table>
 		<tr>
-			<th>✔ <input type="checkbox" v-on:click="selectAllUsers()" v-model="areAllUsersSelected"> {{checkedUsers.length}}</th>
+			<th>✔ <input type="checkbox" v-on:click="selectAllUsers()" v-model="areAllUsersSelected"></th>
 			<th>Identifiant</th>
 			<th>Prénom</th>
 			<th>Nom</th>
 			<th>Email</th>
 			<th>État</th>
 		</tr>
-			<tr v-for="user in users" v-on:dblclick="detailsUser(user.rowid)">
-					<td><input type="checkbox"  v-model="checkedUsers" v-bind:value="user.rowid" v-on:click="checkUser(user.rowid)"></td>
-					<td>{{user.ident}}</td>
-					<td>{{user.firstname}}</td>
-					<td>{{user.lastname}}</td>
-					<td>{{user.email}}</td>
-					<td>{{user.status}}</td>
-			</tr>
+		<tr v-for="user in users" v-on:dblclick="detailsUser(user.rowid)">
+				<td><input type="checkbox"  v-model="checkedUsers" v-bind:value="user.rowid" v-on:click="checkUser(user.rowid)"></td>
+				<td>{{user.ident}}</td>
+				<td>{{user.firstname}}</td>
+				<td>{{user.lastname}}</td>
+				<td>{{user.email}}</td>
+				<td>{{user.status}}</td>
+		</tr>
 	</table>
 </div>

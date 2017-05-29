@@ -17,9 +17,9 @@ export default Vue.extend({
 				description: ''
 			},
 			formSelect: {
-				lang: '',
+				lang: undefined,
 				user: {},
-				skeleton: '',
+				skeletonFile: undefined,
 				default_app: '',
 				public_part: undefined,
 				history: undefined
@@ -47,6 +47,11 @@ export default Vue.extend({
 
 			this.$store.commit('currentAnim', this.formSelect.user);
 
+		},
+		skeletonChange () {
+
+			this.$store.dispatch('getDataSkeleton', {$http: this.$http, lang: this.formSelect.lang, file: this.formSelect.skeletonFile});
+
 		}
 
 	},
@@ -54,7 +59,9 @@ export default Vue.extend({
 
 		...mapGetters({
 
-			dataToAddGroup: 'dataToAddGroup'
+			dataToAddGroup: 'dataToAddGroup',
+			currentSkeleton: 'currentSkeleton',
+			group: 'group'
 
 		})
 
@@ -64,6 +71,24 @@ export default Vue.extend({
 		dataToAddGroup (value) {
 
 			this.dataToAddGroupReady = value;
+			if (value.skeletons[0].name === 'Groupe de travail BureauLib' && !this.group) {
+
+				this.formSelect.skeletonFile = value.skeletons[0].file;
+
+			}
+
+		},
+
+		currentSkeleton (value) {
+
+			if (!this.group) {
+
+				this.formSelect.lang = value.attributes.lang;
+				this.formSelect.default_app = value.attributes.default_app;
+				this.formSelect.history = value.attributes.history;
+				this.formSelect.public_part = value.attributes.public_part;
+
+			}
 
 		}
 
