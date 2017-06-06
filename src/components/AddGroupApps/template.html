@@ -9,7 +9,10 @@
 
 	<h1>Le groupe a le droit d'utiliser :</h1>
 	<ul v-for="appIn in appsIn">
-		<li v-on:click="removeGroupApps(appIn)">
+		<li v-if="appIn.protected === 1 || appIn.ident === currentDefaultApp">
+			{{appIn.label}} <i class="fa fa-lock">
+		</li>
+		<li v-else v-on:click="removeGroupApps(appIn)">
 			{{appIn.label}}
 		</li>
 	</ul>

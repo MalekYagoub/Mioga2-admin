@@ -32,16 +32,19 @@ export default Vue.extend({
 
 	mounted () {
 
-		if (this.group) {
+		if (!this.group) {
+
+			this.$router.push({name: 'addGroup'});
+
+		} else {
 
 			this.rowid = this.group.group.rowid;
 			this.$store.commit('group', undefined);
 
 		}
 
-		this.$store.dispatch('getDataToAddGroup', {$http: this.$http, store: this.$store}).then(function (response) {
-
-		});
+		// if (!this.dataToAddGroup) this.$store.dispatch('getDataToAddGroup', {$http: this.$http, store: this.$store});
+		this.$store.dispatch('getDataToAddGroup', {$http: this.$http, store: this.$store});
 
 	},
 
@@ -87,7 +90,7 @@ export default Vue.extend({
 
 				let payload;
 				if (!this.rowid) payload = {$http: this.$http, $router: this.$router, data: {dataInput: this.dataInput, dataSelect: this.dataSelect, dataGroupUsers: this.dataGroupUsers, dataGroupTeams: this.dataGroupTeams, dataGroupApps: this.dataGroupApps}};
-				// else payload = {$http: this.$http, $router: this.$router, data: {rowid: this.rowid, dataInput: this.dataInput, dataGroupUsers: this.dataGroupUsers, dataGroupTeams: this.dataGroupTeams}};
+				else payload = {$http: this.$http, $router: this.$router, data: {rowid: this.rowid, dataInput: this.dataInput, dataSelect: this.dataSelect, dataGroupUsers: this.dataGroupUsers, dataGroupTeams: this.dataGroupTeams, dataGroupApps: this.dataGroupApps}};
 				this.$store.dispatch('addGroup', payload);
 
 			}

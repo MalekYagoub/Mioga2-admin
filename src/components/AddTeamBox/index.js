@@ -29,9 +29,14 @@ export default Vue.extend({
 
 	mounted () {
 
-		if (this.team) {
+		if (!this.team) {
+
+			this.$router.push({name: 'addTeam'});
+
+		} else {
 
 			this.rowid = this.team.team.rowid;
+			console.log(this.rowid);
 			this.$store.commit('team', undefined);
 
 		}

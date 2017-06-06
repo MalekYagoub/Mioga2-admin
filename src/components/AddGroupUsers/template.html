@@ -11,7 +11,10 @@
 	<ul v-for="userIn in usersIn">
 
 		<li v-if ="currentAnim && userIn.rowid === currentAnim.rowid">
-			<span>{{userIn.label}} ANIMATEUR</span>
+			<span>{{userIn.label}} <i class="fa fa-lock"></span>
+		</li>
+		<li v-else-if="groupToModify && userIn.rowid === groupToModify.group.anim_id">
+			<span>{{userIn.label}} <i class="fa fa-lock"></span>
 		</li>
 		<li v-on:click="removeGroupUsers(userIn)" v-else>
 			{{userIn.label}}

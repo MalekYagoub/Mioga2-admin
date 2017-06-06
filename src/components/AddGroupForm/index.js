@@ -24,11 +24,55 @@ export default Vue.extend({
 				public_part: undefined,
 				history: undefined
 			},
-			dataToAddGroupReady: {}
+			dataToAddGroupReady: {},
+			groupToModify: undefined,
+			optionsLoaded: false
 		};
 
 	},
 	mounted () {
+
+		if (this.group) {
+
+			this.groupToModify = JSON.parse(JSON.stringify(this.group));
+
+			this.groupToModify.users.user.forEach((user) => {
+
+				if (user.rowid === this.groupToModify.group.anim_id) {
+
+					this.formSelect.user = user;
+
+				}
+
+			});
+
+			this.formInput.ident = this.groupToModify.group.ident;
+			this.formInput.description = this.groupToModify.group.description;
+			this.formSelect.lang = this.groupToModify.group.lang;
+			this.formSelect.default_app = this.groupToModify.group.default_app;
+			this.formSelect.public_part = this.groupToModify.group.public_part;
+			this.formSelect.history = this.groupToModify.group.history;
+			this.formSelect.skeletonFile = ' ';
+
+			this.$emit('input', this.formInput);
+			this.$emit('selectChange', this.formSelect);
+			this.$store.commit('currentDefaultApp', this.formSelect.default_app);
+
+		}
+
+		/* if (this.dataToAddGroup) {
+
+			this.dataToAddGroupReady = this.dataToAddGroup; // ligne a enlver pour normal
+			this.optionsLoaded = true;
+			this.formSelect.skeletonFile = this.dataToAddGroup.skeletons[0].file;
+
+			this.formSelect.lang = this.currentSkeleton.attributes.lang;
+			this.formSelect.default_app = this.currentSkeleton.attributes.default_app;
+			this.formSelect.history = this.currentSkeleton.attributes.history;
+			this.formSelect.public_part = this.currentSkeleton.attributes.public_part;
+			this.$store.commit('currentDefaultApp', this.formSelect.default_app);
+
+		} */
 
 	},
 	methods: {
@@ -46,6 +90,11 @@ export default Vue.extend({
 		animChange () {
 
 			this.$store.commit('currentAnim', this.formSelect.user);
+
+		},
+		defaultAppChange () {
+
+			this.$store.commit('currentDefaultApp', this.formSelect.default_app);
 
 		},
 		skeletonChange () {
@@ -71,9 +120,14 @@ export default Vue.extend({
 		dataToAddGroup (value) {
 
 			this.dataToAddGroupReady = value;
-			if (value.skeletons[0].name === 'Groupe de travail BureauLib' && !this.group) {
+			this.optionsLoaded = true;
+			if (!this.groupToModify) {
 
-				this.formSelect.skeletonFile = value.skeletons[0].file;
+				if (value.skeletons[0].name === 'Groupe de travail BureauLib' && !this.group) {
+
+					this.formSelect.skeletonFile = value.skeletons[0].file;
+
+				}
 
 			}
 
@@ -81,12 +135,13 @@ export default Vue.extend({
 
 		currentSkeleton (value) {
 
-			if (!this.group) {
+			if (!this.groupToModify) {
 
 				this.formSelect.lang = value.attributes.lang;
 				this.formSelect.default_app = value.attributes.default_app;
 				this.formSelect.history = value.attributes.history;
 				this.formSelect.public_part = value.attributes.public_part;
+				this.$store.commit('currentDefaultApp', this.formSelect.default_app);
 
 			}
 

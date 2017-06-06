@@ -19,6 +19,30 @@ export default Vue.extend({
 
 	},
 	mounted () {
+
+		if (this.group) {
+
+			let _appsIn = [];
+			let _appsOut = [];
+
+			this.groupToModify = JSON.parse(JSON.stringify(this.group));
+			this.appsOut = this.groupToModify.applications.application;
+			this.appsOut.forEach((app) => {
+
+				if (app.selected) {
+
+					_appsIn.push(app);
+
+				} else _appsOut.push(app);
+
+			});
+
+			this.appsIn = _appsIn;
+			this.appsOut = _appsOut;
+			this.$emit('groupApps', this.appsIn);
+
+		}
+
 	},
 
 	computed: {
@@ -26,7 +50,9 @@ export default Vue.extend({
 		...mapGetters({
 
 			dataToAddGroup: 'dataToAddGroup',
-			currentSkeleton: 'currentSkeleton'
+			currentSkeleton: 'currentSkeleton',
+			currentDefaultApp: 'currentDefaultApp',
+			group: 'group'
 
 		})
 
@@ -56,26 +82,30 @@ export default Vue.extend({
 
 		currentSkeleton (value) {
 
-			this.appsOut = JSON.parse(JSON.stringify(value.applications.application));
-			this.appsIn = [];
-			let reste = [];
+			if (!this.groupToModify) {
 
-			this.appsOut.forEach((app) => {
+				this.appsOut = JSON.parse(JSON.stringify(value.applications.application));
+				this.appsIn = [];
+				let reste = [];
 
-				if (app.selected === 1) {
+				this.appsOut.forEach((app) => {
 
-					this.appsIn.push(app);
+					if (app.selected === 1) {
 
-				} else {
+						this.appsIn.push(app);
 
-					reste.push(app);
+					} else {
 
-				}
+						reste.push(app);
 
-			});
+					}
 
-			this.appsOut = reste;
-			this.$emit('groupApps', this.appsIn);
+				});
+
+				this.appsOut = reste;
+				this.$emit('groupApps', this.appsIn);
+
+			}
 
 		}
 	}

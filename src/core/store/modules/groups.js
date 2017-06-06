@@ -13,7 +13,8 @@ const state = {
 	responseAddGroup: '',
 	dataToAddGroup: undefined,
 	currentAnim: undefined,
-	currentSkeleton: undefined
+	currentSkeleton: undefined,
+	currentDefaultApp: undefined
 
 };
 
@@ -27,7 +28,8 @@ const getters = {
 	responseAddGroup: state => state.responseAddGroup,
 	dataToAddGroup: state => state.dataToAddGroup,
 	currentAnim: state => state.currentAnim,
-	currentSkeleton: state => state.currentSkeleton
+	currentSkeleton: state => state.currentSkeleton,
+	currentDefaultApp: state => state.currentDefaultApp
 
 };
 
@@ -79,46 +81,95 @@ const actions = {
 	addGroup: ({state, commit, rootState}, payload) => {
 
 		let formData = new FormData();
-		payload.data.dataSelect.history ? payload.data.dataSelect.history = 1 : payload.data.dataSelect.history = 0;
-		payload.data.dataSelect.public_part ? payload.data.dataSelect.public_part = 1 : payload.data.dataSelect.public_part = 0;
 
-		payload.data.dataGroupUsers.forEach((user) => {
+		if (payload.data.rowid) {
 
-			formData.append('users', user.ident);
+			payload.data.dataSelect.history ? payload.data.dataSelect.history = 1 : payload.data.dataSelect.history = 0;
+			payload.data.dataSelect.public_part ? payload.data.dataSelect.public_part = 1 : payload.data.dataSelect.public_part = 0;
 
-		});
+			payload.data.dataGroupUsers.forEach((user) => {
 
-		payload.data.dataGroupTeams.forEach((team) => {
-
-			formData.append('teams', team.ident);
-
-		});
-
-		payload.data.dataGroupApps.forEach((app) => {
-
-			formData.append('applications', app.ident);
-
-		});
-
-		formData.append('anim_id', payload.data.dataSelect.user.rowid);
-		formData.append('default_app', payload.data.dataSelect.default_app);
-		formData.append('description', payload.data.dataInput.description);
-		formData.append('ident', payload.data.dataInput.ident);
-		formData.append('history', payload.data.dataSelect.history);
-		formData.append('lang', payload.data.dataSelect.lang);
-		formData.append('public_part', payload.data.dataSelect.public_part);
-		formData.append('skeleton', payload.data.dataSelect.skeletonFile);
-		formData.append('users', payload.data.dataSelect.user.ident);
-
-		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/SetGroup.json', formData).then((response) => {
-
-			response.json().then((data) => {
-
-				payload.$router.push({name: 'groups'});
+				formData.append('users', user.ident);
 
 			});
 
-		});
+			payload.data.dataGroupTeams.forEach((team) => {
+
+				formData.append('teams', team.ident);
+
+			});
+
+			payload.data.dataGroupApps.forEach((app) => {
+
+				formData.append('applications', app.ident);
+
+			});
+
+			formData.append('anim_id', payload.data.dataSelect.user.rowid);
+			formData.append('default_app', payload.data.dataSelect.default_app);
+			formData.append('description', payload.data.dataInput.description);
+			formData.append('ident', payload.data.dataInput.ident);
+			formData.append('history', payload.data.dataSelect.history);
+			formData.append('lang', payload.data.dataSelect.lang);
+			formData.append('public_part', payload.data.dataSelect.public_part);
+
+			formData.append('rowid', payload.data.rowid);
+
+
+			payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/SetGroup.json', formData).then((response) => {
+
+				response.json().then((data) => {
+
+					payload.$router.push({name: 'groups'});
+
+				});
+
+			});
+
+		} else {
+
+			payload.data.dataSelect.history ? payload.data.dataSelect.history = 1 : payload.data.dataSelect.history = 0;
+			payload.data.dataSelect.public_part ? payload.data.dataSelect.public_part = 1 : payload.data.dataSelect.public_part = 0;
+
+			payload.data.dataGroupUsers.forEach((user) => {
+
+				formData.append('users', user.ident);
+
+			});
+
+			payload.data.dataGroupTeams.forEach((team) => {
+
+				formData.append('teams', team.ident);
+
+			});
+
+			payload.data.dataGroupApps.forEach((app) => {
+
+				formData.append('applications', app.ident);
+
+			});
+
+			formData.append('anim_id', payload.data.dataSelect.user.rowid);
+			formData.append('default_app', payload.data.dataSelect.default_app);
+			formData.append('description', payload.data.dataInput.description);
+			formData.append('ident', payload.data.dataInput.ident);
+			formData.append('history', payload.data.dataSelect.history);
+			formData.append('lang', payload.data.dataSelect.lang);
+			formData.append('public_part', payload.data.dataSelect.public_part);
+			formData.append('skeleton', payload.data.dataSelect.skeletonFile);
+			formData.append('users', payload.data.dataSelect.user.ident);
+
+			payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/SetGroup.json', formData).then((response) => {
+
+				response.json().then((data) => {
+
+					payload.$router.push({name: 'groups'});
+
+				});
+
+			});
+
+		}
 
 	},
 	getDataToAddGroup: ({state, commit}, payload) => {
@@ -246,6 +297,11 @@ const mutations = {
 	currentSkeleton: (state, skeleton) => {
 
 		state.currentSkeleton = skeleton;
+
+	},
+	currentDefaultApp: (state, defaultApp) => {
+
+		state.currentDefaultApp = defaultApp;
 
 	}
 

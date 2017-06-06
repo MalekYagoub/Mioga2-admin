@@ -13,12 +13,36 @@ export default Vue.extend({
 		return {
 
 			usersIn: [],
-			usersOut: []
+			usersOut: [],
+			groupToModify: undefined
 
 		};
 
 	},
 	mounted () {
+
+		if (this.group) {
+
+			let _usersIn = [];
+			let _usersOut = [];
+
+			this.groupToModify = JSON.parse(JSON.stringify(this.group));
+			this.usersOut = this.groupToModify.users.user;
+			this.usersOut.forEach((user) => {
+
+				if (user.selected) {
+
+					_usersIn.push(user);
+
+				} else _usersOut.push(user);
+
+			});
+
+			this.usersIn = _usersIn;
+			this.usersOut = _usersOut;
+			this.$emit('groupUsers', this.usersIn);
+
+		}
 
 	},
 
@@ -27,7 +51,8 @@ export default Vue.extend({
 		...mapGetters({
 
 			dataToAddGroup: 'dataToAddGroup',
-			currentAnim: 'currentAnim'
+			currentAnim: 'currentAnim',
+			group: 'group'
 
 		})
 
@@ -57,7 +82,11 @@ export default Vue.extend({
 
 		dataToAddGroup (value) {
 
-			this.usersOut = JSON.parse(JSON.stringify(value.users));
+			if (!this.groupToModify) {
+
+				this.usersOut = JSON.parse(JSON.stringify(value.users));
+
+			}
 
 		},
 		currentAnim (value, oldValue) {

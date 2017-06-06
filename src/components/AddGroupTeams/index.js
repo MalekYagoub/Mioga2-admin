@@ -19,6 +19,44 @@ export default Vue.extend({
 
 	},
 	mounted () {
+
+		if (this.group) {
+
+			let _teamsIn = [];
+			let _teamsOut = [];
+
+			this.groupToModify = JSON.parse(JSON.stringify(this.group));
+			this.teamsOut = this.groupToModify.teams.team;
+			this.teamsOut.forEach((team) => {
+
+				if (team.selected) {
+
+					_teamsIn.push(team);
+
+				} else _teamsOut.push(team);
+
+			});
+
+			this.teamsIn = _teamsIn;
+			this.teamsOut = _teamsOut;
+			this.$emit('groupTeams', this.teamsIn);
+
+		}
+
+		/* if (this.dataToAddGroup) {
+
+			let skeleton = JSON.parse(JSON.stringify(this.currentSkeleton));
+			this.teamsOut = skeleton.teams.team;
+			this.teamsIn = [];
+			skeleton.teams.team.forEach((team) => {
+
+				if (team.selected) this.addGroupTeams(team);
+
+			});
+			this.$emit('groupTeams', this.teamsIn);
+
+		} */
+
 	},
 
 	computed: {
@@ -26,7 +64,8 @@ export default Vue.extend({
 		...mapGetters({
 
 			dataToAddGroup: 'dataToAddGroup',
-			currentSkeleton: 'currentSkeleton'
+			currentSkeleton: 'currentSkeleton',
+			group: 'group'
 
 		})
 
@@ -54,24 +93,21 @@ export default Vue.extend({
 	},
 	watch: {
 
-		dataToAddGroup (value) {
-
-			// this.teamsOut = JSON.parse(JSON.stringify(value.skeleton.teams.team));
-			// this.addGroupTeams(this.teamsOut.find(g => g.rowid === 1 && g.ident === 'Tous'));
-
-		},
-
 		currentSkeleton (value) {
 
-			let skeleton = JSON.parse(JSON.stringify(value));
-			this.teamsOut = skeleton.teams.team;
-			this.teamsIn = [];
-			skeleton.teams.team.forEach((team) => {
+			if (!this.groupToModify) {
 
-				if (team.selected) this.addGroupTeams(team);
+				let skeleton = JSON.parse(JSON.stringify(value));
+				this.teamsOut = skeleton.teams.team;
+				this.teamsIn = [];
+				skeleton.teams.team.forEach((team) => {
 
-			});
-			this.$emit('groupTeams', this.teamsIn);
+					if (team.selected) this.addGroupTeams(team);
+
+				});
+				this.$emit('groupTeams', this.teamsIn);
+
+			}
 
 		}
 	}

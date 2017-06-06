@@ -23,4 +23,5 @@ export default Vue.extend({
 		'addGroupBox': AddGroupBoxComponent
 
 	}
+
 });
