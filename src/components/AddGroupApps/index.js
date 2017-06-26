@@ -32,6 +32,7 @@ export default Vue.extend({
 				if (app.selected) {
 
 					_appsIn.push(app);
+					if (app.protected) console.log(app);
 
 				} else _appsOut.push(app);
 
@@ -42,6 +43,31 @@ export default Vue.extend({
 			this.$emit('groupApps', this.appsIn);
 
 		}
+
+		/* if (this.dataToAddGroup && !this.group) {
+
+			this.appsOut = JSON.parse(JSON.stringify(this.currentSkeleton.applications.application));
+			this.appsIn = [];
+			let reste = [];
+
+			this.appsOut.forEach((app) => {
+
+				if (app.selected === 1) {
+
+					this.appsIn.push(app);
+
+				} else {
+
+					reste.push(app);
+
+				}
+
+			});
+
+			this.appsOut = reste;
+			this.$emit('groupApps', this.appsIn);
+
+		} */
 
 	},
 
@@ -106,6 +132,10 @@ export default Vue.extend({
 				this.$emit('groupApps', this.appsIn);
 
 			}
+
+		},
+
+		currentDefaultApp (value, oldValue) {
 
 		}
 	}

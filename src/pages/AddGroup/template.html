@@ -1,6 +1,7 @@
-<div class="add-team">
-	<router-link :to="{name: 'groups'}" tag="button" class="button">Retour</router-link>
-	<h1 v-if="group">Modifier le groupe {{group.group.ident}}</h1>
-	<h1 v-else>Ajouter un Groupe</h1>
-	<addGroupBox></addGroupBox>
+<div class="add-group">
+	<ul class="nav-bar">
+		<li><a @click="$router.push('/groups')" tag="button" class="button"><i class="fa fa-arrow-left"/></a></li>
+		<li><p>Ajouter un Groupe</p></li>		
+	</ul>
+	<addGroupBox class="add-group__box"></addGroupBox>
 </div>

@@ -1,10 +1,12 @@
-<div class="add-user-form">
+<div class="add-group-box">
 
-	<button @click="setAction('addGroupForm')">Attributs du groupe</button>
-	<button @click="setAction('addGroupUsers')">Utilisateurs du groupe</button>
-	<button @click="setAction('addGroupTeams')">équipes du groupe</button>
-	<button @click="setAction('addGroupApps')">Applications du groupe</button>
-
+	<ul class="box-actions-buttons">
+		<li><button @click="setAction('addGroupForm')">Attributs du groupe</button></li>
+		<li><button @click="setAction('addGroupUsers')">Utilisateurs du groupe</button></li>
+		<li><button @click="setAction('addGroupTeams')">équipes du groupe</button></li>
+		<li><button @click="setAction('addGroupApps')">Applications du groupe</button></li>
+	</ul>
+	
 	<div class="msg">
 		{{msg}}
 	</div>
@@ -21,6 +23,6 @@
 	<div v-show="action==='addGroupApps'">
 		<addGroupApps v-on:groupApps="saveGroupApps"></addGroupApps>
 	</div>
-	<button @click="submit()">Valider</button>
+	<button @click="submit()" class=" button button--submit">Valider</button>
 
 </div>

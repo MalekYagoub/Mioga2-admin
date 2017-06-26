@@ -1,2 +1,17 @@
-#app {
+@import 'src/stylesheets/common/_fonts';
+
+@import 'src/stylesheets/common/_mixins';
+
+@import 'src/stylesheets/common/_variables';
+
+@import 'src/stylesheets/common/_button';
+
+.add-group {
+
+	&__box {
+		text-align: left;
+		padding-left: 20%;
+		padding-right: 20%;
+	}
+
 }

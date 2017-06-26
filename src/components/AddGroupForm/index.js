@@ -32,6 +32,7 @@ export default Vue.extend({
 	},
 	mounted () {
 
+		this.$store.commit('currentAnim', undefined);
 		if (this.group) {
 
 			this.groupToModify = JSON.parse(JSON.stringify(this.group));
@@ -60,9 +61,9 @@ export default Vue.extend({
 
 		}
 
-		/* if (this.dataToAddGroup) {
+		/* if (this.dataToAddGroup) { // ligne a enlver pour normal
 
-			this.dataToAddGroupReady = this.dataToAddGroup; // ligne a enlver pour normal
+			this.dataToAddGroupReady = this.dataToAddGroup;
 			this.optionsLoaded = true;
 			this.formSelect.skeletonFile = this.dataToAddGroup.skeletons[0].file;
 
@@ -128,6 +129,14 @@ export default Vue.extend({
 					this.formSelect.skeletonFile = value.skeletons[0].file;
 
 				}
+
+			} else {
+
+				this.dataToAddGroupReady.users.forEach((user) => {
+
+					if (user.rowid === this.formSelect.user.rowid) this.formSelect.user = user;
+
+				});
 
 			}
 

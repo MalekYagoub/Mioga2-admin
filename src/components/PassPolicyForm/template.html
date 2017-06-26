@@ -1,0 +1,35 @@
+<div class="pass-policy-form">
+
+	<form v-on:submit.prevent="submit">
+		<div>
+			<label> Sécuriser les mots de passe par une question secrète <input type="checkbox" name="secretQuestion" v-model="secretQuestion"></label>
+		</div> <br />
+		<div>
+			<label> Longueur Minimale 
+				<input type="number" name="minLength" v-model="minLength">
+			</label>
+		</div>
+		<div>
+			<label> Nombre minimal de lettres 
+				<input type="number" name="minLetter" v-model="minLetter">
+			</label>
+		</div>
+		<div>
+			<label> Nombre minimal de chiffres 
+				<input type="number" name="minDigit" v-model="minDigit">
+			</label>
+		</div>
+		<div>
+			<label> Nombre minimal de caractères spéciaux 
+				<input type="number" name="minSpecialChar" v-model="minSpecialChar">
+			</label>
+		</div>
+		<div>
+			<label> Nombre minimal de changements de casse
+				<input type="number" name="minModifCase" v-model="minModifCase">
+			</label>
+		</div>
+		<div><input type="submit" name="submit"></div>
+	</form>
+
+</div>

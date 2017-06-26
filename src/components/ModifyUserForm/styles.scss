@@ -1,0 +1,21 @@
+@import 'src/stylesheets/common/_fonts';
+
+@import 'src/stylesheets/common/_mixins';
+
+@import 'src/stylesheets/common/_variables';
+
+@import 'src/stylesheets/common/_info';
+
+.modif-user-form {
+
+	&__error {
+		margin-bottom: 2%;
+	}
+
+	li {
+
+		margin-bottom: 1%;
+
+	}
+
+}

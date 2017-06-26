@@ -1,0 +1,40 @@
+@import 'src/stylesheets/common/_fonts';
+
+@import 'src/stylesheets/common/_mixins';
+
+@import 'src/stylesheets/common/_variables';
+
+.pass-policy {
+
+	&__form {
+		padding-right: 20%;
+		padding-left: 20%;
+	}
+
+	&__app-bar {
+	    list-style-type: none;
+	    margin: 0;
+	    margin-bottom: 5%;
+	    padding: 0;
+	    overflow: hidden;
+	    background-color: $highlight-color;
+
+	    & li {
+		   float: left;
+		}
+
+		& li a, p {
+		    display: block;
+		    color: white;
+		    text-align: center;
+		    padding: 14px 16px;
+		    text-decoration: none;
+		}
+
+		& li a:hover {
+		    background-color: $color-grey-medium;
+		}
+
+	}
+
+}

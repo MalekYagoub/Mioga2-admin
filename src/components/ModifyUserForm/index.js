@@ -21,8 +21,8 @@ export default Vue.extend({
 
 	mounted () {
 
+		this.$store.commit('error');
 		this.userValuesToPost = this.user;
-		console.log(this.user);
 
 	},
 
@@ -30,7 +30,8 @@ export default Vue.extend({
 
 		modifyUser () {
 
-			this.msg = this.userValuesToPost.password !== this.userValuesToPost.password2 ? 'Mots de passes différents' : this.userValuesToPost.password === '' || this.userValuesToPost.password2 === '' || this.userValuesToPost.firstname === '' || this.userValuesToPost.lastname === '' || !/.+@.+\..+/.test(this.userValuesToPost.email) ? 'Champs invalides' : undefined;
+			this.$store.commit('error');
+			this.msg = this.userValuesToPost.firstname === '' || this.userValuesToPost.lastname === '' || !/.+@.+\..+/.test(this.userValuesToPost.email) ? 'Champs invalides' : undefined;
 			if (!this.msg) {
 
 				this.userValuesToPost.rowid = this.user.rowid;
@@ -47,13 +48,24 @@ export default Vue.extend({
 
 		...mapGetters({
 
-			user: 'user'
+			user: 'user',
+			error: 'error'
 
 		})
 
 	},
 
 	watch: {
+
+		error (value) {
+
+			if (value === 'email') {
+
+				this.msg = 'Email invalide';
+
+			}
+
+		}
 
 	},
 

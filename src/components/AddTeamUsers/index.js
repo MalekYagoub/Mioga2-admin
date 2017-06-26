@@ -13,7 +13,8 @@ export default Vue.extend({
 		return {
 
 			usersIn: [],
-			usersOut: []
+			usersOut: [],
+			allUsersInOut: []
 
 		};
 
@@ -28,6 +29,7 @@ export default Vue.extend({
 		this.$store.dispatch('getUsers', payload).then(function (response) {
 
 			_this.usersOut = _this.$store.getters.allUsers;
+			_this.allUsersInOut = JSON.parse(JSON.stringify(_this.$store.getters.allUsers));
 
 			if (team) {
 
@@ -50,8 +52,6 @@ export default Vue.extend({
 			}
 
 		});
-		console.log('users out :', this.usersOut);
-		console.log('users in :', this.usersIn);
 
 	},
 
@@ -70,7 +70,13 @@ export default Vue.extend({
 
 		addUserTeam (user) {
 
-			let index = this.usersOut.indexOf(user);
+			let index;
+			this.usersOut.forEach((userOut) => {
+
+				if (userOut.rowid === user.rowid) index = this.usersOut.indexOf(userOut);
+
+			});
+
 			this.usersIn.push(user);
 			this.usersOut.splice(index, 1);
 			this.$emit('teamUsers', this.usersIn);
@@ -78,10 +84,35 @@ export default Vue.extend({
 		},
 		removeUserTeam (user) {
 
-			let index = this.usersIn.indexOf(user);
+			let index;
+			this.usersIn.forEach((userIn) => {
+
+				if (userIn.rowid === user.rowid) index = this.usersIn.indexOf(userIn);
+
+			});
+
 			this.usersOut.push(user);
 			this.usersIn.splice(index, 1);
 			this.$emit('teamUsers', this.usersIn);
+
+		},
+
+		detectUser (user) {
+
+			let userIsOut;
+			for (let i = 0; i < this.usersOut.length; i++) {
+
+				if (this.usersOut[i].rowid === user.rowid) { // si le user est dehors
+
+					userIsOut = true;
+					break;
+
+				}
+
+			}
+
+			if (userIsOut) return 0; // dehors
+			else return 1; // dedans
 
 		}
 

@@ -1,16 +1,21 @@
 <div class="add-team-users">
-	<h1>Utilisateurs de l'équipe</h1> <br />
-	<h1>L'équipe ne contient pas :</h1>
-	<ul v-for="userOut in usersOut">
-		<li v-on:click="addUserTeam(userOut)">
-			{{userOut.label}}
-		</li>
-	</ul> </br>
 
-	<h1>L'équipe contient :</h1>
-	<ul v-for="userIn in usersIn">
-		<li v-on:click="removeUserTeam(userIn)">
-			{{userIn.label}}
+	<h1 class="in-out-type">Utilisateurs de l'équipe</h1> <br />
+
+	<div class="in-out-titles">
+		<span class="left">L'équipe ne contient pas</span>
+		<span class="right">L'équipe contient</span>
+	</div>
+
+	<ul class="in-out-list">
+		<li v-for ="user in allUsersInOut" v-bind:class="[detectUser(user) === 1 ? 'in-out-list__in': 'in-out-list__out']">
+			<span v-if="detectUser(user) === 1" v-on:click="removeUserTeam(user)"> <!-- dedans -->
+				{{user.label}}
+			</span>
+			<span v-else v-on:click="addUserTeam(user)"> <!-- dehors -->
+				{{user.label}}
+			</span>
 		</li>
 	</ul>
+
 </div>

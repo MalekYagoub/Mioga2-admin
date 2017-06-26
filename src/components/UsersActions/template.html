@@ -1,44 +1,50 @@
 <div class="users-actions">
 	<div>
-		<router-link :to="{name: 'addUser'}" tag="button" class="button button--table">
-			Ajouter un utilisateur
+		<router-link :to="{name: 'addUser'}" tag="button" class="action-button">
 			<i class="fa fa-plus">
+			Ajouter un utilisateur
 		</router-link>
 	</div>
 	<div>
-		<button v-on:click="dispatchAction('destroyUsers')" class="button button--table">
-			Supprimer
+		<button v-on:click="dispatchAction('destroyUsers')" class="action-button">
 			<i class="fa fa-trash">
+			Supprimer
 		</button>
 	</div>
 	<div>
-		<router-link :to="{name: 'importUsers'}" tag="button" class="button button--table">
-			Importer des utilisateurs
+		<router-link :to="{name: 'importUsers'}" tag="button" class="action-button">
 			<i class="fa fa-download">
+			Importer des utilisateurs
 		</router-link>
 	</div>
 	<div>
-		<button v-on:click="downloadCsv()" class="button button--table">
-			Exporter les utilisateurs
+		<button v-on:click="downloadCsv()" class="baction-button">
 			<i class="fa fa-upload">
+			Exporter les utilisateurs
 		</button>
 	</div>
 	<div>
-		<button v-on:click="dispatchAction('emailUsers')" class="button button--table">
-			Envoyer un email
+		<button v-on:click="dispatchAction('emailUsers')" class="action-button">
 			<i class="fa fa-envelope">
+			Envoyer un email
 			</button>
 	</div>
 	<div>
-		<button v-on:click="dispatchAction('disableUsers')" class="button button--table">
-			Désactiver
+		<button v-on:click="dispatchAction('disableUsers')" class="action-button">
 			<i class="fa fa-toggle-off">
+			Désactiver
 		</button>
 	</div>
 	<div>
-		<button v-on:click="dispatchAction('enableUsers')" class="button button--table">
-			Activer
+		<button v-on:click="dispatchAction('enableUsers')" class="action-button">
 			<i class="fa fa-toggle-on">
+			Activer	
 		</button>
+	</div>
+	<div>
+		<router-link :to="{name: 'passPolicy'}" tag="button" class="action-button">
+			<i class="fa fa-key">
+			Définir la politique de mots de passe
+		</router-link>
 	</div>
 </div>

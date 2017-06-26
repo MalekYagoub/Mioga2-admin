@@ -6,7 +6,7 @@
 
 @import 'src/stylesheets/common/_button';
 
-.groups-actions {
+.users-actions {
 
 	& .button--table {
 	    font-size: 1.02em;
@@ -14,7 +14,7 @@
 	    padding-right: 5%;
 	    padding-top: 2%;
 	    padding-bottom: 2%;
-	    text-align: left;
+	    text-align-last: left;
 	}
 
 	& .button--table:hover {

@@ -43,7 +43,7 @@ export default Vue.extend({
 
 		}
 
-		/* if (this.dataToAddGroup) {
+		/* if (this.dataToAddGroup && !this.group) {
 
 			let skeleton = JSON.parse(JSON.stringify(this.currentSkeleton));
 			this.teamsOut = skeleton.teams.team;
@@ -99,6 +99,7 @@ export default Vue.extend({
 
 				let skeleton = JSON.parse(JSON.stringify(value));
 				this.teamsOut = skeleton.teams.team;
+				this.allTeams = skeleton.teams.team;
 				this.teamsIn = [];
 				skeleton.teams.team.forEach((team) => {
 

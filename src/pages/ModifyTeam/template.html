@@ -1,5 +1,7 @@
-<div id="modify-user">
-	<router-link :to="{name: 'teams'}" tag="button" class="button">Retour</router-link>
-	<h1>Modifier une équipe</h1>
-	<addTeamBox></addTeamBox>
+<div id="modify-team">
+	<ul class="nav-bar">
+		<li><a @click="$router.push('/teams')" tag="button" class="button"><i class="fa fa-arrow-left"/></a></li>
+		<li><p>Modifier une équipe</p></li>
+	</ul>
+	<addTeamBox class="modify-team__box"></addTeamBox>
 </div>

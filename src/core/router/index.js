@@ -9,6 +9,8 @@ import AddUserPage from '@/pages/AddUser';
 import ImportUsersPage from '@/pages/ImportUsers';
 import ModifyUserPage from '@/pages/ModifyUser';
 
+import PassPolicyPage from '@/pages/PassPolicy';
+
 
 import TeamsPage from '@/pages/Teams';
 import TeamsMainPage from '@/pages/TeamsMain';
@@ -55,6 +57,10 @@ export default new Router({
 				path: 'modifyUser',
 				component: ModifyUserPage,
 				name: 'modifyUser'
+			}, {
+				path: 'passPolicy',
+				component: PassPolicyPage,
+				name: 'passPolicy'
 			}]
 		}, {
 			path: '/teams',

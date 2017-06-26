@@ -14,6 +14,7 @@ export default Vue.extend({
 
 			usersIn: [],
 			usersOut: [],
+			allUsersInOut: [],
 			groupToModify: undefined
 
 		};
@@ -28,6 +29,7 @@ export default Vue.extend({
 
 			this.groupToModify = JSON.parse(JSON.stringify(this.group));
 			this.usersOut = this.groupToModify.users.user;
+			this.allUsersInOut = this.groupToModify.users.user;
 			this.usersOut.forEach((user) => {
 
 				if (user.selected) {
@@ -43,6 +45,16 @@ export default Vue.extend({
 			this.$emit('groupUsers', this.usersIn);
 
 		}
+
+		/* if (this.dataToAddGroup) {
+
+			if (!this.groupToModify) {
+
+				this.usersOut = JSON.parse(JSON.stringify(this.dataToAddGroup.users));
+
+			}
+
+		} */
 
 	},
 
@@ -85,6 +97,7 @@ export default Vue.extend({
 			if (!this.groupToModify) {
 
 				this.usersOut = JSON.parse(JSON.stringify(value.users));
+				this.allUsersInOut = JSON.parse(JSON.stringify(value.users));
 
 			}
 
@@ -96,7 +109,7 @@ export default Vue.extend({
 				if (this.usersOut[i].rowid === value.rowid) {
 
 					this.usersIn.push(value);
-					this.usersOut.splice(this.usersOut[i - 1], 1);
+					this.usersOut.splice(i, 1);
 
 				}
 

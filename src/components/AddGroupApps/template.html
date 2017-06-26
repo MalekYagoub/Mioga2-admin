@@ -1,15 +1,15 @@
 <div class="add-group-app">
 	<h1>Applications du groupe</h1> <br />
 	<h1>Le groupe n'a pas le droit d'utiliser :</h1>
-	<ul v-for="appOut in appsOut">
-		<li v-on:click="addGroupApps(appOut)">
+	<ul>
+		<li v-for="appOut in appsOut" v-on:click="addGroupApps(appOut)">
 			{{appOut.label}}
 		</li>
 	</ul> <br />
 
 	<h1>Le groupe a le droit d'utiliser :</h1>
 	<ul v-for="appIn in appsIn">
-		<li v-if="appIn.protected === 1 || appIn.ident === currentDefaultApp">
+		<li v-if="appIn.protected === 1 && appIn.all_groups === 1 || appIn.ident === currentDefaultApp">
 			{{appIn.label}} <i class="fa fa-lock">
 		</li>
 		<li v-else v-on:click="removeGroupApps(appIn)">

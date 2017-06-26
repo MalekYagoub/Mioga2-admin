@@ -1,26 +1,26 @@
 <div class="teams-actions">
 	<div>
-		<router-link :to="{name: 'addTeam'}" tag="button" class="button button--table">
-			Ajouter une équipe
+		<router-link :to="{name: 'addTeam'}" tag="button" class="action-button">
 			<i class="fa fa-plus">
+			Ajouter une équipe
 		</router-link>
 	</div>
 	<div>
-		<button class="button" v-on:click="dispatchAction('destroyTeams')" class="button button--table">
-			Supprimer équipe(s)
+		<button class="button" v-on:click="dispatchAction('destroyTeams')" class="action-button">
 			<i class="fa fa-trash">
+			Supprimer équipe(s)
 		</button>
 	</div>
 	<div>
-		<router-link :to="{name: 'teamGroupReport'}" tag="button" class="button button--table">
-			Synthèse des affectations aux groupes
+		<router-link :to="{name: 'teamGroupReport'}" tag="button" class="action-button">
 			<i class="fa fa-address-book"/>
+			Synthèse des affectations aux groupes
 		</router-link>
 	</div>
 	<div>
-		<button v-on:click="downloadCsv()" class="button button--table">
-			Exporter la synthèse des affectations aux groupes
+		<button v-on:click="downloadCsv()" class="action-button">
 			<i class="fa fa-upload">
+			Exporter la synthèse des affectations aux groupes
 		</button>
 	</div>
 	<div>

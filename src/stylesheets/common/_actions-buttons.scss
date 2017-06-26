@@ -1,0 +1,21 @@
+@import 'src/stylesheets/common/_fonts';
+
+@import 'src/stylesheets/common/_mixins';
+
+@import 'src/stylesheets/common/_variables';
+
+@import 'src/stylesheets/common/_button';
+
+.action-button {
+    font-size: 1.02em;
+    width: 100%;
+    padding-right: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    text-align: left;
+}
+
+.action-button:hover {
+	border-right: 4px solid $highlight-color;
+	background-color: $color-grey-light;
+}

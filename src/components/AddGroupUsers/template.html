@@ -1,4 +1,4 @@
-<div class="add-team-users">
+<div class="add-group-users">
 	<h1>Utilisateurs du groupe</h1> <br />
 	<h1>Le groupe ne contient pas :</h1>
 	<ul v-for="userOut in usersOut">
@@ -13,7 +13,7 @@
 		<li v-if ="currentAnim && userIn.rowid === currentAnim.rowid">
 			<span>{{userIn.label}} <i class="fa fa-lock"></span>
 		</li>
-		<li v-else-if="groupToModify && userIn.rowid === groupToModify.group.anim_id">
+		<li v-else-if="groupToModify && userIn.rowid === groupToModify.group.anim_id && !currentAnim">
 			<span>{{userIn.label}} <i class="fa fa-lock"></span>
 		</li>
 		<li v-on:click="removeGroupUsers(userIn)" v-else>

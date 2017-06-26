@@ -1,0 +1,46 @@
+@import 'src/stylesheets/common/_fonts';
+
+@import 'src/stylesheets/common/_mixins';
+
+@import 'src/stylesheets/common/_variables';
+
+.in-out-type {
+
+	text-align: center;
+	font-size: 1.5em;
+	margin-bottom: 2%;
+
+}
+
+.in-out-list {
+
+	& li:nth-child(even){background-color: $color-grey-light}
+
+	&__in {
+
+		text-align: right;
+		color: #55b44c;
+
+	}
+
+	&__out {
+
+		text-align: left;
+		color: #ff1a1a;
+
+	}
+
+	& span {
+		display: block;
+		padding: 8px;
+	}
+
+}
+
+.in-out-titles {
+	padding: 0 2% 3% 2%;
+}
+
+.right {
+	float: right;
+}

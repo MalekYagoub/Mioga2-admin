@@ -10,7 +10,9 @@ const state = {
 	countUsers: undefined,
 	areAllUsersSelected: undefined,
 	checkedUsers: [],
-	user: undefined
+	user: undefined,
+	passPolicy: undefined,
+	error: undefined
 
 };
 
@@ -21,7 +23,9 @@ const getters = {
 	user: state => state.user,
 	countUsers: state => state.countUsers,
 	areAllUsersSelected: state => state.areAllUsersSelected,
-	checkedUsers: state => state.checkedUsers
+	checkedUsers: state => state.checkedUsers,
+	passPolicy: state => state.passPolicy,
+	error: state => state.error
 
 };
 
@@ -81,19 +85,29 @@ const actions = {
 		if (!payload.user.rowid) { // add user
 
 			payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib//bin/Administrateurs/Bottin/SetUser.json',
-			{description: payload.user.description, email: payload.user.email, firstname: payload.user.firstname, lastname: payload.user.lastname, password: payload.user.password, password2: payload.user.password2, ident: payload.user.ident}).then(response => {
+			{description: payload.user.description, email: payload.user.email, firstname: payload.user.firstname, lastname: payload.user.lastname, ident: payload.user.ident}).then(response => {
 
-				payload.$router.push({name: 'users'});
+				if (response.body.errors[0]) commit('error', response.body.errors[0][0]);
+				else {
+
+					payload.$router.push({name: 'users'});
+
+				}
 
 			});
 
 		} else { // modify user
 
 			payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib//bin/Administrateurs/Bottin/SetUser.json',
-			{description: payload.user.description, email: payload.user.email, firstname: payload.user.firstname, lastname: payload.user.lastname, password: payload.user.password, password2: payload.user.password2, ident: payload.user.ident, rowid: payload.user.rowid}).then(response => {
+			{description: payload.user.description, email: payload.user.email, firstname: payload.user.firstname, lastname: payload.user.lastname, ident: payload.user.ident, rowid: payload.user.rowid}).then(response => {
 
-				payload.$router.push({name: 'users'});
-				commit('user');
+				if (response.body.errors[0]) commit('error', response.body.errors[0][0]);
+				else {
+
+					commit('user');
+					payload.$router.push({name: 'users'});
+
+				}
 
 			});
 
@@ -146,6 +160,28 @@ const actions = {
 
 			state.checkedUsers = [];
 			store.dispatch('getUsers', {$http: payload.$http});
+
+		});
+
+	},
+
+	getPassPolicy: ({state, commit, rootState}, payload) => {
+
+		payload.$http.get('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetPasswordPolicy.json').then(response => {
+
+			commit('passPolicy', response.body);
+
+		});
+
+	},
+
+	setPassPolicy: ({state, commit, rootState}, payload) => {
+
+		payload.use_secret_question ? payload.use_secret_question = 1 : payload.use_secret_question = 0;
+
+		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/SetPasswordPolicy.json', {pwd_min_chcase: payload.pwd_min_chcase, pwd_min_digit: payload.pwd_min_digit, pwd_min_length: payload.pwd_min_length, pwd_min_letter: payload.pwd_min_letter, pwd_min_special: payload.pwd_min_special, use_secret_question: payload.use_secret_question}).then(response => {
+
+			payload.$router.push({name: 'users'});
 
 		});
 
@@ -212,6 +248,16 @@ const mutations = {
 
 		let index = state.checkedUsers.indexOf(userToRemove);
 		state.checkedUsers.splice(index, 1);
+
+	},
+	passPolicy: (state, policy) => {
+
+		state.passPolicy = policy;
+
+	},
+	error: (state, error) => {
+
+		state.error = error;
 
 	}
 

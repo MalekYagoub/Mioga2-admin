@@ -1,4 +1,4 @@
-<div class="add-team-form">
+<div class="add-group-form">
 	<div v-if="groupToModify">
 
 		<div v-if="msg">
@@ -24,8 +24,8 @@
 			</div>
 			<div>
 				<label> Animateur : 
-					<select  v-model="formSelect.user.rowid" v-on:change="selectChange" v-on:change="animChange" v-if="optionsLoaded">
-						<option v-bind:value="user.rowid" v-for="user in dataToAddGroupReady.users">
+					<select  v-model="formSelect.user" v-on:change="selectChange" v-on:change="animChange" v-if="optionsLoaded">
+						<option v-bind:value="user" v-for="user in dataToAddGroupReady.users">
 							{{user.label}}
 						</option>
 					</select>
@@ -60,7 +60,7 @@
 
 
 	<div v-else>
-
+ 
 		<div v-if="msg">
 			{{msg}}
 		</div>
