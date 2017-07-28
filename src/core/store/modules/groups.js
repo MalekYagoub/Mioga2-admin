@@ -14,7 +14,8 @@ const state = {
 	dataToAddGroup: undefined,
 	currentAnim: undefined,
 	currentSkeleton: undefined,
-	currentDefaultApp: undefined
+	currentDefaultApp: undefined,
+	filteredGroups: undefined
 
 };
 
@@ -29,7 +30,8 @@ const getters = {
 	dataToAddGroup: state => state.dataToAddGroup,
 	currentAnim: state => state.currentAnim,
 	currentSkeleton: state => state.currentSkeleton,
-	currentDefaultApp: state => state.currentDefaultApp
+	currentDefaultApp: state => state.currentDefaultApp,
+	filteredGroups: state => state.filteredGroups
 
 };
 
@@ -110,7 +112,7 @@ const actions = {
 			formData.append('description', payload.data.dataInput.description);
 			formData.append('ident', payload.data.dataInput.ident);
 			formData.append('history', payload.data.dataSelect.history);
-			formData.append('lang', payload.data.dataSelect.lang);
+			formData.append('lang', payload.data.dataSelect.lang.ident);
 			formData.append('public_part', payload.data.dataSelect.public_part);
 
 			formData.append('rowid', payload.data.rowid);
@@ -120,11 +122,13 @@ const actions = {
 
 				response.json().then((data) => {
 
+					commit('isLoading');
 					payload.$router.push({name: 'groups'});
 
 				});
 
 			});
+			commit('isLoading');
 
 		} else {
 
@@ -149,25 +153,28 @@ const actions = {
 
 			});
 
+			console.log(payload.data.dataSelect.default_app);
 			formData.append('anim_id', payload.data.dataSelect.user.rowid);
 			formData.append('default_app', payload.data.dataSelect.default_app);
 			formData.append('description', payload.data.dataInput.description);
 			formData.append('ident', payload.data.dataInput.ident);
 			formData.append('history', payload.data.dataSelect.history);
-			formData.append('lang', payload.data.dataSelect.lang);
+			formData.append('lang', payload.data.dataSelect.lang.ident);
 			formData.append('public_part', payload.data.dataSelect.public_part);
-			formData.append('skeleton', payload.data.dataSelect.skeletonFile);
+			formData.append('skeleton', payload.data.dataSelect.skeletonFile.file);
 			formData.append('users', payload.data.dataSelect.user.ident);
 
 			payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/SetGroup.json', formData).then((response) => {
 
 				response.json().then((data) => {
 
+					commit('isLoading');
 					payload.$router.push({name: 'groups'});
 
 				});
 
 			});
+			commit('isLoading');
 
 		}
 
@@ -190,8 +197,8 @@ const actions = {
 
 						/Languages/.test(url) ? urlsData.languages = data.language
 						: /Users/.test(url) ? urlsData.users = data.user
-						: /Skeletons/.test(url) ? urlsData.skeletons = data.skeleton : undefined;
-						if (urlsData.languages && urlsData.users && urlsData.skeletons) {
+						: /Skeletons/.test(url) ? urlsData.skeletons = data.skeleton : console.log(' gneu gneu ');
+						if (urlsData && urlsData.languages && urlsData.users && urlsData.skeletons) {
 
 							commit('dataToAddGroup', urlsData);
 							payload.store.dispatch('getDataSkeleton', {$http: payload.$http, file: urlsData.skeletons[0].file, lang: 'fr_FR'});
@@ -217,6 +224,19 @@ const actions = {
 				commit('currentSkeleton', data);
 
 			});
+
+		});
+
+	},
+
+	getFilteredGroups: ({state, commit, rootState}, payload) => {
+
+		payload.ident === undefined ? payload.ident = '' : undefined;
+		payload.animator === undefined ? payload.animator = '' : undefined;
+
+		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetGroups.json', {match: payload.match, ident: payload.ident, animator: payload.animator}).then(response => {
+
+			commit('filteredGroups', response.body);
 
 		});
 
@@ -302,6 +322,12 @@ const mutations = {
 	currentDefaultApp: (state, defaultApp) => {
 
 		state.currentDefaultApp = defaultApp;
+
+	},
+	filteredGroups: (state, groups) => {
+
+		if (groups) state.filteredGroups = groups.group;
+		else state.filteredGroups = undefined;
 
 	}
 

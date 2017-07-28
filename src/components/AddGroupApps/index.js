@@ -13,7 +13,9 @@ export default Vue.extend({
 		return {
 
 			appsIn: [],
-			appsOut: []
+			appsOut: [],
+			allAppsInOut: [],
+			query: ''
 
 		};
 
@@ -26,13 +28,14 @@ export default Vue.extend({
 			let _appsOut = [];
 
 			this.groupToModify = JSON.parse(JSON.stringify(this.group));
+			console.log(this.groupToModify);
 			this.appsOut = this.groupToModify.applications.application;
+			this.allAppsInOut = JSON.parse(JSON.stringify(this.groupToModify.applications.application));
 			this.appsOut.forEach((app) => {
 
 				if (app.selected) {
 
 					_appsIn.push(app);
-					if (app.protected) console.log(app);
 
 				} else _appsOut.push(app);
 
@@ -80,7 +83,27 @@ export default Vue.extend({
 			currentDefaultApp: 'currentDefaultApp',
 			group: 'group'
 
-		})
+		}),
+		filteredList: function () {
+
+			this.allAppsInOut.sort((appA, appB) => { // tri alphabétique
+
+				let labelA = appA.label.toLowerCase();
+				let labelB = appB.label.toLowerCase();
+				if (labelA < labelB) return -1;
+				else if (labelA > labelB) return 1;
+				else return 0;
+
+			});
+
+			let vm = this;
+			return this.allAppsInOut.filter(function (app) {
+
+				return app.label.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1;
+
+			});
+
+		}
 
 	},
 
@@ -88,7 +111,13 @@ export default Vue.extend({
 
 		addGroupApps (app) {
 
-			let index = this.appsOut.indexOf(app);
+			let index;
+			this.appsOut.forEach((appOut) => {
+
+				if (appOut.rowid === app.rowid) index = this.appsOut.indexOf(appOut);
+
+			});
+
 			this.appsIn.push(app);
 			this.appsOut.splice(index, 1);
 			this.$emit('groupApps', this.appsIn);
@@ -96,10 +125,34 @@ export default Vue.extend({
 		},
 		removeGroupApps (app) {
 
-			let index = this.appsIn.indexOf(app);
+			let index;
+			this.appsIn.forEach((appIn) => {
+
+				if (appIn.rowid === app.rowid) index = this.appsIn.indexOf(appIn);
+
+			});
+
 			this.appsOut.unshift(app);
 			this.appsIn.splice(index, 1);
 			this.$emit('groupApps', this.appsIn);
+
+		},
+		detectApp (app) {
+
+			let appIsOut;
+			for (let i = 0; i < this.appsOut.length; i++) {
+
+				if (this.appsOut[i].rowid === app.rowid) { // si la app est dehors
+
+					appIsOut = true;
+					break;
+
+				}
+
+			}
+
+			if (appIsOut) return 0; // dehors
+			else return 1; // dedans
 
 		}
 
@@ -111,6 +164,7 @@ export default Vue.extend({
 			if (!this.groupToModify) {
 
 				this.appsOut = JSON.parse(JSON.stringify(value.applications.application));
+				this.allAppsInOut = JSON.parse(JSON.stringify(value.applications.application));
 				this.appsIn = [];
 				let reste = [];
 

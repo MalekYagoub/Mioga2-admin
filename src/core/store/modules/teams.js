@@ -10,7 +10,8 @@ const state = {
 	countTeams: undefined,
 	areAllTeamsSelected: undefined,
 	checkedTeams: [],
-	responseAddTeam: ''
+	responseAddTeam: '',
+	filteredTeams: undefined
 
 };
 
@@ -21,7 +22,8 @@ const getters = {
 	countTeams: state => state.countTeams,
 	areAllTeamsSelected: state => state.areAllTeamsSelected,
 	checkedTeams: state => state.checkedTeams,
-	responseAddTeam: state => state.responseAddTeam
+	responseAddTeam: state => state.responseAddTeam,
+	filteredTeams: state => state.filteredTeams
 
 };
 
@@ -90,10 +92,23 @@ const actions = {
 			if (response.body.journal && response.body.journal[0] && /erreur/i.test(response.body.journal[0].step)) commit('responseAddTeam', response.body.journal[0].step);
 			else {
 
+				commit('isLoading');
 				payload.$router.push({name: 'teams'});
 				commit('responseAddTeam', undefined);
 
 			}
+
+		});
+		commit('isLoading');
+
+	},
+	getFilteredTeams: ({state, commit, rootState}, payload) => {
+
+		payload.ident === undefined ? payload.ident = '' : undefined;
+
+		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/GetTeams.json', {match: payload.match, ident: payload.ident}).then(response => {
+
+			commit('filteredTeams', response.body);
 
 		});
 
@@ -158,6 +173,12 @@ const mutations = {
 	responseAddTeam: (state, response) => {
 
 		state.responseAddTeam = response;
+
+	},
+	filteredTeams: (state, teams) => {
+
+		if (teams) state.filteredTeams = teams.team;
+		else state.filteredTeams = undefined;
 
 	}
 

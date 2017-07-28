@@ -3,6 +3,7 @@ import Vue from 'vue';
 import('./styles.scss');
 
 import AddGroupBoxComponent from '@/components/AddGroupBox';
+import NavBarComponent from '@/components/NavBar';
 
 export default Vue.extend({
 
@@ -20,7 +21,8 @@ export default Vue.extend({
 
 	components: {
 
-		'addGroupBox': AddGroupBoxComponent
+		'addGroupBox': AddGroupBoxComponent,
+		'navBar': NavBarComponent
 
 	}
 

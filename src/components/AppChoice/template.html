@@ -3,16 +3,25 @@
 	<div class="menu">
 
 		<div class="menu__item">
-			<i class="fa fa-user"></i>
-			<a @click="$router.push('/users')">Gérer les utilisateurs</a>
+
+			<router-link to="/users" tag="a">
+				<i class="fa fa-user"></i> Gérer les utilisateurs
+			</router-link>
+
 		</div>
 		<div class="menu__item">
-			<i class="fa fa-user-plus"></i>
-			<a @click="$router.push('/teams')">Gérer les équipes</a>
+
+			<router-link to="/teams" tag="a">
+				<i class="fa fa-user-plus"></i> Gérer les équipes
+			</router-link>
+
 		</div>
 		<div class="menu__item">
-			<i class="fa fa-users"></i>
-			<a @click="$router.push('/groups')">Gérer les groupes</a>
+
+			<router-link to="/groups" tag="a">
+				<i class="fa fa-users"></i> Gérer les groupes
+			</router-link>
+
 		</div>
 	</div>
 </div>

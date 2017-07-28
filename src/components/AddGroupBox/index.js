@@ -86,6 +86,8 @@ export default Vue.extend({
 			if (!this.dataSelect.user || !this.dataSelect.lang || !this.dataSelect.skeletonFile || !this.dataSelect.default_app) this.msg = 'Un des champs est vide';
 			if (!this.dataInput.ident) this.msg = 'Insérez un identifiant';
 
+			if (this.dataSelect.default_app.ident) this.dataSelect.default_app = this.dataSelect.default_app.ident;
+
 			if (this.dataInput.ident && this.dataSelect.user && this.dataSelect.lang && this.dataSelect.skeletonFile && this.dataSelect.default_app) {
 
 				let payload;
@@ -103,7 +105,8 @@ export default Vue.extend({
 		...mapGetters({
 
 			dataToAddGroup: 'dataToAddGroup',
-			group: 'group'
+			group: 'group',
+			isLoading: 'isLoading'
 
 		})
 

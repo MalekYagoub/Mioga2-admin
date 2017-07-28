@@ -1,27 +1,35 @@
 <div class="add-team-box">
 
-	<ul class="box-actions-buttons">
-		<li><button @click="setAction('addTeamForm')">Attributs de l'équipe</button></li>
-		<li><button @click="setAction('addTeamUsers')">Utilisateurs de l'équipe</button></li>
-		<li><button @click="setAction('addTeamGroups')">Groupes de l'équipe</button></li>
-	</ul>
-	
-	<div class="msg">
-		{{msg}}
-	</div>
-	<div class="error">
-		{{responseAddTeam}}
-	</div>
+	<div v-if="!isLoading">
+		<ul class="box-actions-buttons">
+			<li><button @click="setAction('addTeamForm')">Attributs de l'équipe</button></li>
+			<li><button @click="setAction('addTeamUsers')">Utilisateurs de l'équipe</button></li>
+			<li><button @click="setAction('addTeamGroups')">Groupes de l'équipe</button></li>
+		</ul>
+		
+		<div  v-if="msg" class="msg_error">
+			<i class="fa fa-exclamation-circle"></i>
+			{{msg}}
+		</div>
+		<div v-if="responseAddTeam" class="msg_error">
+			<i class="fa fa-exclamation-circle"></i>
+			{{responseAddTeam}}
+		</div>
 
-	<div v-show="action==='addTeamForm'">
-		<addTeamForm v-on:input="saveInput" v-on:emptyIdent="displayMsg" v-on:rowidTeam="saveRowidTeam"></addTeamForm>
+		<div v-show="action==='addTeamForm'">
+			<addTeamForm v-on:input="saveInput" v-on:emptyIdent="displayMsg" v-on:rowidTeam="saveRowidTeam"></addTeamForm>
+		</div>
+		<div v-show="action==='addTeamUsers'">
+			<addTeamUsers v-on:teamUsers="saveTeamUsers"></addTeamUsers>
+		</div>
+		<div v-show="action==='addTeamGroups'">
+			<addTeamGroups v-on:teamGroups="saveTeamGroups"></addTeamGroups>
+		</div>
+		<button @click="submit()" class=" button button--submit">Valider</button>
 	</div>
-	<div v-show="action==='addTeamUsers'">
-		<addTeamUsers v-on:teamUsers="saveTeamUsers"></addTeamUsers>
+	<div v-else>
+		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+		<span>Chargement</span>		
 	</div>
-	<div v-show="action==='addTeamGroups'">
-		<addTeamGroups v-on:teamGroups="saveTeamGroups"></addTeamGroups>
-	</div>
-	<button @click="submit()" class=" button button--submit">Valider</button>
 
 </div>

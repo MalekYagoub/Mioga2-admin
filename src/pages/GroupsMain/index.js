@@ -4,6 +4,7 @@ import('./styles.scss');
 
 import GroupsActionsComponent from '@/components/GroupsActions';
 import GroupsTableComponent from '@/components/GroupsTable';
+import NavBarComponent from '@/components/NavBar';
 
 
 export default Vue.extend({
@@ -29,7 +30,8 @@ export default Vue.extend({
 
 	components: {
 		'groupsActions': GroupsActionsComponent,
-		'groupsTable': GroupsTableComponent
+		'groupsTable': GroupsTableComponent,
+		'navBar': NavBarComponent
 	},
 
 	mounted () {

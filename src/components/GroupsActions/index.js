@@ -9,18 +9,6 @@ export default Vue.extend({
 
 	methods: {
 
-		dispatchAction (action) {
-
-			if (this.checkedGroups.length > 0) {
-
-				let rowIdsData = this.$store.getters.getRowIdsData('groups');
-				let payload = { rowIdsData: rowIdsData, $http: this.$http };
-				this.$store.dispatch(action, payload);
-
-			}
-
-		}
-
 	},
 	computed: {
 

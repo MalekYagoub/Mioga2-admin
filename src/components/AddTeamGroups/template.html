@@ -2,13 +2,15 @@
 
 	<h1 class="in-out-type">Groupes de l'équipe</h1> <br />
 
+	<input v-model="query" class="search-bar" placeholder="Rechercher">
+
 	<div class="in-out-titles">
 		<span class="left">L'équipe n'est pas membre</span>
 		<span class="right">L'équipe est membre</span>
 	</div>
 
 	<ul class="in-out-list">
-		<li v-for ="group in allGroupsInOut" v-bind:class="[detectGroup(group) === 1 ? 'in-out-list__in': 'in-out-list__out']">
+		<li v-for ="group in filteredList" v-bind:class="[detectGroup(group) === 1 ? 'in-out-list__in': 'in-out-list__out']">
 			<span v-if="detectGroup(group) === 1" v-on:click="removeGroupTeam(group)"> <!-- dedans -->
 				{{group.ident}}
 			</span>

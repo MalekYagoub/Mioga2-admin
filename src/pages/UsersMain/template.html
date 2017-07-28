@@ -1,8 +1,5 @@
 <div class="users">
-	<ul class="nav-bar">
-		<li><a @click="$router.push('/')" tag="button" class="button"><i class="fa fa-arrow-left"/></a></li>
-		<li><p>Gérer les utilisateurs</p></li>		
-	</ul>
+	<navBar route="Administration > Utilisateurs"></navBar>
 	<div class="users__menu">
 		<usersActions class="users__menu__actions"></usersActions>
 		<usersTable class="users__menu__table users__menu__table--large"></usersTable>

@@ -1,5 +1,7 @@
 @import 'src/stylesheets/common/_fonts';
+
 @import 'src/stylesheets/common/_mixins';
+
 @import 'src/stylesheets/common/_variables';
 
 .appli-buttons {
@@ -30,10 +32,15 @@
 		&__item {
 			font-size: 1.5em;
 			margin: 5%;
-		}
 
-		&__item:hover {
-			border-bottom: 2px solid $highlight-color;
+			& a {
+				color: $text-color;
+				transition: all 0.3s ease 0s;
+			}
+
+			& a:hover {
+				color: $highlight-color;
+			}
 		}
 
 	}

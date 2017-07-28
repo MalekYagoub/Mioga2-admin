@@ -25,10 +25,11 @@
 	    text-align: center;
 	    padding: 14px 16px;
 	    text-decoration: none;
+	    transition: all 0.3s ease 0s;
 	}
 
 	& li button:hover {
-	    background-color: $color-grey-medium;
+	    background-color: $color-grey-dark;
 	}
 
 }

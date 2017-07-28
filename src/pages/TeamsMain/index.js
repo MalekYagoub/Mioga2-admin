@@ -4,8 +4,7 @@ import('./styles.scss');
 
 import TeamsActionsComponent from '@/components/TeamsActions';
 import TeamsTableComponent from '@/components/TeamsTable';
-console.log(TeamsTableComponent);
-
+import NavBarComponent from '@/components/NavBar';
 
 export default Vue.extend({
 
@@ -30,7 +29,8 @@ export default Vue.extend({
 
 	components: {
 		'teamsActions': TeamsActionsComponent,
-		'teamsTable': TeamsTableComponent
+		'teamsTable': TeamsTableComponent,
+		'navBar': NavBarComponent
 	},
 
 	mounted () {

@@ -1,19 +1,26 @@
 <div class="add-group-app">
-	<h1>Applications du groupe</h1> <br />
-	<h1>Le groupe n'a pas le droit d'utiliser :</h1>
-	<ul>
-		<li v-for="appOut in appsOut" v-on:click="addGroupApps(appOut)">
-			{{appOut.label}}
-		</li>
-	</ul> <br />
 
-	<h1>Le groupe a le droit d'utiliser :</h1>
-	<ul v-for="appIn in appsIn">
-		<li v-if="appIn.protected === 1 && appIn.all_groups === 1 || appIn.ident === currentDefaultApp">
-			{{appIn.label}} <i class="fa fa-lock">
-		</li>
-		<li v-else v-on:click="removeGroupApps(appIn)">
-			{{appIn.label}}
+	<h1 class="in-out-type">Applications du groupe</h1> <br />
+
+	<input v-model="query" class="search-bar" placeholder="Rechercher">
+
+	<div class="in-out-titles">
+		<span class="left">Le groupe n'a pas le droit d'utiliser</span>
+		<span class="right">Le groupe a le droit d'utiliser</span>
+	</div>
+	<!-- VVERIFIEZ QUE IS GROUP = 1 -->
+	<ul class="in-out-list">
+		<li v-for ="app in filteredList" v-bind:class="[detectApp(app) === 1 ? 'in-out-list__in': 'in-out-list__out']">
+			<span v-if="detectApp(app) === 1 && app.protected === 1 && app.all_groups === 1 || app.ident === currentDefaultApp">
+				{{app.label}} <i class="fa fa-lock">
+			</span>
+			<span v-else-if="detectApp(app) === 1" v-on:click="removeGroupApps(app)"> <!-- dedans -->
+				{{app.label}}
+			</span>
+			<span v-else v-on:click="addGroupApps(app)"> <!-- dehors -->
+				{{app.label}}
+			</span>
 		</li>
 	</ul>
+
 </div>

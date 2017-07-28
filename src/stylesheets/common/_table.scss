@@ -1,6 +1,13 @@
+@import 'src/stylesheets/common/_fonts';
+
+@import 'src/stylesheets/common/_mixins';
+
+@import 'src/stylesheets/common/_variables';
+
 table {
 	border-collapse: collapse;
 	width: 100%;
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 th, td {
@@ -8,4 +15,41 @@ th, td {
 	padding: 8px;
 }
 
-tr:nth-child(even){background-color: $color-grey-light}
+tr:hover {
+	cursor: pointer;
+	background-color: #dcdcdc;
+}
+
+.checked-item {
+	background-color: #fcbcbc;
+}
+
+.unchecked-item:nth-child(even) {
+	background-color: $color-grey-light;
+}
+
+.unchecked-item:nth-child(even):hover {
+	background-color: #dcdcdc;
+}
+
+.table-row:nth-child(1) {
+	background-color: red;
+}
+
+tr {
+	display: flex;
+	
+}
+
+td, th {
+	flex: 1;
+}
+
+thead, tbody { display: block; }
+
+tbody {
+	height: 600px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+

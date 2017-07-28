@@ -14,7 +14,8 @@ export default Vue.extend({
 
 			usersIn: [],
 			usersOut: [],
-			allUsersInOut: []
+			allUsersInOut: [],
+			query: ''
 
 		};
 
@@ -62,7 +63,28 @@ export default Vue.extend({
 			allUsers: 'allUsers',
 			team: 'team'
 
-		})
+		}),
+
+		filteredList: function () {
+
+			this.allUsersInOut.sort((userA, userB) => { // tri alphabétique
+
+				let labelA = userA.label.toLowerCase();
+				let labelB = userB.label.toLowerCase();
+				if (labelA < labelB) return -1;
+				else if (labelA > labelB) return 1;
+				else return 0;
+
+			});
+
+			let vm = this;
+			return this.allUsersInOut.filter(function (user) { // résultat de l'entrée dans la barre de recherche
+
+				return user.label.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1;
+
+			});
+
+		}
 
 	},
 

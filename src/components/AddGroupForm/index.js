@@ -18,15 +18,16 @@ export default Vue.extend({
 			},
 			formSelect: {
 				lang: undefined,
-				user: {},
-				skeletonFile: undefined,
+				user: undefined, // {} normalement
+				skeletonFile: {},
 				default_app: '',
 				public_part: undefined,
 				history: undefined
 			},
 			dataToAddGroupReady: {},
 			groupToModify: undefined,
-			optionsLoaded: false
+			optionsLoaded: false,
+			appsOptions: []
 		};
 
 	},
@@ -35,6 +36,7 @@ export default Vue.extend({
 		this.$store.commit('currentAnim', undefined);
 		if (this.group) {
 
+			console.log(this.group);
 			this.groupToModify = JSON.parse(JSON.stringify(this.group));
 
 			this.groupToModify.users.user.forEach((user) => {
@@ -50,7 +52,6 @@ export default Vue.extend({
 			this.formInput.ident = this.groupToModify.group.ident;
 			this.formInput.description = this.groupToModify.group.description;
 			this.formSelect.lang = this.groupToModify.group.lang;
-			this.formSelect.default_app = this.groupToModify.group.default_app;
 			this.formSelect.public_part = this.groupToModify.group.public_part;
 			this.formSelect.history = this.groupToModify.group.history;
 			this.formSelect.skeletonFile = ' ';
@@ -61,7 +62,7 @@ export default Vue.extend({
 
 		}
 
-		/* if (this.dataToAddGroup) { // ligne a enlver pour normal
+		/* if (this.dataToAddGroup) { // ligne a enlver pour normal (OOPTImisation)
 
 			this.dataToAddGroupReady = this.dataToAddGroup;
 			this.optionsLoaded = true;
@@ -83,24 +84,51 @@ export default Vue.extend({
 			this.formInput.ident === '' ? undefined : this.$emit('input', this.formInput);
 
 		},
-		selectChange () {
+		selectChange (val) {
 
 			this.$emit('selectChange', this.formSelect);
 
 		},
-		animChange () {
+		publicPartChange (val) {
 
+			this.formSelect.public_part = val.value;
+			this.$emit('selectChange', this.formSelect);
+
+		},
+		historyChange (val) {
+
+			this.formSelect.history = val.value;
+			this.$emit('selectChange', this.formSelect);
+
+		},
+		animChange (val) {
+
+			this.formSelect.user = val;
+			this.$emit('selectChange', this.formSelect);
 			this.$store.commit('currentAnim', this.formSelect.user);
 
 		},
-		defaultAppChange () {
+		defaultAppChange (val) {
 
-			this.$store.commit('currentDefaultApp', this.formSelect.default_app);
+			if (val && val.ident && val.ident !== this.formSelect.default_app) {
+
+				this.formSelect.default_app = val;
+				this.$emit('selectChange', this.formSelect);
+				this.$store.commit('currentDefaultApp', this.formSelect.default_app.ident);
+				console.log(this.$store.getters.currentDefaultApp);
+
+			}
 
 		},
-		skeletonChange () {
+		skeletonChange (val) {
 
-			this.$store.dispatch('getDataSkeleton', {$http: this.$http, lang: this.formSelect.lang, file: this.formSelect.skeletonFile});
+			if (val && val.file !== this.formSelect.skeletonFile.file) {
+
+				this.formSelect.skeletonFile = val; // marche que quand on met .file
+				this.$emit('selectChange', this.formSelect);
+				this.$store.dispatch('getDataSkeleton', {$http: this.$http, lang: this.formSelect.lang.ident, file: this.formSelect.skeletonFile.file});
+
+			}
 
 		}
 
@@ -126,7 +154,8 @@ export default Vue.extend({
 
 				if (value.skeletons[0].name === 'Groupe de travail BureauLib' && !this.group) {
 
-					this.formSelect.skeletonFile = value.skeletons[0].file;
+					this.formSelect.skeletonFile = value.skeletons[0];
+					// this.formSelect.skeletonFile = value.skeletons[0].file; normal
 
 				}
 
@@ -138,6 +167,12 @@ export default Vue.extend({
 
 				});
 
+				this.dataToAddGroupReady.languages.forEach((language) => {
+
+					if (language.ident === this.formSelect.lang) this.formSelect.lang = language;
+
+				});
+
 			}
 
 		},
@@ -146,11 +181,32 @@ export default Vue.extend({
 
 			if (!this.groupToModify) {
 
+				value.applications.application.forEach((app) => {
+
+					if (app.is_group === 1) this.appsOptions.push(app);
+
+				});
+
 				this.formSelect.lang = value.attributes.lang;
 				this.formSelect.default_app = value.attributes.default_app;
 				this.formSelect.history = value.attributes.history;
 				this.formSelect.public_part = value.attributes.public_part;
+
+				this.dataToAddGroupReady.languages.forEach((language) => {
+
+					if (language.ident === this.formSelect.lang) this.formSelect.lang = language;
+
+				});
+
 				this.$store.commit('currentDefaultApp', this.formSelect.default_app);
+
+			} else {
+
+				this.currentSkeleton.applications.application.forEach((app) => {
+
+					if (app.ident === this.groupToModify.group.default_app) this.formSelect.default_app = app;
+
+				});
 
 			}
 

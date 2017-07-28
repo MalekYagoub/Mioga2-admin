@@ -11,7 +11,10 @@ export default Vue.extend({
 	data () {
 
 		return {
-
+			isFilterMenuOn: false,
+			filterChoices: {
+				match: 'begins'
+			}
 		};
 
 	},
@@ -41,6 +44,32 @@ export default Vue.extend({
 
 			this.$store.dispatch('getTeam', {$http: this.$http, rowid: rowid, $router: this.$router});
 
+		},
+		submit () {
+
+			this.$store.dispatch('getFilteredTeams', {$http: this.$http, match: this.filterChoices.match, ident: this.filterChoices.ident});
+			this.isFilterMenuOn = false;
+
+		},
+		destroyFilter () {
+
+			this.$store.commit('filteredTeams');
+			this.filterChoices = {
+				match: 'begins'
+			};
+			this.isFilterMenuOn = false;
+
+		},
+		dispatchAction (action) {
+
+			if (this.checkedTeams.length > 0) {
+
+				let rowIdsData = this.$store.getters.getRowIdsData('teams');
+				let payload = { rowIdsData: rowIdsData, $http: this.$http };
+				this.$store.dispatch(action, payload);
+
+			}
+
 		}
 
 	},
@@ -52,7 +81,8 @@ export default Vue.extend({
 			teams: 'teams',
 			countTeams: 'countTeams',
 			areAllTeamsSelected: 'areAllTeamsSelected',
-			checkedTeams: 'checkedTeams'
+			checkedTeams: 'checkedTeams',
+			filteredTeams: 'filteredTeams'
 
 		})
 

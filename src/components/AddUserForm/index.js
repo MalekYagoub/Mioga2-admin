@@ -78,7 +78,8 @@ export default Vue.extend({
 
 		...mapGetters({
 
-			error: 'error'
+			error: 'error',
+			isLoading: 'isLoading'
 
 		})
 
@@ -88,10 +89,10 @@ export default Vue.extend({
 
 		error (value) {
 
-			console.log(value);
 			if (value === 'email') {
 
 				this.msg = 'Email invalide';
+				this.$store.commit('isLoading');
 
 			}
 

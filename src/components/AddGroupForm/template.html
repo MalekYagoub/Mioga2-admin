@@ -1,56 +1,39 @@
-<div class="add-group-form">
 	<div v-if="groupToModify">
 
 		<div v-if="msg">
 			{{msg}}
 		</div>
 		<form>
+
 			<div>
-				<label> Identifiant : <input type="text" name="firstname" v-model="formInput.ident" @input="inputChange()"></label>
+				<label> Identifiant <input type="text" name="firstname" v-model="formInput.ident" @input="inputChange()"></label>
 			</div>
 			<div>
-				<label> Description : <input type="text" name="lastname" v-model="formInput.description" @input="inputChange()"></label>
+				<label> Description <input type="text" name="lastname" v-model="formInput.description" @input="inputChange()"></label>
 			</div>
-			<div>
-				<label> Langue : 
-					<select  v-model="formSelect.lang" v-on:change="selectChange" 
-					v-if="optionsLoaded">
-						<option v-for="language in dataToAddGroupReady.languages" 
-						v-bind:value="language.ident">
-							{{language.label}}
-						</option>
-					</select>
-				</label>
-			</div>
-			<div>
-				<label> Animateur : 
-					<select  v-model="formSelect.user" v-on:change="selectChange" v-on:change="animChange" v-if="optionsLoaded">
-						<option v-bind:value="user" v-for="user in dataToAddGroupReady.users">
-							{{user.label}}
-						</option>
-					</select>
-				</label>
-			</div>
-			<div v-if="currentSkeleton">
-				<label> Application par défaut : 
-					<select  v-model="formSelect.default_app" v-on:change="selectChange" v-on:change="defaultAppChange" v-if="optionsLoaded">
-						<option v-bind:value="application.ident"
-						v-for="application in currentSkeleton.applications.application">
-							{{application.label}}
-						</option>
-					</select>
-				</label>
-			</div>
-			<div>
+
+			Langue
+			<v-select class="v-select" :value="formSelect.lang" :on-change="selectChange"  
+			:options="dataToAddGroupReady.languages" label="label"></v-select>
+
+			Animateur
+			<v-select class="v-select" :value="formSelect.user" :on-change="animChange"
+			:options="dataToAddGroupReady.users" label="label"></v-select>
+
+			Application par défaut
+			<v-select class="v-select" v-if="groupToModify" v-model="formSelect.default_app" :on-change="defaultAppChange"
+			:options="groupToModify.applications.application"></v-select>
+
+			<div class="button-checkbox-container">
 				<label>
-					Espace public : 
-					<input type="checkbox" value="public_part" v-model="formSelect.public_part" v-on:change="selectChange" checked>
+					Espace public 
+					<toggle-button class="button-checkbox" @change="publicPartChange" :value="formSelect.public_part" :sync="true" :labels="true" color="#b44c55"></toggle-button>
 				</label>
 			</div>
-			<div>
+			<div class="button-checkbox-container">
 				<label>
-					Historique des fichiers : 
-					<input type="checkbox" value="history" v-model="formSelect.history" v-on:change="selectChange" checked>
+					Historique des fichiers 
+					<toggle-button class="button-checkbox" @change="historyChange" :value="formSelect.history" :sync="true" :labels="true" color="#b44c55"></toggle-button>
 				</label>
 			</div>
 		</form>
@@ -58,74 +41,90 @@
 	</div>
 
 
-
 	<div v-else>
- 
-		<div v-if="msg">
-			{{msg}}
+
+		<div v-if="formInput && formSelect.skeletonFile && formSelect.default_app">
+			<form>
+				<div>
+					<label> Identifiant <input type="text" name="firstname" v-model="formInput.ident" @input="inputChange()"></label>
+				</div>
+				<div>
+					<label> Description <input type="text" name="lastname" v-model="formInput.description" @input="inputChange()"></label>
+				</div>
+
+				Langue
+				<v-select class="v-select" :value="formSelect.lang" :on-change="selectChange"  
+				:options="dataToAddGroupReady.languages" label="label"></v-select>
+
+				Animateur
+				<v-select class="v-select" :value="formSelect.user" :on-change="animChange"
+				:options="dataToAddGroupReady.users" label="label"></v-select>
+
+				Squelette
+				<v-select class="v-select" :value.sync="formSelect.skeletonFile" :on-change="skeletonChange"
+				:options="dataToAddGroupReady.skeletons" label="name"></v-select>
+
+				Application par défaut
+				<v-select class="v-select" v-if="currentSkeleton" v-model="formSelect.default_app" :on-change="defaultAppChange"
+				:options="appsOptions"></v-select>
+
+				<div class="button-checkbox-container">
+					<label>
+						Espace public 
+						<toggle-button class="button-checkbox" @change="publicPartChange" :value="formSelect.public_part" :sync="true" :labels="true" color="#b44c55"></toggle-button>
+					</label>
+				</div>
+				<div class="button-checkbox-container">
+					<label>
+						Historique des fichiers 
+						<toggle-button class="button-checkbox" @change="historyChange" :value="formSelect.history" :sync="true" :labels="true" color="#b44c55"></toggle-button>
+					</label>
+				</div>
+
+				<!-- <div>
+					<label> Langue : 
+						<select  v-model="formSelect.lang" v-on:change="selectChange">
+							<option v-for="language in dataToAddGroupReady.languages" 
+							v-bind:value="language.ident"
+							v-bind:selected="language.ident == formSelect.lang">
+								{{language.label}}
+							</option>
+						</select>
+					</label>
+				</div>
+				<div>
+					<label> Animateur 
+						<select  v-model="formSelect.user" v-on:change="selectChange" v-on:change="animChange">
+							<option v-bind:value="user" v-for="user in dataToAddGroupReady.users">
+								{{user.label}}
+							</option>
+						</select>
+					</label>
+				</div>
+				<div>
+					<label> Squelette 
+						<select  v-model="formSelect.skeletonFile" v-on:change="selectChange" v-on:change="skeletonChange">
+							<option :value="skeleton.file" 
+							v-for="skeleton in dataToAddGroupReady.skeletons"
+							v-bind:selected="skeleton.file == formSelect.skeletonFile">
+								{{skeleton.name}}
+							</option>
+						</select>
+					</label>
+				</div>
+				<div v-if="currentSkeleton">
+					<label> Application par défaut 
+						<select  v-model="formSelect.default_app" v-on:change="selectChange" v-on:change="defaultAppChange">
+							<option v-bind:value="application.ident" 
+							v-for="application in currentSkeleton.applications.application"
+							v-bind:selected="application.ident == formSelect.default_app">
+								{{application.label}}
+							</option>
+						</select>
+					</label>
+				</div> -->
+			</form>
 		</div>
-		<form>
-			<div>
-				<label> Identifiant : <input type="text" name="firstname" v-model="formInput.ident" @input="inputChange()"></label>
-			</div>
-			<div>
-				<label> Description : <input type="text" name="lastname" v-model="formInput.description" @input="inputChange()"></label>
-			</div>
-			<div>
-				<label> Langue : 
-					<select  v-model="formSelect.lang" v-on:change="selectChange">
-						<option v-for="language in dataToAddGroupReady.languages" 
-						v-bind:value="language.ident"
-						v-bind:selected="language.ident == formSelect.lang">
-							{{language.label}}
-						</option>
-					</select>
-				</label>
-			</div>
-			<div>
-				<label> Animateur : 
-					<select  v-model="formSelect.user" v-on:change="selectChange" v-on:change="animChange">
-						<option v-bind:value="user" v-for="user in dataToAddGroupReady.users">
-							{{user.label}}
-						</option>
-					</select>
-				</label>
-			</div>
-			<div>
-				<label> Squelette : 
-					<select  v-model="formSelect.skeletonFile" v-on:change="selectChange" v-on:change="skeletonChange">
-						<option :value="skeleton.file" 
-						v-for="skeleton in dataToAddGroupReady.skeletons"
-						v-bind:selected="skeleton.file == formSelect.skeletonFile">
-							{{skeleton.name}}
-						</option>
-					</select>
-				</label>
-			</div>
-			<div v-if="currentSkeleton">
-				<label> Application par défaut : 
-					<select  v-model="formSelect.default_app" v-on:change="selectChange" v-on:change="defaultAppChange">
-						<option v-bind:value="application.ident" 
-						v-for="application in currentSkeleton.applications.application"
-						v-bind:selected="application.ident == formSelect.default_app">
-							{{application.label}}
-						</option>
-					</select>
-				</label>
-			</div>
-			<div>
-				<label>
-					Espace public : 
-					<input type="checkbox" value="public_part" v-model="formSelect.public_part" v-on:change="selectChange" checked>
-				</label>
-			</div>
-			<div>
-				<label>
-					Historique des fichiers : 
-					<input type="checkbox" value="history" v-model="formSelect.history" v-on:change="selectChange" checked>
-				</label>
-			</div>
-		</form>
 
 	</div>	
 </div>

@@ -12,7 +12,9 @@ const state = {
 	checkedUsers: [],
 	user: undefined,
 	passPolicy: undefined,
-	error: undefined
+	error: undefined,
+	userStatuses: undefined,
+	filteredUsers: undefined
 
 };
 
@@ -25,7 +27,9 @@ const getters = {
 	areAllUsersSelected: state => state.areAllUsersSelected,
 	checkedUsers: state => state.checkedUsers,
 	passPolicy: state => state.passPolicy,
-	error: state => state.error
+	error: state => state.error,
+	userStatuses: state => state.userStatuses,
+	filteredUsers: state => state.filteredUsers
 
 };
 
@@ -39,6 +43,7 @@ const actions = {
 
 				response.json().then((data) => {
 
+					console.log(data.items);
 					commit('users', data.items);
 					commit('countUsers', data.items);
 
@@ -80,7 +85,7 @@ const actions = {
 		});
 
 	},
-	setUser: ({store, state, commit}, payload) => {
+	setUser: ({store, state, commit, rootState}, payload) => {
 
 		if (!payload.user.rowid) { // add user
 
@@ -90,11 +95,13 @@ const actions = {
 				if (response.body.errors[0]) commit('error', response.body.errors[0][0]);
 				else {
 
+					commit('isLoading');
 					payload.$router.push({name: 'users'});
 
 				}
 
 			});
+			commit('isLoading');
 
 		} else { // modify user
 
@@ -105,11 +112,13 @@ const actions = {
 				else {
 
 					commit('user');
+					commit('isLoading');
 					payload.$router.push({name: 'users'});
 
 				}
 
 			});
+			commit('isLoading');
 
 		}
 
@@ -131,8 +140,8 @@ const actions = {
 
 		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Bottin/DeleteUser', payload.rowIdsData).then(response => {
 
-			state.checkedUsers = [];
 
+			state.checkedUsers = [];
 			store.dispatch('getUsers', {$http: payload.$http});
 
 		});
@@ -182,6 +191,31 @@ const actions = {
 		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/SetPasswordPolicy.json', {pwd_min_chcase: payload.pwd_min_chcase, pwd_min_digit: payload.pwd_min_digit, pwd_min_length: payload.pwd_min_length, pwd_min_letter: payload.pwd_min_letter, pwd_min_special: payload.pwd_min_special, use_secret_question: payload.use_secret_question}).then(response => {
 
 			payload.$router.push({name: 'users'});
+
+		});
+
+	},
+
+	getUserStatuses: ({state, commit, rootState}, payload) => {
+
+		payload.$http.get('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Bottin/GetUserStatuses.json').then(response => {
+
+			commit('userStatuses', response.body.status);
+
+		});
+
+	},
+
+	getFilteredUsers: ({state, commit, rootState}, payload) => {
+
+		payload.firstname === undefined ? payload.firstname = '' : undefined;
+		payload.lastname === undefined ? payload.lastname = '' : undefined;
+		payload.email === undefined ? payload.email = '' : undefined;
+		payload.status === undefined ? payload.status = '' : undefined;
+
+		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Bottin/GetUserData', {match: payload.match, firstname: payload.firstname, lastname: payload.lastname, email: payload.email, status: payload.status}).then(response => {
+
+			commit('filteredUsers', response.body);
 
 		});
 
@@ -258,6 +292,17 @@ const mutations = {
 	error: (state, error) => {
 
 		state.error = error;
+
+	},
+	userStatuses: (state, statuses) => {
+
+		state.userStatuses = statuses;
+
+	},
+	filteredUsers: (state, users) => {
+
+		if (users) state.filteredUsers = users.items;
+		else state.filteredUsers = undefined;
 
 	}
 

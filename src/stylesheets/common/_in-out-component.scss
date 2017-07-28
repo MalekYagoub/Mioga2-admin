@@ -8,6 +8,7 @@
 
 	text-align: center;
 	font-size: 1.5em;
+	margin-top: 2%;
 	margin-bottom: 2%;
 
 }
@@ -39,8 +40,19 @@
 
 .in-out-titles {
 	padding: 0 2% 3% 2%;
+	margin-top: 2%;
 }
 
 .right {
 	float: right;
+}
+
+.search-bar {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
 }

@@ -4,6 +4,7 @@ import('./styles.scss');
 
 import UsersActionsComponent from '@/components/UsersActions';
 import UsersTableComponent from '@/components/UsersTable';
+import NavBarComponent from '@/components/NavBar';
 
 export default Vue.extend({
 
@@ -28,7 +29,8 @@ export default Vue.extend({
 
 	components: {
 		'usersActions': UsersActionsComponent,
-		'usersTable': UsersTableComponent
+		'usersTable': UsersTableComponent,
+		'navBar': NavBarComponent
 	},
 
 	mounted () {

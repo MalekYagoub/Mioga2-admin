@@ -1,39 +1,49 @@
 <div class="add-user-form">
-	<div v-if="!verifEmail">
-		<div v-if="msg" class="add-user-form__error msg_error">
-			<i class="fa fa-exclamation-circle"></i>
-			{{msg}}
+	<div v-if="!isLoading">
+
+		<div v-if="!verifEmail">
+			<div v-if="msg" class="add-user-form__error msg_error">
+				<i class="fa fa-exclamation-circle"></i>
+				{{msg}}
+			</div>
+
+			<h1 class="add-user-state">Vérification de l'email</h1>
+			<form v-on:submit.prevent="verif">
+				<label>Email <input type="text" name="verifEmail" v-model="email"></label>
+				<input type="submit" name="submit">
+			</form>
+
 		</div>
 
+		<div v-else>
+			<div v-if="msg" class="add-user-form__error msg_error">
+				<i class="fa fa-exclamation-circle"></i>
+				{{msg}}
+			</div>
 
-		<form v-on:submit.prevent="verif">
-			<label>Email <input type="text" name="verifEmail" v-model="email"></label>
-			<input type="submit" name="submit">
-		</form>
+			<h1 class="add-user-state">Ajout d'un utilisateur</h1>
+			<form v-on:submit.prevent="submit">
+				<div>
+					<label> Prénom <input type="text" name="firstname" v-model="firstname"></label>
+				</div>
+				<div>
+					<label> Nom <input type="text" name="lastname" v-model="lastname"></label>
+				</div>
+				<div>
+					<label> Email <input type="text" name="email" v-model="email"></label>
+				</div>
+				<div>
+					<label>Commentaire <textarea v-model="description"></textarea></label>
+				</div>
+				<div><input type="submit" name="submit"></div>
+			</form>
+
+		</div>
 
 	</div>
-
 	<div v-else>
-		<div v-if="msg" class="add-user-form__error msg_error">
-			<i class="fa fa-exclamation-circle"></i>
-			{{msg}}
-		</div>
-
-		<form v-on:submit.prevent="submit">
-			<div>
-				<label> Prénom <input type="text" name="firstname" v-model="firstname"></label>
-			</div>
-			<div>
-				<label> Nom <input type="text" name="lastname" v-model="lastname"></label>
-			</div>
-			<div>
-				<label> Email <input type="text" name="email" v-model="email"></label>
-			</div>
-			<div>
-				<label>Commentaire <textarea v-model="description"></textarea></label>
-			</div>
-			<div><input type="submit" name="submit"></div>
-		</form>
-
+		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+		<span>Chargement</span>
 	</div>
+	
 </div>

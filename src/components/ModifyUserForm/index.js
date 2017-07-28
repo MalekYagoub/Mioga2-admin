@@ -22,7 +22,8 @@ export default Vue.extend({
 	mounted () {
 
 		this.$store.commit('error');
-		this.userValuesToPost = this.user;
+		if (!this.user) this.$router.push({name: 'addUser'});
+		else this.userValuesToPost = this.user;
 
 	},
 
@@ -49,7 +50,8 @@ export default Vue.extend({
 		...mapGetters({
 
 			user: 'user',
-			error: 'error'
+			error: 'error',
+			isLoading: 'isLoading'
 
 		})
 
@@ -62,6 +64,7 @@ export default Vue.extend({
 			if (value === 'email') {
 
 				this.msg = 'Email invalide';
+				this.$store.commit('isLoading');
 
 			}
 

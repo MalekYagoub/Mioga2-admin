@@ -12,6 +12,7 @@
     padding: 0;
     overflow: hidden;
     background-color: $highlight-color;
+    box-shadow: 2px 6px 5px rgba(0, 0, 0, 0.2);
 
     & li {
 	   float: left;
@@ -23,10 +24,12 @@
 	    text-align: center;
 	    padding: 14px 16px;
 	    text-decoration: none;
+	    height: 100%;
+		transition: all 0.3s ease 0s;
 	}
 
 	& li a:hover {
-	    background-color: $color-grey-medium;
+	    background-color: $color-grey-dark;
 	}
 
 }

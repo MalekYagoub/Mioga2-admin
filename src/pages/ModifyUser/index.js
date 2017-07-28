@@ -3,6 +3,7 @@ import Vue from 'vue';
 import('./styles.scss');
 
 import ModifyUserFormComponent from '@/components/ModifyUserForm';
+import NavBarComponent from '@/components/NavBar';
 
 export default Vue.extend({
 
@@ -20,7 +21,8 @@ export default Vue.extend({
 
 	components: {
 
-		'modifyUserForm': ModifyUserFormComponent
+		'modifyUserForm': ModifyUserFormComponent,
+		'navBar': NavBarComponent
 
 	}
 });

@@ -4,8 +4,6 @@
 
 @import 'src/stylesheets/common/_variables';
 
-@import 'src/stylesheets/common/_info';
-
 .add-user-form {
 
 	&__error {
@@ -16,6 +14,12 @@
 
 		margin-bottom: 1%;
 
+	}
+
+	& .add-user-state {
+		font-size: 1.5em;
+		margin-bottom: 2%;
+		text-align: center;
 	}
 
 }

@@ -1,20 +1,147 @@
-<div class="users-table">
-	<table>
-		<tr>
-			<th>✔ <input type="checkbox" v-on:click="selectAllUsers()" v-model="areAllUsersSelected"></th>
-			<th>Identifiant</th>
-			<th>Prénom</th>
-			<th>Nom</th>
-			<th>Email</th>
-			<th>État</th>
-		</tr>
-		<tr v-for="user in users" v-on:dblclick="detailsUser(user.rowid)">
-				<td><input type="checkbox"  v-model="checkedUsers" v-bind:value="user.rowid" v-on:click="checkUser(user.rowid)"></td>
-				<td>{{user.ident}}</td>
-				<td>{{user.firstname}}</td>
-				<td>{{user.lastname}}</td>
-				<td>{{user.email}}</td>
-				<td>{{user.status}}</td>
-		</tr>
+<div class="users-table" v-if="users">
+
+	<!-- <vue-good-table
+		:columns="columns"
+		:rows="users"
+		:paginate="true"
+		:lineNumbers="true">
+		<template scope="user" slot="table-row" class="table-row" v-on:click="checkUser(user.row)">
+				<td>{{ user.row.ident }}</td>
+				<td>{{ user.row.firstname }}</td>
+				<td>{{ user.row.lastname }}</td>
+				<td>{{ user.row.email }}</td>
+				<td>{{ user.row.status }}</td>
+		</template>
+	</vue-good-table> -->
+
+	<div class="filter-block">
+		<ul class="filter-bar">
+			<li v-on:click="selectAllUsers()">
+				<p>
+					<i class="fa fa-check-square-o"> / <i class="fa fa-square-o">
+				</p>
+			</li>
+			<li v-bind:class="[filteredUsers != undefined ? 'filter-active': 'filter-not-active']"
+			@click="isFilterMenuOn = !isFilterMenuOn">
+				<p><i class="fa fa-filter"/> Filtrer</p>
+			</li>
+			<transition name="fade">
+				<li v-if="checkedUsers.length > 0" v-on:click="dispatchAction('emailUsers')"">
+					<p>
+						<i class="fa fa-envelope">
+						Envoyer un lien d’activation
+					</p>
+				</li>
+			</transition>
+			<transition name="fade">
+				<li v-if="checkedUsers.length > 0" v-on:click="dispatchAction('disableUsers')">
+					<p>
+						<i class="fa fa-toggle-off">
+						Désactiver
+					</p>
+				</li>
+			</transition>
+			<transition name="fade">
+				<li v-if="checkedUsers.length > 0" v-on:click="dispatchAction('enableUsers')">
+					<p>
+						<i class="fa fa-toggle-on">
+						Activer
+					</p>
+				</li>
+			</transition>
+			<transition name="fade">
+				<li v-if="checkedUsers.length > 0" v-on:click="dispatchAction('destroyUsers')">
+					<p>
+						<i class="fa fa-trash">
+						Supprimer
+					</p>
+				</li>
+			</transition>
+		</ul>
+
+		<form v-if="isFilterMenuOn" class="filter-form" v-on:submit.prevent>
+			<label>
+				Correspondance 
+				<select v-model="filterChoices.match">
+						<option value="begins">Commence par</option>
+						<option value="contains">Contient</option>
+						<option value="ens">Termine par</option>
+				</select>
+			</label>
+			<label>Prénom <input type="text" name="correspondace" v-model="filterChoices.firstname"></label>
+			<label>Nom <input type="text" name="correspondace" v-model="filterChoices.lastname"></label>
+			<label>Email <input type="text" name="correspondace" v-model="filterChoices.email"></label>
+			<label>
+				État 
+				<select v-model="filterChoices.status">
+					<option v-for="status in userStatuses" v-bind:value="status.ident">
+						{{status.label}}
+					</option>
+				</select>
+			</label>
+			<ul class="buttons-filter">
+				<li>
+					<button @click="submit()" class=" button button--submit submit-filter">Filtrer</button>
+				</li>
+				<li>
+					<button @click="destroyFilter()" class=" button button--submit destroy-filter">Effacer</button>
+				</li>
+			</ul>
+			
+		</form>
+	</div>
+	
+
+	<table v-if="!filteredUsers">
+		<thead>
+			<tr v-on:click="selectAllUsers()">
+				<th>Identifiant</th>
+				<th>Prénom</th>
+				<th>Nom</th>
+				<th>Email</th>
+				<th>État</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="user in users"
+				v-on:dblclick="detailsUser(user.rowid)"
+				v-on:click="checkUser(user)"
+				v-bind:class="[checkedUsers.indexOf(user.rowid) != -1 ? 'checked-item': 'unchecked-item']">
+					<td>{{user.ident}}</td>
+					<td>{{user.firstname}}</td>
+					<td>{{user.lastname}}</td>
+					<td>{{user.email}}</td>
+					<td>{{user.status}}</td>
+			</tr>
+		</tbody>
 	</table>
+
+	<table v-else>
+		<thead>
+			<tr v-on:click="selectAllUsers()">
+				<th>Identifiant</th>
+				<th>Prénom</th>
+				<th>Nom</th>
+				<th>Email</th>
+				<th>État</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="user in filteredUsers" 
+				v-on:dblclick="detailsUser(user.rowid)" 
+				v-on:click="checkUser(user)"
+				v-bind:class="[checkedUsers.indexOf(user.rowid) != -1 ? 'checked-item': 'unchecked-item']">
+					<td>{{user.ident}}</td>
+					<td>{{user.firstname}}</td>
+					<td>{{user.lastname}}</td>
+					<td>{{user.email}}</td>
+					<td>{{user.status}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+<div v-else>
+	<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+	<span>Chargement</span>
 </div>

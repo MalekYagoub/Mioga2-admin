@@ -11,7 +11,10 @@ export default Vue.extend({
 	data () {
 
 		return {
-
+			isFilterMenuOn: false,
+			filterChoices: {
+				match: 'begins'
+			}
 		};
 
 	},
@@ -41,6 +44,32 @@ export default Vue.extend({
 
 			this.$store.dispatch('getGroup', {$http: this.$http, rowid: rowid, $router: this.$router});
 
+		},
+		submit () {
+
+			this.$store.dispatch('getFilteredGroups', {$http: this.$http, match: this.filterChoices.match, ident: this.filterChoices.ident, animator: this.filterChoices.animator});
+			this.isFilterMenuOn = false;
+
+		},
+		destroyFilter () {
+
+			this.$store.commit('filteredGroups');
+			this.filterChoices = {
+				match: 'begins'
+			};
+			this.isFilterMenuOn = false;
+
+		},
+		dispatchAction (action) {
+
+			if (this.checkedGroups.length > 0) {
+
+				let rowIdsData = this.$store.getters.getRowIdsData('groups');
+				let payload = { rowIdsData: rowIdsData, $http: this.$http };
+				this.$store.dispatch(action, payload);
+
+			}
+
 		}
 
 	},
@@ -52,7 +81,8 @@ export default Vue.extend({
 			groups: 'groups',
 			countGroups: 'countGroups',
 			areAllGroupsSelected: 'areAllGroupsSelected',
-			checkedGroups: 'checkedGroups'
+			checkedGroups: 'checkedGroups',
+			filteredGroups: 'filteredGroups'
 
 		})
 

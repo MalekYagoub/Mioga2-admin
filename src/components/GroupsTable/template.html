@@ -1,24 +1,108 @@
-<div class="groups-table">
-	<table>
-		<tr>
-			<th>✔ <input type="checkbox" v-on:click="selectAllGroups()" v-model="areAllGroupsSelected"></th>
-			<th>Identifiant</th>
-			<th>Animateur</th>
-			<th>Utilisateurs</th>
-			<th>Équipes</th>
-			<th>Création</th>
-			<th>Dernière connexion</th>
-			<th>Espace disque</th>
-		</tr>
-		<tr v-for="group in groups" v-on:dblclick="detailsGroup(group.rowid)">
-			<td><input type="checkbox"  v-on:click="checkGroup(group.rowid)" v-model="checkedGroups" v-bind:value="group.rowid"></td> 
-			<td>{{group.ident}}</td>
-			<td>{{group.animator}}</td>
-			<td>{{group.nb_users}}</td>
-			<td>{{group.nb_teams}}</td>
-			<td>{{group.created}}</td>
-			<td>{{group.last_connection}}</td>
-			<td>{{group.disk_space_used}}</td>
-		</tr>
+<div class="groups-table" v-if="groups">
+
+	<div class="filter-block">
+		<ul class="filter-bar">
+			<li v-on:click="selectAllGroups()">
+				<p>
+					<i class="fa fa-check-square-o"> / <i class="fa fa-square-o">
+				</p>
+			</li>
+			<li v-bind:class="[filteredGroups != undefined ? 'filter-active': 'filter-not-active']"
+			@click="isFilterMenuOn = !isFilterMenuOn">
+				<p><i class="fa fa-filter"/> Filtrer</p>
+			</li>
+			<transition name="fade">
+				<li v-if="checkedGroups.length > 0" v-on:click="dispatchAction('destroyGroups')">
+					<p>
+						<i class="fa fa-trash">
+						Supprimer
+					</p>
+				</li>
+			</transition>
+		</ul>
+
+		<form v-if="isFilterMenuOn" class="filter-form" v-on:submit.prevent>
+			<label>
+				Correspondance 
+				<select v-model="filterChoices.match">
+						<option value="begins">Commence par</option>
+						<option value="contains">Contient</option>
+						<option value="ens">Termine par</option>
+				</select>
+			</label>
+			<label>Identifiant<input type="text" name="ident" v-model="filterChoices.ident"></label>
+			<label>Animateur<input type="text" name="animator" v-model="filterChoices.animator"></label>
+			<ul class="buttons-filter">
+				<li>
+					<button @click="submit()" class=" button button--submit submit-filter">Filtrer</button>
+				</li>
+				<li>
+					<button @click="destroyFilter()" class=" button button--submit destroy-filter">Effacer</button>
+				</li>
+			</ul>
+			
+		</form>
+	</div>
+
+	<table v-if="!filteredGroups">
+		<thead>
+			<tr v-on:click="selectAllGroups()">
+				<th>Identifiant</th>
+				<th>Animateur</th>
+				<th>Utilisateurs</th>
+				<th>Équipes</th>
+				<th>Création</th>
+				<th>Dernière connexion</th>
+				<th>Espace disque</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="group in groups" 
+				v-on:dblclick="detailsGroup(group.rowid)" 
+				v-on:click="checkGroup(group.rowid)"
+				v-bind:class="[checkedGroups.indexOf(group.rowid) != -1 ? 'checked-item': 'unchecked-item']">
+				<td>{{group.ident}}</td>
+				<td>{{group.animator}}</td>
+				<td>{{group.nb_users}}</td>
+				<td>{{group.nb_teams}}</td>
+				<td>{{group.created}}</td>
+				<td>{{group.last_connection}}</td>
+				<td>{{group.disk_space_used}}</td>
+			</tr>
+		</tbody>
 	</table>
+
+	<table v-else>
+		<thead>
+			<tr v-on:click="selectAllGroups()">
+				<th>Identifiant</th>
+				<th>Animateur</th>
+				<th>Utilisateurs</th>
+				<th>Équipes</th>
+				<th>Création</th>
+				<th>Dernière connexion</th>
+				<th>Espace disque</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="group in filteredGroups" 
+				v-on:dblclick="detailsGroup(group.rowid)" 
+				v-on:click="checkGroup(group.rowid)"
+				v-bind:class="[checkedGroups.indexOf(group.rowid) != -1 ? 'checked-item': 'unchecked-item']">
+				<td>{{group.ident}}</td>
+				<td>{{group.animator}}</td>
+				<td>{{group.nb_users}}</td>
+				<td>{{group.nb_teams}}</td>
+				<td>{{group.created}}</td>
+				<td>{{group.last_connection}}</td>
+				<td>{{group.disk_space_used}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+
+<div v-else>
+	<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+	<span>Chargement</span>
 </div>

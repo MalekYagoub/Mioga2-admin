@@ -3,6 +3,7 @@ import Vue from 'vue';
 import('./styles.scss');
 
 import AddUserFormComponent from '@/components/AddUserForm';
+import NavBarComponent from '@/components/NavBar';
 
 export default Vue.extend({
 
@@ -19,6 +20,7 @@ export default Vue.extend({
 	methods: {},
 
 	components: {
-		'addUserForm': AddUserFormComponent
+		'addUserForm': AddUserFormComponent,
+		'navBar': NavBarComponent
 	}
 });

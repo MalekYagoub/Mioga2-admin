@@ -1,23 +1,29 @@
 <div class="add-group-users">
-	<h1>Utilisateurs du groupe</h1> <br />
-	<h1>Le groupe ne contient pas :</h1>
-	<ul v-for="userOut in usersOut">
-		<li v-on:click="addGroupUsers(userOut)">
-			{{userOut.label}}
-		</li>
-	</ul> </br>
 
-	<h1>Le groupe contient :</h1>
-	<ul v-for="userIn in usersIn">
+	<h1 class="in-out-type">Utilisateurs du groupe</h1> <br />
 
-		<li v-if ="currentAnim && userIn.rowid === currentAnim.rowid">
-			<span>{{userIn.label}} <i class="fa fa-lock"></span>
-		</li>
-		<li v-else-if="groupToModify && userIn.rowid === groupToModify.group.anim_id && !currentAnim">
-			<span>{{userIn.label}} <i class="fa fa-lock"></span>
-		</li>
-		<li v-on:click="removeGroupUsers(userIn)" v-else>
-			{{userIn.label}}
+	<input v-model="query" class="search-bar" placeholder="Rechercher">
+
+	<div class="in-out-titles">
+		<span class="left">Le groupe ne contient pas</span> <!-- galère avec le cadenas -->
+		<span class="right">Le groupe contient</span>
+	</div>
+
+	<ul class="in-out-list">
+		<li v-for ="user in filteredList" v-bind:class="[detectUser(user) === 1 ? 'in-out-list__in': 'in-out-list__out']">
+			<span v-if="currentAnim && user.rowid === currentAnim.rowid && detectUser(user) === 1">
+				{{user.label}} <i class="fa fa-lock"/>
+			</span>
+			<span v-else-if="groupToModify && user.rowid === groupToModify.group.anim_id && !currentAnim && detectUser(user) === 1">
+				{{user.label}} <i class="fa fa-lock"/>
+			</span>
+			<span v-else-if="detectUser(user) === 1" v-on:click="removeGroupUsers(user)"> <!-- dedans -->
+				{{user.label}}
+			</span>
+			<span v-else v-on:click="addGroupUsers(user)"> <!-- dehors -->
+				{{user.label}}
+			</span>
 		</li>
 	</ul>
+
 </div>

@@ -20,17 +20,6 @@ export default Vue.extend({
 			};
 			this.$store.dispatch('downloadCsv', this.$http);
 
-		},
-		dispatchAction (action) {
-
-			if (this.checkedUsers.length > 0) {
-
-				let rowIdsData = this.$store.getters.getRowIdsData('users');
-				let payload = { rowIdsData: rowIdsData, $http: this.$http };
-				this.$store.dispatch(action, payload);
-
-			}
-
 		}
 
 	},

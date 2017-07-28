@@ -1,25 +1,33 @@
 <div class="modif-user-form">
-	<div v-if="msg" class="modif-user-form__error msg_error">
-		<i class="fa fa-exclamation-circle"></i>
-		{{msg}}
+	<div v-if="!isLoading">
+		<div v-if="msg" class="modif-user-form__error msg_error">
+			<i class="fa fa-exclamation-circle"></i>
+			{{msg}}
+		</div>
+
+		<form v-on:submit.prevent="modifyUser">
+			<div>
+				Prénom : 
+				<input type="text" name="firstname" v-model="userValuesToPost.firstname">
+			</div>
+			<div>
+				Nom : 
+				<input type="text" name="lastname" v-model="userValuesToPost.lastname">
+			</div>
+			<div>
+				Email : 
+				<input type="text" name="email" v-model="userValuesToPost.email">
+			</div>
+			<div>
+				<label>Commentaire : <textarea v-model="userValuesToPost.description"></textarea></label>
+			</div>
+			<input type="submit" name="Modify" value="Modifier">
+		</form>
+	</div>
+	
+	<div v-else>
+		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+		<span>Chargement</span>
 	</div>
 
-	<form v-on:submit.prevent="modifyUser">
-		<div>
-			Prénom : 
-			<input type="text" name="firstname" v-model="userValuesToPost.firstname">
-		</div>
-		<div>
-			Nom : 
-			<input type="text" name="lastname" v-model="userValuesToPost.lastname">
-		</div>
-		<div>
-			Email : 
-			<input type="text" name="email" v-model="userValuesToPost.email">
-		</div>
-		<div>
-			<label>Commentaire : <textarea v-model="userValuesToPost.description"></textarea></label>
-		</div>
-		<input type="submit" name="Modify" value="Modifier">
-	</form>
 </div>

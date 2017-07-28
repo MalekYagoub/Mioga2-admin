@@ -1,0 +1,69 @@
+@import 'src/stylesheets/common/_fonts';
+
+@import 'src/stylesheets/common/_mixins';
+
+@import 'src/stylesheets/common/_variables';
+
+.filter-form {
+    padding: 3%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-right: 2px solid $highlight-color;
+    border-left: 2px solid $highlight-color;
+    border-bottom: 2px solid $highlight-color;
+}
+
+.filter-active {
+    background-color: #45a049;
+}
+
+.buttons-filter {
+    display: flex;
+    justify-content: space-between;
+
+    & li {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        margin: 0 5% 0 5%;
+    }
+}
+
+.filter-bar {
+
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: $highlight-color;
+
+    & li {
+       float: left;
+    }
+
+    & li a, p {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 12px 16px;
+        text-decoration: none;
+        transition: all 0.3s ease 0s;
+    }
+
+    & li a:hover, p:hover {
+        background-color: $color-grey-dark;
+        cursor: pointer;
+    }
+
+}
+
+.filter-block {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}

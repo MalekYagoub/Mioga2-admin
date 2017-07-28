@@ -10,8 +10,11 @@ input[type=text], input[type=password], input[type=number], select, textarea {
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
-    border-radius: 4px;
     box-sizing: border-box;
+}
+
+.v-select {
+    margin: 8px 0 8px 0;
 }
 
 input[type=submit], .button--submit {
@@ -23,10 +26,53 @@ input[type=submit], .button--submit {
     margin-right: 25%;
     margin-left: 25%;
     border: none;
-    border-radius: 4px;
     cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease 0s;
+}
+
+.button-modify-pass-policy {
+    width: 5%;
+    background-color: $highlight-color;
+    color: white;
+    padding: 7px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s ease 0s;
+    margin-left: 2%;
+}
+
+.label-pass-policy {
+    margin-right: 2%;
+    float: left;
+}
+
+.value-pass-policy {
+    font-weight: bold;
+    font-size: 1.2em;
+    float: center;
+    color: $highlight-color;
+}
+
+.button-modify-pass-policy {
+    float: right;
+}
+
+.container-pass-policy {
+    height: 50px;
+    width: 70%;
 }
 
 input[type=submit]:hover, .button--submit:hover {
-    background-color: #45a049;
+    background-color: #903d44;
+}
+
+.button-checkbox-container {
+    margin-top: 2%;
+    width: 25%;
+}
+
+.button-checkbox {
+    float: right;
 }

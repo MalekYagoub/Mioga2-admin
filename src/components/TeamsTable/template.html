@@ -1,16 +1,95 @@
-<div class="teams-table">
-	<table>
-		<tr>
-			<th>✔ <input type="checkbox" v-on:click="selectAllTeams()" v-model="areAllTeamsSelected"></th>
-			<th>Identifiant</th>
-			<th>Utilisateurs</th>
-			<th>Groupes</th>
-		</tr>
-		<tr v-for="team in teams" v-on:dblclick="detailsTeam(team.rowid)">
-			<td><input type="checkbox" v-on:click="checkTeam(team.rowid)" v-model="checkedTeams" v-bind:value="team.rowid"></td> 
-			<td>{{team.ident}}</td>
-			<td>{{team.nb_users}}</td>
-			<td>{{team.nb_groups}}</td>
-		</tr>
+<div class="teams-table" v-if="teams">
+
+	<div class="filter-block">
+		<ul class="filter-bar">
+			<li v-on:click="selectAllTeams()">
+				<p>
+					<i class="fa fa-check-square-o"> / <i class="fa fa-square-o">
+				</p>
+			</li>
+			<li v-bind:class="[filteredTeams != undefined ? 'filter-active': 'filter-not-active']"
+			@click="isFilterMenuOn = !isFilterMenuOn">
+				<p>
+					<i class="fa fa-filter"/>
+					Filtrer
+				</p>
+			</li>
+			<transition name="fade">
+				<li v-if="checkedTeams.length > 0" v-on:click="dispatchAction('destroyTeams')"">
+					<p>
+						<i class="fa fa-trash">
+						Supprimer équipe(s)
+					</p>
+				</li>
+			</transition>
+		</ul>
+
+		<form v-if="isFilterMenuOn" class="filter-form" v-on:submit.prevent>
+			<label>
+				Correspondance 
+				<select v-model="filterChoices.match">
+						<option value="begins">Commence par</option>
+						<option value="contains">Contient</option>
+						<option value="ens">Termine par</option>
+				</select>
+			</label>
+			<label>Identifiant <input type="text" name="ident" v-model="filterChoices.ident"></label>
+
+			<ul class="buttons-filter">
+				<li>
+					<button @click="submit()" class=" button button--submit submit-filter">Filtrer</button>
+				</li>
+				<li>
+					<button @click="destroyFilter()" class=" button button--submit destroy-filter">Effacer</button>
+				</li>
+			</ul>
+			
+		</form>
+	</div>
+
+	<table v-if="!filteredTeams">
+		<thead>
+			<tr v-on:click="selectAllTeams()">
+				<th>Identifiant</th>
+				<th>Utilisateurs</th>
+				<th>Groupes</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="team in teams" 
+				v-on:dblclick="detailsTeam(team.rowid)" 
+				v-on:click="checkTeam(team.rowid)"
+				v-bind:class="[checkedTeams.indexOf(team.rowid) != -1 ? 'checked-item': 'unchecked-item']"
+				>
+				<td>{{team.ident}}</td>
+				<td>{{team.nb_users}}</td>
+				<td>{{team.nb_groups}}</td>
+			</tr>
+		</tbody>
 	</table>
+
+	<table v-else>
+		<thead>
+			<tr v-on:click="selectAllTeams()">
+				<th>Identifiant</th>
+				<th>Utilisateurs</th>
+				<th>Groupes</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="team in filteredTeams" 
+				v-on:dblclick="detailsTeam(team.rowid)" 
+				v-on:click="checkTeam(team.rowid)"
+				v-bind:class="[checkedTeams.indexOf(team.rowid) != -1 ? 'checked-item': 'unchecked-item']">
+				<td>{{team.ident}}</td>
+				<td>{{team.nb_users}}</td>
+				<td>{{team.nb_groups}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div v-else>
+	<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+	<span>Chargement</span>
 </div>

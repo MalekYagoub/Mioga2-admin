@@ -1,16 +1,23 @@
 <div class="add-group-team">
-	<h1>Équipes du groupe</h1> <br />
-	<h1>Le groupe ne contient pas :</h1>
-	<ul v-for="teamOut in teamsOut">
-		<li v-on:click="addGroupTeams(teamOut)">
-			{{teamOut.ident}}
-		</li>
-	</ul> </br>
 
-	<h1>Le groupe contient :</h1>
-	<ul v-for="teamIn in teamsIn">
-		<li v-on:click="removeGroupTeams(teamIn)">
-			{{teamIn.ident}}
+	<h1 class="in-out-type">Équipes du groupe</h1> <br />
+
+	<input v-model="query" class="search-bar" placeholder="Rechercher">
+
+	<div class="in-out-titles">
+		<span class="left">Le groupe ne contient pas</span>
+		<span class="right">Le groupe contient</span>
+	</div>
+
+	<ul class="in-out-list">
+		<li v-for ="team in filteredList" v-bind:class="[detectTeam(team) === 1 ? 'in-out-list__in': 'in-out-list__out']">
+			<span v-if="detectTeam(team) === 1" v-on:click="removeGroupTeams(team)"> <!-- dedans -->
+				{{team.ident}}
+			</span>
+			<span v-else v-on:click="addGroupTeams(team)"> <!-- dehors -->
+				{{team.ident}}
+			</span>
 		</li>
 	</ul>
+
 </div>

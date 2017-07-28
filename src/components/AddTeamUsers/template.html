@@ -2,13 +2,16 @@
 
 	<h1 class="in-out-type">Utilisateurs de l'équipe</h1> <br />
 
+	<input v-model="query" class="search-bar" placeholder="Rechercher">
+
 	<div class="in-out-titles">
 		<span class="left">L'équipe ne contient pas</span>
 		<span class="right">L'équipe contient</span>
 	</div>
 
 	<ul class="in-out-list">
-		<li v-for ="user in allUsersInOut" v-bind:class="[detectUser(user) === 1 ? 'in-out-list__in': 'in-out-list__out']">
+
+		<li v-for ="user in filteredList" v-bind:class="[detectUser(user) === 1 ? 'in-out-list__in': 'in-out-list__out']">
 			<span v-if="detectUser(user) === 1" v-on:click="removeUserTeam(user)"> <!-- dedans -->
 				{{user.label}}
 			</span>
@@ -16,6 +19,7 @@
 				{{user.label}}
 			</span>
 		</li>
+
 	</ul>
 
 </div>

@@ -36,7 +36,6 @@ export default Vue.extend({
 		} else {
 
 			this.rowid = this.team.team.rowid;
-			console.log(this.rowid);
 			this.$store.commit('team', undefined);
 
 		}
@@ -78,7 +77,8 @@ export default Vue.extend({
 		},
 		submit () {
 
-			if (this.dataInput.ident) {
+			if (!this.dataInput.ident) this.msg = 'Insérez un identifiant';
+			else {
 
 				let payload;
 				if (!this.rowid) payload = {$http: this.$http, $router: this.$router, data: {dataInput: this.dataInput, dataTeamUsers: this.dataTeamUsers, dataTeamGroups: this.dataTeamGroups}};
@@ -95,7 +95,8 @@ export default Vue.extend({
 		...mapGetters({
 
 			responseAddTeam: 'responseAddTeam',
-			team: 'team'
+			team: 'team',
+			isLoading: 'isLoading'
 
 		})
 

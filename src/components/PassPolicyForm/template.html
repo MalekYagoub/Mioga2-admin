@@ -1,34 +1,47 @@
 <div class="pass-policy-form">
 
+	<div>
+		<label> Sécuriser les mots de passe par une question secrète
+		<toggle-button @change="changeSecretQuestionState" :value="secretQuestion" :sync="true" :labels="true" color="#b44c55"></toggle-button>
+		</label>
+	</div> <br />
+
+	<div class="container-pass-policy">
+		<span class="label-pass-policy">Longueur Minimale</span>
+		<span class="value-pass-policy">{{minLength}}</span>
+		<button class="button-modify-pass-policy" v-on:click="minPassPolicyChange({sign: '+', value: 'length'})">+</button>
+		<button class="button-modify-pass-policy" v-on:click="minPassPolicyChange({sign: '-', value: 'length'})">-</button>
+	</div>
+
+	<div class="container-pass-policy">
+		<span class="label-pass-policy">Nombre minimal de lettres</span>
+		<span class="value-pass-policy">{{minLetter}}</span>
+		<button class="button-modify-pass-policy" v-on:click="minPassPolicyChange({sign: '+', value: 'letter'})">+</button>
+		<button class="button-modify-pass-policy" v-on:click="minPassPolicyChange({sign: '-', value: 'letter'})">-</button>
+	</div>
+
+	<div class="container-pass-policy">
+		<span class="label-pass-policy">Nombre minimal de chiffres</span>
+		<span class="value-pass-policy">{{minDigit}}</span>
+		<button class="button-modify-pass-policy" v-on:click="minPassPolicyChange({sign: '+', value: 'digit'})">+</button>
+		<button class="button-modify-pass-policy" v-on:click="minPassPolicyChange({sign: '-', value: 'digit'})">-</button>
+	</div>
+
+	<div class="container-pass-policy">
+		<span class="label-pass-policy">Nombre minimal de caractères spéciaux</span>
+		<span class="value-pass-policy">{{minSpecialChar}}</span>
+		<button class="button-modify-pass-policy" v-on:click="minPassPolicyChange({sign: '+', value: 'specialChar'})">+</button>
+		<button class="button-modify-pass-policy" v-on:click="minPassPolicyChange({sign: '-', value: 'specialChar'})">-</button>
+	</div>
+
+	<div class="container-pass-policy">
+		<span class="label-pass-policy">Nombre minimal de changements de casse</span>
+		<span class="value-pass-policy">{{minModifCase}}</span>
+		<button class="button-modify-pass-policy" v-on:click="minPassPolicyChange({sign: '+', value: 'modifCase'})">+</button>
+		<button class="button-modify-pass-policy" v-on:click="minPassPolicyChange({sign: '-', value: 'modifCase'})">-</button>
+	</div>
+
 	<form v-on:submit.prevent="submit">
-		<div>
-			<label> Sécuriser les mots de passe par une question secrète <input type="checkbox" name="secretQuestion" v-model="secretQuestion"></label>
-		</div> <br />
-		<div>
-			<label> Longueur Minimale 
-				<input type="number" name="minLength" v-model="minLength">
-			</label>
-		</div>
-		<div>
-			<label> Nombre minimal de lettres 
-				<input type="number" name="minLetter" v-model="minLetter">
-			</label>
-		</div>
-		<div>
-			<label> Nombre minimal de chiffres 
-				<input type="number" name="minDigit" v-model="minDigit">
-			</label>
-		</div>
-		<div>
-			<label> Nombre minimal de caractères spéciaux 
-				<input type="number" name="minSpecialChar" v-model="minSpecialChar">
-			</label>
-		</div>
-		<div>
-			<label> Nombre minimal de changements de casse
-				<input type="number" name="minModifCase" v-model="minModifCase">
-			</label>
-		</div>
 		<div><input type="submit" name="submit"></div>
 	</form>
 

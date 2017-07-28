@@ -15,7 +15,8 @@ export default Vue.extend({
 			usersIn: [],
 			usersOut: [],
 			allUsersInOut: [],
-			groupToModify: undefined
+			groupToModify: undefined,
+			query: ''
 
 		};
 
@@ -66,7 +67,27 @@ export default Vue.extend({
 			currentAnim: 'currentAnim',
 			group: 'group'
 
-		})
+		}),
+		filteredList: function () {
+
+			this.allUsersInOut.sort((userA, userB) => { // tri alphabétique
+
+				let labelA = userA.label.toLowerCase();
+				let labelB = userB.label.toLowerCase();
+				if (labelA < labelB) return -1;
+				else if (labelA > labelB) return 1;
+				else return 0;
+
+			});
+
+			let vm = this;
+			return this.allUsersInOut.filter(function (user) {
+
+				return user.label.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1;
+
+			});
+
+		}
 
 	},
 
@@ -74,7 +95,13 @@ export default Vue.extend({
 
 		addGroupUsers (user) {
 
-			let index = this.usersOut.indexOf(user);
+			let index;
+			this.usersOut.forEach((userOut) => {
+
+				if (userOut.rowid === user.rowid) index = this.usersOut.indexOf(userOut);
+
+			});
+
 			this.usersIn.push(user);
 			this.usersOut.splice(index, 1);
 			this.$emit('groupUsers', this.usersIn);
@@ -82,10 +109,34 @@ export default Vue.extend({
 		},
 		removeGroupUsers (user) {
 
-			let index = this.usersIn.indexOf(user);
+			let index;
+			this.usersIn.forEach((userIn) => {
+
+				if (userIn.rowid === user.rowid) index = this.usersIn.indexOf(userIn);
+
+			});
+
 			this.usersOut.unshift(user);
 			this.usersIn.splice(index, 1);
 			this.$emit('groupUsers', this.usersIn);
+
+		},
+		detectUser (user) {
+
+			let userIsOut;
+			for (let i = 0; i < this.usersOut.length; i++) {
+
+				if (this.usersOut[i].rowid === user.rowid) { // si le user est dehors
+
+					userIsOut = true;
+					break;
+
+				}
+
+			}
+
+			if (userIsOut) return 0; // dehors
+			else return 1; // dedans
 
 		}
 

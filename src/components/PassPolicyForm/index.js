@@ -34,6 +34,27 @@ export default Vue.extend({
 
 			this.$store.dispatch('setPassPolicy', {$http: this.$http, $router: this.$router, pwd_min_length: this.minLength, pwd_min_letter: this.minLetter, pwd_min_digit: this.minDigit, pwd_min_special: this.minSpecialChar, pwd_min_chcase: this.minModifCase, use_secret_question: this.secretQuestion});
 
+		},
+		changeSecretQuestionState () {
+
+			this.secretQuestion = !this.secretQuestion;
+			console.log(this.secretQuestion);
+
+		},
+		minPassPolicyChange (payload) {
+
+			payload.sign === '+' && payload.value === 'length' ? this.minLength += 1
+			: payload.sign === '-' && payload.value === 'length' ? this.minLength -= 1
+			: payload.sign === '+' && payload.value === 'letter' ? this.minLetter += 1
+			: payload.sign === '-' && payload.value === 'letter' ? this.minLetter -= 1
+			: payload.sign === '+' && payload.value === 'digit' ? this.minDigit += 1
+			: payload.sign === '-' && payload.value === 'digit' ? this.minDigit -= 1
+			: payload.sign === '+' && payload.value === 'specialChar' ? this.minSpecialChar += 1
+			: payload.sign === '-' && payload.value === 'specialChar' ? this.minSpecialChar -= 1
+			: payload.sign === '+' && payload.value === 'modifCase' ? this.minModifCase += 1
+			: payload.sign === '-' && payload.value === 'modifCase' ? this.minModifCase -= 1
+			: undefined;
+
 		}
 
 	},
@@ -52,7 +73,6 @@ export default Vue.extend({
 
 		passPolicy (value) {
 
-			console.log(value);
 			this.secretQuestion = value.use_secret_question;
 			this.minLength = value.pwd_min_length;
 			this.minLetter = value.pwd_min_letter;

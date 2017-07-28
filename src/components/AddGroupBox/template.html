@@ -1,28 +1,38 @@
 <div class="add-group-box">
 
-	<ul class="box-actions-buttons">
-		<li><button @click="setAction('addGroupForm')">Attributs du groupe</button></li>
-		<li><button @click="setAction('addGroupUsers')">Utilisateurs du groupe</button></li>
-		<li><button @click="setAction('addGroupTeams')">équipes du groupe</button></li>
-		<li><button @click="setAction('addGroupApps')">Applications du groupe</button></li>
-	</ul>
-	
-	<div class="msg">
-		{{msg}}
-	</div>
+	<div v-if="!isLoading">
 
-	<div v-show="action==='addGroupForm'">
-		<addGroupForm v-on:input="saveInput" v-on:selectChange="saveSelect"></addGroupForm>
+		<ul class="box-actions-buttons">
+			<li><button @click="setAction('addGroupForm')">Attributs du groupe</button></li>
+			<li><button @click="setAction('addGroupUsers')">Utilisateurs du groupe</button></li>
+			<li><button @click="setAction('addGroupTeams')">Équipes du groupe</button></li>
+			<li><button @click="setAction('addGroupApps')">Applications du groupe</button></li>
+		</ul>
+		
+		<div v-if="msg" class="msg msg_error">
+			<i class="fa fa-exclamation-circle"></i>
+			{{msg}}
+		</div>
+
+		<div v-show="action==='addGroupForm'">
+			<addGroupForm v-on:input="saveInput" v-on:selectChange="saveSelect"></addGroupForm>
+		</div>
+		<div v-show="action==='addGroupUsers'">
+			<addGroupUsers v-on:groupUsers="saveGroupUsers"></addGroupUsers>
+		</div>
+		<div v-show="action==='addGroupTeams'">
+			<addGroupTeams v-on:groupTeams="saveGroupTeams"></addGroupTeams>
+		</div>
+		<div v-show="action==='addGroupApps'">
+			<addGroupApps v-on:groupApps="saveGroupApps"></addGroupApps>
+		</div>
+		<button @click="submit()" class=" button button--submit">Valider</button>
+
 	</div>
-	<div v-show="action==='addGroupUsers'">
-		<addGroupUsers v-on:groupUsers="saveGroupUsers"></addGroupUsers>
+	<div v-else>
+		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+		<span>Chargement</span>
 	</div>
-	<div v-show="action==='addGroupTeams'">
-		<addGroupTeams v-on:groupTeams="saveGroupTeams"></addGroupTeams>
-	</div>
-	<div v-show="action==='addGroupApps'">
-		<addGroupApps v-on:groupApps="saveGroupApps"></addGroupApps>
-	</div>
-	<button @click="submit()" class=" button button--submit">Valider</button>
+	
 
 </div>

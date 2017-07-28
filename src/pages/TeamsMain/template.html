@@ -1,8 +1,5 @@
 <div class="teams">
-	<ul class="nav-bar">
-		<li><a @click="$router.push('/')" tag="button" class="button"><i class="fa fa-arrow-left"/></a></li>
-		<li><p>Gérer les équipes</p></li>
-	</ul>
+	<navBar route="/" action="Gérer les équipes"></navBar>
 	<div class="teams__menu">
 		<teamsActions class="teams__menu__actions"></teamsActions> 
 		<teamsTable class="teams__menu__table teams__menu__table--large"></teamsTable>

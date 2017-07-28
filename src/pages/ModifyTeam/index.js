@@ -3,6 +3,7 @@ import Vue from 'vue';
 import('./styles.scss');
 
 import AddTeamBoxComponent from '@/components/AddTeamBox';
+import NavBarComponent from '@/components/NavBar';
 
 export default Vue.extend({
 
@@ -20,7 +21,8 @@ export default Vue.extend({
 
 	components: {
 
-		'addTeamBox': AddTeamBoxComponent
+		'addTeamBox': AddTeamBoxComponent,
+		'navBar': NavBarComponent
 
 	}
 });
