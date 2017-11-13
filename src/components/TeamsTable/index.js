@@ -82,7 +82,8 @@ export default Vue.extend({
 			countTeams: 'countTeams',
 			areAllTeamsSelected: 'areAllTeamsSelected',
 			checkedTeams: 'checkedTeams',
-			filteredTeams: 'filteredTeams'
+			filteredTeams: 'filteredTeams',
+			loadingActionTeams: 'loadingActionTeams'
 
 		})
 

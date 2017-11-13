@@ -4,6 +4,8 @@ import('./styles.scss');
 
 import ModifyUserFormComponent from '@/components/ModifyUserForm';
 import NavBarComponent from '@/components/NavBar';
+import BreadcrumbComponent from '@/components/Breadcrumb';
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
 
@@ -13,16 +15,36 @@ export default Vue.extend({
 
 	data () {
 
-		return {};
+		return {
+			userFullName: ''
+		};
 
 	},
 
-	methods: {},
+	methods: {
+
+	},
 
 	components: {
 
 		'modifyUserForm': ModifyUserFormComponent,
-		'navBar': NavBarComponent
+		'navBar': NavBarComponent,
+		'breadcrumb': BreadcrumbComponent
 
+	},
+
+	mounted () {
+
+		this.userFullName = JSON.parse(JSON.stringify(this.user.firstname + ' ' + this.user.lastname));
+
+	},
+
+	computed: {
+
+		...mapGetters({
+
+			user: 'user'
+
+		})
 	}
 });

@@ -1,7 +1,51 @@
 <div class="groups">
-	<navBar route="/" action="Gérer les groupes"></navBar>
-	<div class="groups__menu">
-		<groupsActions class="groups__menu__actions"></groupsActions>
-		<groupsTable class="groups__menu__table groups__menu__table--large"></groupsTable>
+
+	<Slideout class="responsiveDisplay" menu="#menu" panel="#panel" :toggleSelectors="['.toggle-button']">
+		<nav id="menu">
+			<ul class="menuList">
+				<li>
+					Groupes
+				</li>
+				<li>
+					<router-link :to="{name: 'addGroup'}" tag="button" class="slideout-button">
+						<i class="fa fa-plus"></i>
+						Ajouter un groupe
+					</router-link>
+				</li>
+			</ul>
+		</nav>
+		<main id="panel">
+			<header>
+				<div>
+					<button class="button-action-float toggle-button"><i class="fa fa-arrow-right"></i></button>
+					<navBar></navBar>
+
+					<div v-if="feedbackGroups" class="msg msg_success">
+						<i class="fa fa-check"></i>
+						{{feedbackGroups}}
+					</div>
+
+					<div class="groups__menu">
+						<groupsActions class="groups__menu__actions"></groupsActions>
+						<groupsTable class="groups__menu__table groups__menu__table--large"></groupsTable>
+					</div>
+				</div>
+			</header>
+		</main>
+	</Slideout>
+
+	<div class="normalDisplay">
+		<navBar route="/" action="Gérer les groupes"></navBar>
+
+		<div v-if="feedbackGroups" class="msg msg_success">
+			<i class="fa fa-check"></i>
+			{{feedbackGroups}}
+		</div>
+
+		<div class="groups__menu">
+			<groupsActions class="groups__menu__actions"></groupsActions>
+			<groupsTable class="groups__menu__table groups__menu__table--large"></groupsTable>
+		</div>
 	</div>
+
 </div>

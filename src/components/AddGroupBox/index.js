@@ -39,6 +39,7 @@ export default Vue.extend({
 		} else {
 
 			this.rowid = this.group.group.rowid;
+			this.$emit('groupIdent', this.group.group.ident);
 			this.$store.commit('group', undefined);
 
 		}

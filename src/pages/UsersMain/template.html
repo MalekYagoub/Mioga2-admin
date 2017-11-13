@@ -1,8 +1,71 @@
 <div class="users">
-	<navBar route="Administration > Utilisateurs"></navBar>
-	<div class="users__menu">
-		<usersActions class="users__menu__actions"></usersActions>
-		<usersTable class="users__menu__table users__menu__table--large"></usersTable>
+
+	<Slideout class="responsiveDisplay" menu="#menu" panel="#panel" :toggleSelectors="['.toggle-button']">
+		<nav id="menu">
+			<ul class="menuList">
+				<li>
+					Utilisateurs
+				</li>
+				<li>
+					<router-link :to="{name: 'addUser'}" tag="button" class="slideout-button">
+						<i class="fa fa-plus"></i>
+						Ajouter un utilisateur
+					</router-link>
+				</li>
+				<li>
+					<router-link :to="{name: 'importUsers'}" tag="button" class="slideout-button">
+						<i class="fa fa-download"></i>
+						Importer des utilisateurs
+					</router-link>
+				</li>
+				<li>
+					<button v-on:click="downloadCsv()" class="slideout-button">
+						<i class="fa fa-upload"></i>
+						Exporter des utilisateurs
+					</button>
+				</li>
+				<li>
+					<router-link :to="{name: 'passPolicy'}" tag="button" class="slideout-button">
+						<i class="fa fa-key"></i>
+						Politique de mots de passe
+					</router-link>
+				</li>
+			</ul>
+		</nav>
+		<main id="panel">
+			<header>
+				<div>
+					<button class="button-action-float toggle-button">
+						<i class="fa fa-arrow-right"></i>
+					</button>
+					<navBar></navBar>
+
+					<div v-if="feedbackUsers" class="msg msg_success">
+						<i class="fa fa-check"></i>
+						{{feedbackUsers}}
+					</div>
+					
+					<div class="users__menu">
+						<usersActions class="users__menu__actions"></usersActions>
+						<usersTable class="users__menu__table users__menu__table--large"></usersTable>
+					</div>
+				</div>
+			</header>
+		</main>
+	</Slideout>
+
+	<div class="normalDisplay">
+		<navBar></navBar>
+
+		<div v-if="feedbackUsers" class="msg msg_success">
+			<i class="fa fa-check"></i>
+			{{feedbackUsers}}
+		</div>
+
+		<div class="users__menu">
+			<usersActions class="users__menu__actions"></usersActions>
+			<usersTable class="users__menu__table users__menu__table--large"></usersTable>
+		</div>
 	</div>
-	
+		
 </div>

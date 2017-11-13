@@ -1,25 +1,25 @@
 <div class="users-actions">
 	<div>
 		<router-link :to="{name: 'addUser'}" tag="button" class="action-button">
-			<i class="fa fa-plus">
-			Ajouter
+			<i class="fa fa-plus"></i>
+			Ajouter un utilisateur
 		</router-link>
 	</div>
 	<div>
 		<router-link :to="{name: 'importUsers'}" tag="button" class="action-button">
-			<i class="fa fa-download">
-			Importer
+			<i class="fa fa-download"></i>
+			Importer des utilisateurs
 		</router-link>
 	</div>
 	<div>
 		<button v-on:click="downloadCsv()" class="action-button">
-			<i class="fa fa-upload">
-			Exporter
+			<i class="fa fa-upload"></i>
+			Exporter des utilisateurs
 		</button>
 	</div>
 	<div>
 		<router-link :to="{name: 'passPolicy'}" tag="button" class="action-button">
-			<i class="fa fa-key">
+			<i class="fa fa-key"></i>
 			Politique de mots de passe
 		</router-link>
 	</div>

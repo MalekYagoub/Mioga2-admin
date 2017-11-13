@@ -1,8 +1,8 @@
 {
   "name": "vue2-webpack-starter",
   "version": "1.0.0",
-  "description": "A starter kit with Vue 2 and Webpack",
-  "author": "Kevin Moutier",
+  "description": "Mioga2 admin web app",
+  "author": "Kevin Moutier / Malek Yagoub",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",

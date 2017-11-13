@@ -1,4 +1,5 @@
 <div class="add-user">
 	<navBar route="/users" action="Ajouter un utilisateur"></navBar>
+	<breadcrumb :paths="[{route: '/users', name: 'Utilisateurs'}, {name: 'Ajouter un utilisateur'}]"></breadcrumb>
 	<addUserForm class="add-user__form"></addUserForm>
 </div>

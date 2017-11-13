@@ -1,7 +1,64 @@
 <div class="teams">
-	<navBar route="/" action="Gérer les équipes"></navBar>
-	<div class="teams__menu">
-		<teamsActions class="teams__menu__actions"></teamsActions> 
-		<teamsTable class="teams__menu__table teams__menu__table--large"></teamsTable>
+
+	<Slideout class="responsiveDisplay" menu="#menu" panel="#panel" :toggleSelectors="['.toggle-button']">
+		<nav id="menu">
+			<ul class="menuList">
+				<li>
+					Équipes
+				</li>
+				<li>
+					<router-link :to="{name: 'addTeam'}" tag="button" class="slideout-button">
+						<i class="fa fa-plus"></i>
+						Ajouter une équipe
+					</router-link>
+				</li>
+				<li>
+					<router-link :to="{name: 'teamGroupReport'}" tag="button" class="slideout-button">
+						<i class="fa fa-address-book"/></i>
+						Synthèse des affectations aux groupes
+					</router-link>
+				</li>
+				<li>
+					<button v-on:click="downloadCsv()" class="slideout-button">
+						<i class="fa fa-upload"></i>
+						Exporter la synthèse des affectations aux groupes
+					</button>
+				</li>
+			</ul>
+		</nav>
+		<main id="panel">
+			<header>
+				<div>
+					<button class="button-action-float toggle-button"><i class="fa fa-arrow-right"></i>
+</button>
+					<navBar></navBar>
+
+					<div v-if="feedbackTeams" class="msg msg_success">
+						<i class="fa fa-check"></i>
+						{{feedbackTeams}}
+					</div>
+
+					<div class="teams__menu">
+						<teamsActions class="teams__menu__actions"></teamsActions> 
+						<teamsTable class="teams__menu__table teams__menu__table--large"></teamsTable>
+					</div>
+				</div>
+			</header>
+		</main>
+	</Slideout>
+
+	<div class="normalDisplay">
+		<navBar route="/" action="Gérer les équipes"></navBar>
+
+		<div v-if="feedbackTeams" class="msg msg_success">
+			<i class="fa fa-check"></i>
+			{{feedbackTeams}}
+		</div>
+
+		<div class="teams__menu">
+			<teamsActions class="teams__menu__actions"></teamsActions> 
+			<teamsTable class="teams__menu__table teams__menu__table--large"></teamsTable>
+		</div>
 	</div>
+
 </div>

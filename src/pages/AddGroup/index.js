@@ -5,6 +5,7 @@ import('./styles.scss');
 import AddGroupBoxComponent from '@/components/AddGroupBox';
 import NavBarComponent from '@/components/NavBar';
 import { mapGetters } from 'vuex';
+import BreadcrumbComponent from '@/components/Breadcrumb';
 
 export default Vue.extend({
 
@@ -27,7 +28,8 @@ export default Vue.extend({
 	components: {
 
 		'addGroupBox': AddGroupBoxComponent,
-		'navBar': NavBarComponent
+		'navBar': NavBarComponent,
+		'breadcrumb': BreadcrumbComponent
 
 	},
 	computed: {

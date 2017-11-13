@@ -2,7 +2,7 @@
 
 	<div v-if="!isLoading">
 
-		<ul class="box-actions-buttons">
+		<ul class="box-actions-buttons--groups box-actions-buttons">
 			<li><button @click="setAction('addGroupForm')">Attributs du groupe</button></li>
 			<li><button @click="setAction('addGroupUsers')">Utilisateurs du groupe</button></li>
 			<li><button @click="setAction('addGroupTeams')">Équipes du groupe</button></li>
@@ -30,8 +30,7 @@
 
 	</div>
 	<div v-else>
-		<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-		<span>Chargement</span>
+		<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
 	</div>
 	
 

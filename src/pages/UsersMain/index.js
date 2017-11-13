@@ -5,6 +5,9 @@ import('./styles.scss');
 import UsersActionsComponent from '@/components/UsersActions';
 import UsersTableComponent from '@/components/UsersTable';
 import NavBarComponent from '@/components/NavBar';
+import BreadcrumbComponent from '@/components/Breadcrumb';
+import Slideout from 'vue-slideout';
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
 
@@ -15,12 +18,17 @@ export default Vue.extend({
 	data () {
 
 		return {
+			menuIsActive: false
 		};
 
 	},
 
 	computed: {
+		...mapGetters({
 
+			feedbackUsers: 'feedbackUsers'
+
+		})
 	},
 
 	methods: {
@@ -30,7 +38,9 @@ export default Vue.extend({
 	components: {
 		'usersActions': UsersActionsComponent,
 		'usersTable': UsersTableComponent,
-		'navBar': NavBarComponent
+		'navBar': NavBarComponent,
+		'breadcrumb': BreadcrumbComponent,
+		Slideout
 	},
 
 	mounted () {

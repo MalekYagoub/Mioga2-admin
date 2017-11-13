@@ -4,6 +4,7 @@ import('./styles.scss');
 
 import AddGroupBoxComponent from '@/components/AddGroupBox';
 import NavBarComponent from '@/components/NavBar';
+import BreadcrumbComponent from '@/components/Breadcrumb';
 
 export default Vue.extend({
 
@@ -13,16 +14,30 @@ export default Vue.extend({
 
 	data () {
 
-		return {};
+		return {
+
+			groupIdentToModify: ''
+
+		};
 
 	},
 
-	methods: {},
+	methods: {
+
+		saveGroupIdent (ident) {
+
+			console.log(ident);
+			this.groupIdentToModify = ident;
+
+		}
+
+	},
 
 	components: {
 
 		'addGroupBox': AddGroupBoxComponent,
-		'navBar': NavBarComponent
+		'navBar': NavBarComponent,
+		'breadcrumb': BreadcrumbComponent
 
 	}
 

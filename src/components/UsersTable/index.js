@@ -17,32 +17,7 @@ export default Vue.extend({
 			filterChoices: {
 				match: 'begins'
 			},
-			allUsers: undefined,
-			columns: [
-				{
-					label: 'Identifiant',
-					field: 'ident'
-				},
-				{
-					label: 'Prénom',
-					field: 'firstname',
-					filterable: true
-				},
-				{
-					label: 'Nom',
-					field: 'lastname',
-					filterable: true
-				},
-				{
-					label: 'Email',
-					field: 'email',
-					filterable: true
-				},
-				{
-					label: 'État',
-					field: 'status'
-				}
-			]
+			allUsers: undefined
 		};
 
 	},
@@ -66,7 +41,6 @@ export default Vue.extend({
 		},
 		checkUser (user) {
 
-			console.log(user);
 			if (this.checkedUsers.indexOf(user.rowid) === -1) this.$store.commit('pushCheckUser', user.rowid);
 			else this.$store.commit('removeCheckedUser', user.rowid);
 
@@ -98,7 +72,8 @@ export default Vue.extend({
 				let rowIdsData = this.$store.getters.getRowIdsData('users');
 				let payload = { rowIdsData: rowIdsData, $http: this.$http };
 				this.$store.dispatch(action, payload);
-				this.$store.commit('checkUsers');
+				this.$store.commit('checkUsers', 0
+					);
 
 			}
 
@@ -115,7 +90,8 @@ export default Vue.extend({
 			filteredUsers: 'filteredUsers',
 			countUsers: 'countUsers',
 			areAllUsersSelected: 'areAllUsersSelected',
-			checkedUsers: 'checkedUsers'
+			checkedUsers: 'checkedUsers',
+			loadingActionUsers: 'loadingActionUsers'
 
 		})
 

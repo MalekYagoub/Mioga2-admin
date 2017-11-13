@@ -1,24 +1,10 @@
 <div class="users-table" v-if="users">
 
-	<!-- <vue-good-table
-		:columns="columns"
-		:rows="users"
-		:paginate="true"
-		:lineNumbers="true">
-		<template scope="user" slot="table-row" class="table-row" v-on:click="checkUser(user.row)">
-				<td>{{ user.row.ident }}</td>
-				<td>{{ user.row.firstname }}</td>
-				<td>{{ user.row.lastname }}</td>
-				<td>{{ user.row.email }}</td>
-				<td>{{ user.row.status }}</td>
-		</template>
-	</vue-good-table> -->
-
 	<div class="filter-block">
 		<ul class="filter-bar">
 			<li v-on:click="selectAllUsers()">
 				<p>
-					<i class="fa fa-check-square-o"> / <i class="fa fa-square-o">
+					<i class="fa fa-check-square-o"/> / <i class="fa fa-square-o"/>
 				</p>
 			</li>
 			<li v-bind:class="[filteredUsers != undefined ? 'filter-active': 'filter-not-active']"
@@ -26,9 +12,17 @@
 				<p><i class="fa fa-filter"/> Filtrer</p>
 			</li>
 			<transition name="fade">
+				<li v-if="checkedUsers.length === 1" v-on:click="detailsUser(checkedUsers[0])"">
+					<p>
+						<i class="fa fa-pencil"/>
+						Modifier
+					</p>
+				</li>
+			</transition>
+			<transition name="fade">
 				<li v-if="checkedUsers.length > 0" v-on:click="dispatchAction('emailUsers')"">
 					<p>
-						<i class="fa fa-envelope">
+						<i class="fa fa-envelope"/>
 						Envoyer un lien d’activation
 					</p>
 				</li>
@@ -36,7 +30,7 @@
 			<transition name="fade">
 				<li v-if="checkedUsers.length > 0" v-on:click="dispatchAction('disableUsers')">
 					<p>
-						<i class="fa fa-toggle-off">
+						<i class="fa fa-toggle-off"/>
 						Désactiver
 					</p>
 				</li>
@@ -44,7 +38,7 @@
 			<transition name="fade">
 				<li v-if="checkedUsers.length > 0" v-on:click="dispatchAction('enableUsers')">
 					<p>
-						<i class="fa fa-toggle-on">
+						<i class="fa fa-toggle-on"/>
 						Activer
 					</p>
 				</li>
@@ -52,9 +46,14 @@
 			<transition name="fade">
 				<li v-if="checkedUsers.length > 0" v-on:click="dispatchAction('destroyUsers')">
 					<p>
-						<i class="fa fa-trash">
+						<i class="fa fa-trash"/>
 						Supprimer
 					</p>
+				</li>
+			</transition>
+			<transition name="fade">
+				<li class="li-loading-action" v-if="loadingActionUsers">
+						<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw icon--white icon-loading-action-button"></i>
 				</li>
 			</transition>
 		</ul>
@@ -94,7 +93,7 @@
 
 	<table v-if="!filteredUsers">
 		<thead>
-			<tr v-on:click="selectAllUsers()">
+			<tr>
 				<th>Identifiant</th>
 				<th>Prénom</th>
 				<th>Nom</th>
@@ -118,7 +117,7 @@
 
 	<table v-else>
 		<thead>
-			<tr v-on:click="selectAllUsers()">
+			<tr>
 				<th>Identifiant</th>
 				<th>Prénom</th>
 				<th>Nom</th>
@@ -138,10 +137,9 @@
 					<td>{{user.status}}</td>
 			</tr>
 		</tbody>
-	</table>
+	</table> 
 
 </div>
 <div v-else>
-	<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-	<span>Chargement</span>
+	<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
 </div>

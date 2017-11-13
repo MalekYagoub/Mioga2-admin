@@ -1,4 +1,5 @@
 <div class="modify-group">
 	<navBar route="/groups" action="Modifier un groupe"></navBar>
-	<addGroupBox class="modify-group__box"></addGroupBox>
+	<breadcrumb v-if="groupIdentToModify" :paths="[{route: '/groups', name: 'Groupes'}, {name: 'Modifier un groupe'}, {name: groupIdentToModify}]"></breadcrumb>
+	<addGroupBox class="modify-group__box" v-on:groupIdent="saveGroupIdent"></addGroupBox>
 </div>

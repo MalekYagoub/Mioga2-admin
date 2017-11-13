@@ -11,7 +11,9 @@ const state = {
 	areAllTeamsSelected: undefined,
 	checkedTeams: [],
 	responseAddTeam: '',
-	filteredTeams: undefined
+	filteredTeams: undefined,
+	feedbackTeams: undefined,
+	loadingActionTeams: false
 
 };
 
@@ -23,7 +25,9 @@ const getters = {
 	areAllTeamsSelected: state => state.areAllTeamsSelected,
 	checkedTeams: state => state.checkedTeams,
 	responseAddTeam: state => state.responseAddTeam,
-	filteredTeams: state => state.filteredTeams
+	filteredTeams: state => state.filteredTeams,
+	feedbackTeams: state => state.feedbackTeams,
+	loadingActionTeams: state => state.loadingActionTeams
 
 };
 
@@ -59,10 +63,12 @@ const actions = {
 	},
 	destroyTeams: (store, payload) => {
 
+		store.commit('loadingActionTeams', true);
 		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/DeleteTeam.json', payload.rowIdsData).then(response => {
 
 			state.checkedTeams = [];
 			store.dispatch('getTeams', payload.$http);
+			store.commit('loadingActionTeams', false);
 
 		});
 
@@ -93,8 +99,10 @@ const actions = {
 			else {
 
 				commit('isLoading');
-				payload.$router.push({name: 'teams'});
 				commit('responseAddTeam', undefined);
+				if (payload.data.rowid) commit('feedbackTeams', 'Équipe modifié.');
+				else commit('feedbackTeams', 'Équipe ajouté.');
+				payload.$router.push({name: 'teams'});
 
 			}
 
@@ -179,6 +187,21 @@ const mutations = {
 
 		if (teams) state.filteredTeams = teams.team;
 		else state.filteredTeams = undefined;
+
+	},
+	feedbackTeams: (state, feedback) => {
+
+		state.feedbackTeams = feedback;
+		setTimeout(() => {
+
+			state.feedbackTeams = undefined;
+
+		}, 3000);
+
+	},
+	loadingActionTeams: (state, payload) => {
+
+		state.loadingActionTeams = payload;
 
 	}
 

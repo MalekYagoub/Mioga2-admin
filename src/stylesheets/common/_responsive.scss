@@ -1,0 +1,85 @@
+@media screen and (max-width: 1280px) {
+
+	html {
+		overflow: scroll;
+		overflow-x: hidden;
+	}
+
+	.responsiveDisplay {
+		display: block;
+	}
+
+	.normalDisplay {
+		display: none;
+	}
+
+	.nav-bar {
+		& li {
+			width: 33.33%;
+		}
+	}
+
+	.breadcrumb {
+		display: none;
+	}
+
+	.users__menu__actions, .teams__menu__actions, .groups__menu__actions {
+		display: none;
+	}
+
+	body .users__menu__table, .users__menu__table--large, body .teams__menu__table, .groups__menu__table--large, body .groups__menu__table, .teams__menu__table--large {
+		width: 100%;
+		margin-left: 2%;
+		margin-right: 2%;
+	}
+
+	body .pass-policy-form {
+		width: 100%;
+		margin-left: 2%;
+		margin-right: 2%;
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	body .container-pass-policy {
+		width: 100%;
+		margin-bottom: 2%;
+		padding-right: 5%;
+	}
+
+	body .add-team__box, body .add-group__box, body .modify-group__box, body .modify-team__box {
+		width: 96%;
+		margin: auto;
+		padding: 0;
+
+	}
+
+	.box-actions-buttons--groups li {
+		width: 25%;
+	}
+
+	.box-actions-buttons--teams li {
+		width: 33.333333%;
+	}
+
+	.box-actions-buttons li button {
+		width: 100%;
+	}
+
+	tbody {
+		max-height: 55vh;
+	}
+
+	.button-modify-pass-policy {
+		padding: 10.5px 15px;
+	}
+
+	.secret-question {
+		margin-bottom: 2%;
+	}
+
+	.table-group {
+		font-size: 0.8em;
+	}
+
+}

@@ -4,6 +4,7 @@ import('./styles.scss');
 
 import AddUserFormComponent from '@/components/AddUserForm';
 import NavBarComponent from '@/components/NavBar';
+import BreadcrumbComponent from '@/components/Breadcrumb';
 
 export default Vue.extend({
 
@@ -21,6 +22,7 @@ export default Vue.extend({
 
 	components: {
 		'addUserForm': AddUserFormComponent,
-		'navBar': NavBarComponent
+		'navBar': NavBarComponent,
+		'breadcrumb': BreadcrumbComponent
 	}
 });

@@ -4,8 +4,13 @@
 
 @import 'src/stylesheets/common/_variables';
 
+/* html, body, #application, .groups, .normalDisplay, .groups__menu, .groups-table, .table-group, tbody {
+	height: 100%;
+} */
+
 table {
 	border-collapse: collapse;
+	height: 50%;
 	width: 100%;
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -48,7 +53,7 @@ td, th {
 thead, tbody { display: block; }
 
 tbody {
-	height: 600px;
+	max-height: 55vh;
 	overflow-y: auto;
 	overflow-x: hidden;
 }

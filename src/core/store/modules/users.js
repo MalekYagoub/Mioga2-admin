@@ -14,7 +14,9 @@ const state = {
 	passPolicy: undefined,
 	error: undefined,
 	userStatuses: undefined,
-	filteredUsers: undefined
+	filteredUsers: undefined,
+	feedbackUsers: undefined,
+	loadingActionUsers: false
 
 };
 
@@ -29,7 +31,9 @@ const getters = {
 	passPolicy: state => state.passPolicy,
 	error: state => state.error,
 	userStatuses: state => state.userStatuses,
-	filteredUsers: state => state.filteredUsers
+	filteredUsers: state => state.filteredUsers,
+	feedbackUsers: state => state.feedbackUsers,
+	loadingActionUsers: state => state.loadingActionUsers
 
 };
 
@@ -43,7 +47,6 @@ const actions = {
 
 				response.json().then((data) => {
 
-					console.log(data.items);
 					commit('users', data.items);
 					commit('countUsers', data.items);
 
@@ -96,6 +99,8 @@ const actions = {
 				else {
 
 					commit('isLoading');
+
+					commit('feedbackUsers', 'Utilisateur ajouté.');
 					payload.$router.push({name: 'users'});
 
 				}
@@ -113,6 +118,7 @@ const actions = {
 
 					commit('user');
 					commit('isLoading');
+					commit('feedbackUsers', 'Utilisateur modifié.');
 					payload.$router.push({name: 'users'});
 
 				}
@@ -138,37 +144,47 @@ const actions = {
 	},
 	destroyUsers: (store, payload) => {
 
+		store.commit('loadingActionUsers', true);
 		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Bottin/DeleteUser', payload.rowIdsData).then(response => {
 
 
 			state.checkedUsers = [];
 			store.dispatch('getUsers', {$http: payload.$http});
+			store.commit('loadingActionUsers', false);
 
 		});
 
 	},
-	emailUsers: (state, payload) => {
+	emailUsers: (store, payload) => {
 
+		store.commit('loadingActionUsers', true);
 		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Bottin/EmailUsers', payload.rowidsData).then(response => {
+
+			store.commit('loadingActionUsers', false);
+
 		});
 
 	},
 	disableUsers: (store, payload) => {
 
+		store.commit('loadingActionUsers', true);
 		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Bottin/DisableUsers', payload.rowIdsData).then(response => {
 
 			state.checkedUsers = [];
 			store.dispatch('getUsers', {$http: payload.$http});
+			store.commit('loadingActionUsers', false);
 
 		});
 
 	},
 	enableUsers: (store, payload) => {
 
+		store.commit('loadingActionUsers', true);
 		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Bottin/EnableUsers', payload.rowIdsData).then(response => {
 
 			state.checkedUsers = [];
 			store.dispatch('getUsers', {$http: payload.$http});
+			store.commit('loadingActionUsers', false);
 
 		});
 
@@ -190,6 +206,7 @@ const actions = {
 
 		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/SetPasswordPolicy.json', {pwd_min_chcase: payload.pwd_min_chcase, pwd_min_digit: payload.pwd_min_digit, pwd_min_length: payload.pwd_min_length, pwd_min_letter: payload.pwd_min_letter, pwd_min_special: payload.pwd_min_special, use_secret_question: payload.use_secret_question}).then(response => {
 
+			commit('feedbackUsers', 'Politique de mots de passe modifié.');
 			payload.$router.push({name: 'users'});
 
 		});
@@ -256,7 +273,14 @@ const mutations = {
 		state.areAllUsersSelected = false;
 
 	},
-	checkUsers: (state) => {
+	checkUsers: (state, payload) => {
+
+		if (payload === 0) {
+
+			state.checkedUsers = [];
+			return;
+
+		}
 
 		if (state.checkedUsers.length === 0 || state.checkedUsers.length < state.countUsers) {
 
@@ -303,6 +327,21 @@ const mutations = {
 
 		if (users) state.filteredUsers = users.items;
 		else state.filteredUsers = undefined;
+
+	},
+	feedbackUsers: (state, feedback) => {
+
+		state.feedbackUsers = feedback;
+		setTimeout(() => {
+
+			state.feedbackUsers = undefined;
+
+		}, 3000);
+
+	},
+	loadingActionUsers: (state, payload) => {
+
+		state.loadingActionUsers = payload;
 
 	}
 

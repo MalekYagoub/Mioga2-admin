@@ -1,4 +1,5 @@
 <div id="modify-user">
 	<navBar route="/users" action="Modifier un utilisateur"></navBar>
+	<breadcrumb v-if="user" :paths="[{route: '/users', name: 'Utilisateurs'}, {name: 'Modifier un utilisateur'}, {name: userFullName}]"></breadcrumb>
 	<modifyUserForm class="modify-user__form"></modifyUserForm>
 </div>

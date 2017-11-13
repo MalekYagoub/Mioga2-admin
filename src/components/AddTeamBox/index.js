@@ -36,6 +36,7 @@ export default Vue.extend({
 		} else {
 
 			this.rowid = this.team.team.rowid;
+			this.$emit('teamIdent', this.team.team.ident);
 			this.$store.commit('team', undefined);
 
 		}

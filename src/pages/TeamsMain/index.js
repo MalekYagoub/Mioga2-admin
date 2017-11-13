@@ -5,6 +5,8 @@ import('./styles.scss');
 import TeamsActionsComponent from '@/components/TeamsActions';
 import TeamsTableComponent from '@/components/TeamsTable';
 import NavBarComponent from '@/components/NavBar';
+import Slideout from 'vue-slideout';
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
 
@@ -20,7 +22,11 @@ export default Vue.extend({
 	},
 
 	computed: {
+		...mapGetters({
 
+			feedbackTeams: 'feedbackTeams'
+
+		})
 	},
 
 	methods: {
@@ -30,7 +36,8 @@ export default Vue.extend({
 	components: {
 		'teamsActions': TeamsActionsComponent,
 		'teamsTable': TeamsTableComponent,
-		'navBar': NavBarComponent
+		'navBar': NavBarComponent,
+		Slideout
 	},
 
 	mounted () {

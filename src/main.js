@@ -1,5 +1,6 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+// npm run build && rsync -r -av ~/vue2-webpack-starter/dist/* root@bureaulib.dev.alixen.fr:/var/lib/Mioga2/static/Users/
 import Vue from 'vue';
 import VueResource from 'vue-resource';
 import App from '@/pages/App';

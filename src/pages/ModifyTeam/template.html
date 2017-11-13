@@ -1,4 +1,6 @@
-<div id="modify-team">
+<div class="modify-team">
 	<navBar route="/teams" action="Modifier une équipe"></navBar>
-	<addTeamBox class="modify-team__box"></addTeamBox>
+	<breadcrumb v-if="teamIdentToModify" :paths="[{route: '/teams', name: 'Équipes'}, {name: 'Modifier une équipe'}, {name: teamIdentToModify}]"></breadcrumb>
+	<addTeamBox class="modify-team__box" v-on:teamIdent="saveTeamIdent"></addTea
+	mBox>
 </div>

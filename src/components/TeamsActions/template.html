@@ -1,19 +1,19 @@
 <div class="teams-actions">
 	<div>
 		<router-link :to="{name: 'addTeam'}" tag="button" class="action-button">
-			<i class="fa fa-plus">
+			<i class="fa fa-plus"></i>
 			Ajouter une équipe
 		</router-link>
 	</div>
 	<div>
 		<router-link :to="{name: 'teamGroupReport'}" tag="button" class="action-button">
-			<i class="fa fa-address-book"/>
+			<i class="fa fa-address-book"/></i>
 			Synthèse des affectations aux groupes
 		</router-link>
 	</div>
 	<div>
 		<button v-on:click="downloadCsv()" class="action-button">
-			<i class="fa fa-upload">
+			<i class="fa fa-upload"></i>
 			Exporter la synthèse des affectations aux groupes
 		</button>
 	</div>

@@ -1,0 +1,14 @@
+@import 'src/stylesheets/common/_fonts';
+
+@import 'src/stylesheets/common/_mixins';
+
+@import 'src/stylesheets/common/_variables';
+
+.breadcrumb {
+	margin-left: 2%;
+	margin-bottom: 2%;
+}
+
+.link:visited {
+	color: #4d88ff;
+}

@@ -4,7 +4,7 @@
 		<ul class="filter-bar">
 			<li v-on:click="selectAllTeams()">
 				<p>
-					<i class="fa fa-check-square-o"> / <i class="fa fa-square-o">
+					<i class="fa fa-check-square-o"/> / <i class="fa fa-square-o"/>
 				</p>
 			</li>
 			<li v-bind:class="[filteredTeams != undefined ? 'filter-active': 'filter-not-active']"
@@ -15,11 +15,24 @@
 				</p>
 			</li>
 			<transition name="fade">
+				<li v-if="checkedTeams.length === 1" v-on:click="detailsTeam(checkedTeams[0])"">
+					<p>
+						<i class="fa fa-pencil"/>
+						Modifier
+					</p>
+				</li>
+			</transition>
+			<transition name="fade">
 				<li v-if="checkedTeams.length > 0" v-on:click="dispatchAction('destroyTeams')"">
 					<p>
-						<i class="fa fa-trash">
+						<i class="fa fa-trash"/>
 						Supprimer équipe(s)
 					</p>
+				</li>
+			</transition>
+			<transition name="fade">
+				<li class="li-loading-action" v-if="loadingActionTeams">
+						<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw icon--white icon-loading-action-button"></i>
 				</li>
 			</transition>
 		</ul>
@@ -49,7 +62,7 @@
 
 	<table v-if="!filteredTeams">
 		<thead>
-			<tr v-on:click="selectAllTeams()">
+			<tr>
 				<th>Identifiant</th>
 				<th>Utilisateurs</th>
 				<th>Groupes</th>
@@ -70,7 +83,7 @@
 
 	<table v-else>
 		<thead>
-			<tr v-on:click="selectAllTeams()">
+			<tr>
 				<th>Identifiant</th>
 				<th>Utilisateurs</th>
 				<th>Groupes</th>
@@ -90,6 +103,5 @@
 </div>
 
 <div v-else>
-	<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-	<span>Chargement</span>
+	<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
 </div>

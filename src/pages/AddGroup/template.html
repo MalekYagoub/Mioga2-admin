@@ -1,11 +1,5 @@
 <div class="add-group">
-	<!--<ul class="nav-bar">
-		<li><router-link to="/groups" tag="a"><i class="fa fa-arrow-left"/></router-link></li>
-		<li><p>Ajouter un Groupe</p></li>
-		<li><router-link to="/users" tag="a">Utilisateurs</router-link></li>
-		<li><router-link to="/teams" tag="a">Équipes</router-link></li>
-		<li><router-link to="/groups" tag="a">Groupes</router-link></li>	
-	</ul> -->
-	<navBar route="/groups" action="Ajouter un groupe"></navBar>
+	<navBar route="/groups"></navBar>
+	<breadcrumb :paths="[{route: '/groups', name: 'Groupes'}, {name: 'Ajouter un groupe'}]"></breadcrumb>
 	<addGroupBox class="add-group__box"></addGroupBox>
 </div>

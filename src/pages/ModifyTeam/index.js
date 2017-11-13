@@ -4,25 +4,40 @@ import('./styles.scss');
 
 import AddTeamBoxComponent from '@/components/AddTeamBox';
 import NavBarComponent from '@/components/NavBar';
+import BreadcrumbComponent from '@/components/Breadcrumb';
 
 export default Vue.extend({
 
-	name: 'modifyUser',
+	name: 'modifyTeam',
 	template: require('./template.html'),
 	props: {},
 
 	data () {
 
-		return {};
+		return {
+
+			teamIdentToModify: ''
+
+		};
 
 	},
 
-	methods: {},
+	methods: {
+
+		saveTeamIdent (ident) {
+
+			this.teamIdentToModify = ident;
+
+		}
+
+	},
 
 	components: {
 
 		'addTeamBox': AddTeamBoxComponent,
-		'navBar': NavBarComponent
+		'navBar': NavBarComponent,
+		'breadcrumb': BreadcrumbComponent
 
 	}
+
 });

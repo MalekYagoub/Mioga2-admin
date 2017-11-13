@@ -15,7 +15,9 @@ const state = {
 	currentAnim: undefined,
 	currentSkeleton: undefined,
 	currentDefaultApp: undefined,
-	filteredGroups: undefined
+	filteredGroups: undefined,
+	feedbackGroups: undefined,
+	loadingActionGroups: false
 
 };
 
@@ -31,7 +33,9 @@ const getters = {
 	currentAnim: state => state.currentAnim,
 	currentSkeleton: state => state.currentSkeleton,
 	currentDefaultApp: state => state.currentDefaultApp,
-	filteredGroups: state => state.filteredGroups
+	filteredGroups: state => state.filteredGroups,
+	feedbackGroups: state => state.feedbackGroups,
+	loadingActionGroups: state => state.loadingActionGroups
 
 };
 
@@ -72,10 +76,12 @@ const actions = {
 	},
 	destroyGroups: (store, payload) => {
 
+		store.commit('loadingActionGroups', true);
 		payload.$http.post('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/DeleteGroup.json', payload.rowIdsData).then(response => {
 
 			state.checkedGroups = [];
 			store.dispatch('getGroups', payload.$http);
+			store.commit('loadingActionGroups', false);
 
 		});
 
@@ -123,6 +129,7 @@ const actions = {
 				response.json().then((data) => {
 
 					commit('isLoading');
+					commit('feedbackGroups', 'Groupe modifié.');
 					payload.$router.push({name: 'groups'});
 
 				});
@@ -169,6 +176,7 @@ const actions = {
 				response.json().then((data) => {
 
 					commit('isLoading');
+					commit('feedbackGroups', 'Groupe ajouté.');
 					payload.$router.push({name: 'groups'});
 
 				});
@@ -328,6 +336,21 @@ const mutations = {
 
 		if (groups) state.filteredGroups = groups.group;
 		else state.filteredGroups = undefined;
+
+	},
+	feedbackGroups: (state, feedback) => {
+
+		state.feedbackGroups = feedback;
+		setTimeout(() => {
+
+			state.feedbackGroups = undefined;
+
+		}, 3000);
+
+	},
+	loadingActionGroups: (state, payload) => {
+
+		state.loadingActionGroups = payload;
 
 	}
 

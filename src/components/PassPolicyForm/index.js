@@ -81,6 +81,31 @@ export default Vue.extend({
 			this.minModifCase = value.pwd_min_chcase;
 
 
+		},
+		minLength () {
+
+			if (this.minLength < 0) this.minLength = 0;
+
+		},
+		minLetter () {
+
+			if (this.minLetter < 0) this.minLetter = 0;
+
+		},
+		minDigit () {
+
+			if (this.minDigit < 0) this.minDigit = 0;
+
+		},
+		minSpecialChar () {
+
+			if (this.minSpecialChar < 0) this.minSpecialChar = 0;
+
+		},
+		minModifCase () {
+
+			if (this.minModifCase < 0) this.minModifCase = 0;
+
 		}
 
 	}

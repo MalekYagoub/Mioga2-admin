@@ -4,6 +4,7 @@ import('./styles.scss');
 
 import AddTeamBoxComponent from '@/components/AddTeamBox';
 import NavBarComponent from '@/components/NavBar';
+import BreadcrumbComponent from '@/components/Breadcrumb';
 
 export default Vue.extend({
 
@@ -26,7 +27,8 @@ export default Vue.extend({
 	components: {
 
 		'addTeamBox': AddTeamBoxComponent,
-		'navBar': NavBarComponent
+		'navBar': NavBarComponent,
+		'breadcrumb': BreadcrumbComponent
 
 	}
 });

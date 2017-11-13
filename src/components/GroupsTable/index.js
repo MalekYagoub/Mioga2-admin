@@ -82,7 +82,8 @@ export default Vue.extend({
 			countGroups: 'countGroups',
 			areAllGroupsSelected: 'areAllGroupsSelected',
 			checkedGroups: 'checkedGroups',
-			filteredGroups: 'filteredGroups'
+			filteredGroups: 'filteredGroups',
+			loadingActionGroups: 'loadingActionGroups'
 
 		})
 
