@@ -8,7 +8,6 @@
 		<span class="left">Le groupe n'a pas le droit d'utiliser</span>
 		<span class="right">Le groupe a le droit d'utiliser</span>
 	</div>
-	<!-- VVERIFIEZ QUE IS GROUP = 1 -->
 	<ul class="in-out-list">
 		<li v-for ="app in filteredList" v-bind:class="[detectApp(app) === 1 ? 'in-out-list__in': 'in-out-list__out']">
 			<span v-if="detectApp(app) === 1 && app.protected === 1 && app.all_groups === 1 || app.ident === currentDefaultApp">

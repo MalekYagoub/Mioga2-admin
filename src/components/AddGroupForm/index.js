@@ -18,7 +18,7 @@ export default Vue.extend({
 			},
 			formSelect: {
 				lang: undefined,
-				user: undefined, // {} normalement
+				user: undefined,
 				skeletonFile: {},
 				default_app: '',
 				public_part: undefined,
@@ -61,20 +61,6 @@ export default Vue.extend({
 			this.$store.commit('currentDefaultApp', this.formSelect.default_app);
 
 		}
-
-		/* if (this.dataToAddGroup) { // ligne a enlver pour normal (OOPTImisation)
-
-			this.dataToAddGroupReady = this.dataToAddGroup;
-			this.optionsLoaded = true;
-			this.formSelect.skeletonFile = this.dataToAddGroup.skeletons[0].file;
-
-			this.formSelect.lang = this.currentSkeleton.attributes.lang;
-			this.formSelect.default_app = this.currentSkeleton.attributes.default_app;
-			this.formSelect.history = this.currentSkeleton.attributes.history;
-			this.formSelect.public_part = this.currentSkeleton.attributes.public_part;
-			this.$store.commit('currentDefaultApp', this.formSelect.default_app);
-
-		} */
 
 	},
 	methods: {
@@ -155,7 +141,6 @@ export default Vue.extend({
 				if (value.skeletons[0].name === 'Groupe de travail BureauLib' && !this.group) {
 
 					this.formSelect.skeletonFile = value.skeletons[0];
-					// this.formSelect.skeletonFile = value.skeletons[0].file; normal
 
 				}
 

@@ -13,7 +13,8 @@ const state = {
 	responseAddTeam: '',
 	filteredTeams: undefined,
 	feedbackTeams: undefined,
-	loadingActionTeams: false
+	loadingActionTeams: false,
+	teamGroupReport: undefined
 
 };
 
@@ -27,7 +28,8 @@ const getters = {
 	responseAddTeam: state => state.responseAddTeam,
 	filteredTeams: state => state.filteredTeams,
 	feedbackTeams: state => state.feedbackTeams,
-	loadingActionTeams: state => state.loadingActionTeams
+	loadingActionTeams: state => state.loadingActionTeams,
+	teamGroupReport: state => state.teamGroupReport
 
 };
 
@@ -120,6 +122,11 @@ const actions = {
 
 		});
 
+	},
+	getTeamGroupReport: ({state, commit, rootState}, payload) => {
+		payload.$http.get('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/DisplayTeamGroupReport').then(response => {
+			commit('teamGroupReport', response.body);
+		});
 	}
 };
 
@@ -203,6 +210,9 @@ const mutations = {
 
 		state.loadingActionTeams = payload;
 
+	},
+	teamGroupReport: (state, payload) => {
+		state.teamGroupReport = payload;
 	}
 
 };

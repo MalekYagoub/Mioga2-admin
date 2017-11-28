@@ -1,6 +1,8 @@
-# vue2-webpack-starter
+# Mioga 2 admin app
 
-> A starter kit with Vue 2 and Webpack
+> Administration application for Mioga 2
+
+Mioga 2 gitlab: https://gitlab.com/Mioga2/mioga2
 
 ## Build Setup
 

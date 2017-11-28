@@ -46,20 +46,6 @@ export default Vue.extend({
 
 		}
 
-		/* if (this.dataToAddGroup && !this.group) {
-
-			let skeleton = JSON.parse(JSON.stringify(this.currentSkeleton));
-			this.teamsOut = skeleton.teams.team;
-			this.teamsIn = [];
-			skeleton.teams.team.forEach((team) => {
-
-				if (team.selected) this.addGroupTeams(team);
-
-			});
-			this.$emit('groupTeams', this.teamsIn);
-
-		} */
-
 	},
 
 	computed: {

@@ -47,16 +47,6 @@ export default Vue.extend({
 
 		}
 
-		/* if (this.dataToAddGroup) {
-
-			if (!this.groupToModify) {
-
-				this.usersOut = JSON.parse(JSON.stringify(this.dataToAddGroup.users));
-
-			}
-
-		} */
-
 	},
 
 	computed: {

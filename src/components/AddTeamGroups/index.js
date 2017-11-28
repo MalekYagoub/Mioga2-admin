@@ -28,7 +28,7 @@ export default Vue.extend({
 		this.$store.dispatch('getGroups', this.$http).then(function (response) {
 
 			_this.groupsOut = JSON.parse(JSON.stringify(_this.$store.getters.groups));
-			_this.allGroupsInOut = JSON.parse(JSON.stringify(_this.$store.getters.groups)); // gérer le css avec la nouvelle fonction detectGroup
+			_this.allGroupsInOut = JSON.parse(JSON.stringify(_this.$store.getters.groups));
 
 			if (team) {
 

@@ -2,6 +2,7 @@
 
 import Vue from 'vue';
 import('./styles.scss');
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
 
@@ -11,8 +12,6 @@ export default Vue.extend({
 
 		return {
 
-			teamGroupReport: undefined
-
 		};
 
 	},
@@ -21,26 +20,19 @@ export default Vue.extend({
 
 	mounted () {
 
-		this.getTeamGroupReport();
+		this.$store.dispatch('getTeamGroupReport');
 
 	},
 
 	methods: {
 
-		getTeamGroupReport () {
-
-			this.$http.get('https://bureaulib.extranet.alixen.fr/BureauLib/bin/Administrateurs/Colbert/DisplayTeamGroupReport').then((response) => {
-
-				this.teamGroupReport = response.body;
-
-			});
-
-		}
-
 	},
 
 	computed: {
+		...mapGetters({
 
+			teamGroupReport: 'teamGroupReport'
+		})
 	},
 
 	watch: {

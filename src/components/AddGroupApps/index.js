@@ -47,31 +47,6 @@ export default Vue.extend({
 
 		}
 
-		/* if (this.dataToAddGroup && !this.group) {
-
-			this.appsOut = JSON.parse(JSON.stringify(this.currentSkeleton.applications.application));
-			this.appsIn = [];
-			let reste = [];
-
-			this.appsOut.forEach((app) => {
-
-				if (app.selected === 1) {
-
-					this.appsIn.push(app);
-
-				} else {
-
-					reste.push(app);
-
-				}
-
-			});
-
-			this.appsOut = reste;
-			this.$emit('groupApps', this.appsIn);
-
-		} */
-
 	},
 
 	computed: {

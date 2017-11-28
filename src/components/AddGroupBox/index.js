@@ -44,7 +44,6 @@ export default Vue.extend({
 
 		}
 
-		// if (!this.dataToAddGroup) this.$store.dispatch('getDataToAddGroup', {$http: this.$http, store: this.$store});
 		this.$store.dispatch('getDataToAddGroup', {$http: this.$http, store: this.$store});
 
 	},

@@ -1,7 +1,5 @@
 'use strict';
 
-// npm run build && rsync -r -av ~/vue2-webpack-starter/dist/* root@bureaulib.dev.alixen.fr:/var/lib/Mioga2/static/Users/
-
 import Vue from 'vue';
 import('./styles.scss');
 import { mapGetters } from 'vuex';
